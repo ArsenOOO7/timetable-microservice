@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/subject-service
+    username: postgres
+    password: postgres
+  sql:
+    init:
+      platform: postgres
