@@ -20,6 +20,11 @@ public class TeacherController {
 
     private final TeacherService teacherService;
 
+    @GetMapping("/{id}")
+    public ResponseEntity<TeacherDto> read(@PathVariable long id){
+        return ResponseEntity.ok(teacherService.readById(id, true));
+    }
+
     @PostMapping("/search")
     public ResponseEntity<List<TeacherResultSearchDto>> findQuery(@RequestBody TeacherQueryDto teacherQueryDto){
         return ResponseEntity.ok(teacherService.findAllByQuery(teacherQueryDto));

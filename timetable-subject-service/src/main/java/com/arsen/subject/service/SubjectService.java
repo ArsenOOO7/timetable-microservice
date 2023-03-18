@@ -20,6 +20,10 @@ public class SubjectService {
                 .orElseThrow(() -> new EntityNotFoundException("Subject with id " + id + " is not found!"));
     }
 
+    public SubjectDto readById(long id, boolean dto){
+        return subjectRepository.findDtoById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Subject with id " + id + " is not found!"));
+    }
 
     public SubjectDto create(SubjectDto subjectDto){
 

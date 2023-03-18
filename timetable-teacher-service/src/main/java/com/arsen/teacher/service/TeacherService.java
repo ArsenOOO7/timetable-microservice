@@ -23,6 +23,11 @@ public class TeacherService {
                 .orElseThrow(() -> new EntityNotFoundException("Teacher with id " + id + " is not found!"));
     }
 
+    public TeacherDto readById(long id, boolean dto){
+        return teacherRepository.findDtoById(id)
+            .orElseThrow(() -> new EntityNotFoundException("Teacher with id " + id + " is not found!"));
+    }
+
     public List<TeacherResultSearchDto> findAllByQuery(TeacherQueryDto teacherQueryDto){
         return teacherRepository.findAllByQuery(teacherQueryDto.getSearchQuery());
     }
