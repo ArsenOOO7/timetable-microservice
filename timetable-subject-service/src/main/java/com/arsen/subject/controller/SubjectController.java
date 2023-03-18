@@ -18,6 +18,11 @@ public class SubjectController {
     private final SubjectService subjectService;
 
 
+    @GetMapping("/{id}")
+    public ResponseEntity<SubjectDto> read(@PathVariable long id){
+        return ResponseEntity.ok(subjectService.readById(id, true));
+    }
+
     @PostMapping
     public ResponseEntity<SubjectDto> create(/*@Valid*/ @RequestBody SubjectDto subjectDto){
         return ResponseEntity.status(CREATED).body(subjectService.create(subjectDto));
