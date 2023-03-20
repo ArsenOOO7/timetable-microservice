@@ -1,6 +1,5 @@
 package com.arsen.timetable.dto.group;
 
-import com.arsen.timetable.dto.group.GroupDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +12,7 @@ import java.util.Set;
 @Setter @Getter
 public class MultipleGroupLessonDto {
 
-    private long id;
+    private long lessonId;
     private Set<GroupDto> groups;
 
 }
