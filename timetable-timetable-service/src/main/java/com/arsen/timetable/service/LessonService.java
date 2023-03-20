@@ -9,6 +9,7 @@ import com.arsen.timetable.dto.LessonSearchDto;
 import com.arsen.timetable.dto.TimetableResponseDto;
 import com.arsen.timetable.dto.group.GroupLessonDto;
 import com.arsen.timetable.dto.group.GroupLessonsRequestDto;
+import com.arsen.timetable.dto.group.MultipleGroupLessonDto;
 import com.arsen.timetable.repository.TimetableRepository;
 import com.arsen.timetable.service.readonly.ClassroomReadService;
 import com.arsen.timetable.service.readonly.SubjectReadService;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -43,20 +45,27 @@ public class LessonService {
         List<TimetableResponseDto> timetableResponse = timetableRepository
                 .findTimetableByTeacher(searchDto.getTeacherId(), searchDto.getStartDate(), searchDto.getEndDate());
 
+        List<MultipleGroupLessonDto> groups = groupManagementClient.readByGroup(
+                timetableResponse.stream().map(TimetableResponseDto::getId).collect(Collectors.toSet()));
+
+        int i = 0;
         for (TimetableResponseDto timetableResponseDto : timetableResponse) {
-            timetableResponseDto.setGroups(groupManagementClient.readByLesson(timetableResponseDto.getId()).getGroups());
+            timetableResponseDto.setGroups(groups.get(i++).getGroups());
         }
 
         return timetableResponse;
     }
 
     public List<TimetableResponseDto> readByGroup(LessonSearchDto searchDto){
-        Set<Long> ids = groupManagementClient.readByGroup(searchDto.getGroupId(),
-                new GroupLessonsRequestDto(searchDto.getGroupId(), searchDto.getStartDate(), searchDto.getEndDate())).getLessonIds();
+        List<MultipleGroupLessonDto> multipleGroupLessonDtos = groupManagementClient.readByGroup(searchDto.getGroupId(),
+                new GroupLessonsRequestDto(searchDto.getGroupId(), searchDto.getStartDate(), searchDto.getEndDate()));
 
+        Set<Long> ids = multipleGroupLessonDtos.stream().map(MultipleGroupLessonDto::getLessonId).collect(Collectors.toSet());
         List<TimetableResponseDto> timetableResponses = timetableRepository.findTimetableByGroup(ids);
+
+        int i = 0;
         for (TimetableResponseDto timetableResponseDto : timetableResponses) {
-            timetableResponseDto.setGroups(groupManagementClient.readByLesson(timetableResponseDto.getId()).getGroups());
+            timetableResponseDto.setGroups(multipleGroupLessonDtos.get(i++).getGroups());
         }
 
         return timetableResponses;

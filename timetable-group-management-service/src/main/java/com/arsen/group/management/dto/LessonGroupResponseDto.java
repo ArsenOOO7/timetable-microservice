@@ -1,18 +1,16 @@
-package com.arsen.timetable.dto.group;
+package com.arsen.group.management.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter @Getter
-public class MultipleGroupLessonDto {
+public class LessonGroupResponseDto {
 
     private long lessonId;
-    private Set<GroupDto> groups;
+    private GroupResponseDto groupLessonDto;
 
 }

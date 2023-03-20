@@ -25,7 +25,7 @@ public interface TimetableRepository extends JpaRepository<Lesson, Long> {
             "lesson.lessonType," +
             "lesson.online" +
             ") " +
-            "from Lesson lesson where lesson.id in :ids")
+            "from Lesson lesson where lesson.id in :ids order by lesson.id")
     List<TimetableResponseDto> findTimetableByGroup(@Param("ids") Set<Long> ids);
 
     @Query("select " +
@@ -39,7 +39,7 @@ public interface TimetableRepository extends JpaRepository<Lesson, Long> {
             "lesson.lessonType," +
             "lesson.online" +
             ") " +
-            "from Lesson lesson where lesson.lessonDate between :start and :end and lesson.teacher.id = :teacher")
+            "from Lesson lesson where lesson.lessonDate between :start and :end and lesson.teacher.id = :teacher order by lesson.id")
     List<TimetableResponseDto> findTimetableByTeacher(@Param("teacher") long teacher, @Param("start") LocalDate start, @Param("end") LocalDate end);
 
 
