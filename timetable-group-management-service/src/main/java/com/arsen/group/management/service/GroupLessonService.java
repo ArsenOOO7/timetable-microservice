@@ -2,13 +2,17 @@ package com.arsen.group.management.service;
 
 import com.arsen.group.management.domain.GroupLesson;
 import com.arsen.group.management.domain.GroupRead;
-import com.arsen.group.management.dto.GroupLessonDto;
-import com.arsen.group.management.dto.GroupLessonsRequestDto;
-import com.arsen.group.management.dto.GroupLessonsResponseDto;
-import com.arsen.group.management.dto.MultipleLessonGroupResponseDto;
+import com.arsen.group.management.dto.*;
 import com.arsen.group.management.repository.GroupLessonRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.*;
 
 @Service
 @RequiredArgsConstructor
@@ -22,14 +26,30 @@ public class GroupLessonService {
         return new MultipleLessonGroupResponseDto(lessonId, groupLessonRepository.findGroupsByLessonId(lessonId));
     }
 
-    public GroupLessonsResponseDto readGroupWithLessons(GroupLessonsRequestDto requestDto){
-        groupReadService.readById(requestDto.getGroupId());
+    public List<MultipleLessonGroupResponseDto> readLessonWithGroups(Set<Long> ids){
+        Set<LessonGroupResponseDto> lessons = groupLessonRepository.findGroupsByLessons(ids);
+        return  lessons.stream()
+                .collect(groupingBy(LessonGroupResponseDto::getLessonId, mapping(LessonGroupResponseDto::getGroupLessonDto, toSet())))
+                .entrySet()
+                .stream()
+                .map((entry) -> new MultipleLessonGroupResponseDto(entry.getKey(), entry.getValue()))
+                .sorted(Comparator.comparing(MultipleLessonGroupResponseDto::getLessonId))
+                .collect(Collectors.toList());
+    }
 
-        return new GroupLessonsResponseDto(requestDto.getGroupId(),
-                groupLessonRepository.findLessonsByGroupInRange(
-                        requestDto.getGroupId(),
-                        requestDto.getStartDate(),
-                        requestDto.getEndDate()));
+
+    public List<MultipleLessonGroupResponseDto> readGroupWithLessonsMultiple(GroupLessonsRequestDto requestDto){
+        Set<LessonGroupResponseDto> lessons = groupLessonRepository.findLessonsByGroupInRange(requestDto.getGroupId(),
+                requestDto.getStartDate(), requestDto.getEndDate());
+
+
+        return lessons.stream()
+                .collect(groupingBy(LessonGroupResponseDto::getLessonId, mapping(LessonGroupResponseDto::getGroupLessonDto, toSet())))
+                .entrySet()
+                .stream()
+                .map((entry) -> new MultipleLessonGroupResponseDto(entry.getKey(), entry.getValue()))
+                .sorted(Comparator.comparing(MultipleLessonGroupResponseDto::getLessonId))
+                .collect(Collectors.toList());
     }
 
 

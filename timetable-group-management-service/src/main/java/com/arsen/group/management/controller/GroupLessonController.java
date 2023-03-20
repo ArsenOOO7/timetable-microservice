@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Set;
+
 @RestController
 @RequestMapping("/api/group/management")
 @RequiredArgsConstructor
@@ -23,9 +26,14 @@ public class GroupLessonController {
         return ResponseEntity.ok(groupLessonService.readLessonWithGroups(lesson));
     }
 
+    @PostMapping("/lesson")
+    public ResponseEntity<List<MultipleLessonGroupResponseDto>> readLessonWithIdRange(@RequestBody Set<Long> ids){
+        return ResponseEntity.ok(groupLessonService.readLessonWithGroups(ids));
+    }
+
     @PostMapping("/group/{groupId}")
-    public ResponseEntity<GroupLessonsResponseDto> readGroup(@PathVariable long groupId, @RequestBody GroupLessonsRequestDto requestDto){
-        return ResponseEntity.ok(groupLessonService.readGroupWithLessons(requestDto));
+    public ResponseEntity<List<MultipleLessonGroupResponseDto>> readGroup(@PathVariable long groupId, @RequestBody GroupLessonsRequestDto requestDto){
+        return ResponseEntity.ok(groupLessonService.readGroupWithLessonsMultiple(requestDto));
     }
 
     @PostMapping
