@@ -35,4 +35,16 @@ public class GroupDto {
         this.college = college;
         this.collective = collective;
     }
+
+
+    @Override
+    public String toString() {
+        return cypher +
+                (master ? 'м' : "") +
+                (college ? 'к' : "") +
+                '-' +
+                academicYear +
+                (collective ? '.' : "") +
+                number;
+    }
 }
