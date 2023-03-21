@@ -1,1 +1,7 @@
-
+spring:
+  cloud:
+    stream:
+      bindings:
+        updateGroupEvent-in-0:
+          destination: group-topic
+          group: group-update-queue
