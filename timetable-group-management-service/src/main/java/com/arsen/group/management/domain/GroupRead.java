@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -27,7 +28,7 @@ public class GroupRead {
 
     @ManyToMany
     @JoinTable(name = "collective_groups", joinColumns = @JoinColumn(name = "collective_group_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
-    private Set<GroupRead> groups;
+    private Set<GroupRead> groups = new HashSet<>();
 
     @ManyToMany(mappedBy = "groups", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<GroupRead> collectiveGroups;
