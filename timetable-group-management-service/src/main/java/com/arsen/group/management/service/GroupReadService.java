@@ -3,6 +3,7 @@ package com.arsen.group.management.service;
 import com.arsen.common.exception.EntityNotFoundException;
 import com.arsen.group.management.domain.GroupRead;
 import com.arsen.group.management.dto.GroupDto;
+import com.arsen.group.management.event.GroupEventUpdate;
 import com.arsen.group.management.repository.GroupReadRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,15 @@ public class GroupReadService {
         return groupReadRepository.findAllByIdIn(groupIds);
     }
 
+    public void synchronizeWithGroups(GroupEventUpdate groupEventUpdate){
+
+        switch(groupEventUpdate.getStatus()){
+            case CREATED -> create(groupEventUpdate);
+            case UPDATED -> update(groupEventUpdate);
+            case DELETED -> delete(groupEventUpdate.getId());
+        }
+
+    }
 
     /**
      * INTERNAL Operation
@@ -91,7 +101,7 @@ public class GroupReadService {
             return;
         }
 
-        if(ids != null && groupRead.getGroups().size() != ids.size()){
+        if(ids != null && (groupRead.getGroups() != null && groupRead.getGroups().size() != ids.size())){
             groupRead.setGroups(readGroups(ids));
         }
     }
