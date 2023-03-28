@@ -3,6 +3,7 @@ package com.arsen.timetable.service.readonly;
 import com.arsen.common.exception.EntityNotFoundException;
 import com.arsen.timetable.domain.readonly.TeacherRead;
 import com.arsen.timetable.dto.readonly.TeacherDto;
+import com.arsen.timetable.event.TeacherUpdateEvent;
 import com.arsen.timetable.exception.ClassroomBusyException;
 import com.arsen.timetable.repository.TeacherReadRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,15 @@ public class TeacherReadService {
     public void checkBusyTeacher(long teacherId, LocalDate date, short lessonNumber){
         if(teacherReadRepository.isTeacherBusy(teacherId, date, lessonNumber)){
             throw new ClassroomBusyException("Teacher " + teacherId + " is busy at that moment!");
+        }
+    }
+
+
+    public void synchronize(TeacherUpdateEvent teacherUpdateEvent){
+        switch(teacherUpdateEvent.getStatus()){
+            case CREATED -> create(teacherUpdateEvent);
+            case UPDATED -> update(teacherUpdateEvent);
+            case DELETED -> delete(teacherUpdateEvent.getId());
         }
     }
 
