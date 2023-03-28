@@ -2,6 +2,8 @@ package com.arsen.classroom.transformer;
 
 import com.arsen.classroom.domain.Classroom;
 import com.arsen.classroom.dto.ClassroomDto;
+import com.arsen.classroom.event.ClassroomUpdateEvent;
+import com.arsen.classroom.event.EntityStatus;
 
 public class ClassroomTransformer {
 
@@ -19,6 +21,25 @@ public class ClassroomTransformer {
                 classroom.getId(),
                 classroom.getName(),
                 classroom.getAddress()
+        );
+    }
+
+
+    public static ClassroomUpdateEvent convertClassroomToUpdateEvent(Classroom classroom, EntityStatus status){
+        return new ClassroomUpdateEvent(
+                classroom.getId(),
+                classroom.getName(),
+                classroom.getAddress(),
+                status
+        );
+    }
+
+    public static ClassroomUpdateEvent convertClassroomToUpdateEvent(ClassroomDto classroom, EntityStatus status){
+        return new ClassroomUpdateEvent(
+                classroom.getId(),
+                classroom.getName(),
+                classroom.getAddress(),
+                status
         );
     }
 

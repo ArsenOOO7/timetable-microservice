@@ -2,16 +2,19 @@ package com.arsen.classroom.service;
 
 import com.arsen.classroom.domain.Classroom;
 import com.arsen.classroom.dto.ClassroomDto;
+import com.arsen.classroom.event.EntityStatus;
 import com.arsen.classroom.repository.ClassroomRepository;
 import com.arsen.classroom.transformer.ClassroomTransformer;
 import com.arsen.common.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class ClassroomService {
 
+    private final StreamBridge streamBridge;
     private final ClassroomRepository classroomRepository;
 
     public Classroom readById(long id){
@@ -32,9 +35,13 @@ public class ClassroomService {
             throw new NullPointerException("Classroom cannot be null!");
         }
 
-        return ClassroomTransformer.convertEntityToDto(
+        classroomDto = ClassroomTransformer.convertEntityToDto(
             classroomRepository.save(ClassroomTransformer.convertDtoToEntity(classroomDto))
         );
+
+        postUpdate(classroomDto, EntityStatus.CREATED);
+
+        return classroomDto;
     }
 
 
@@ -47,13 +54,26 @@ public class ClassroomService {
         Classroom classroom = readById(classroomDto.getId());
         ClassroomTransformer.copyValues(classroom, classroomDto);
 
-        classroomRepository.save(classroom);
+        postUpdate(classroomRepository.save(classroom), EntityStatus.UPDATED);
 
     }
 
 
     public void delete(long id){
-        classroomRepository.delete(readById(id));
+        Classroom classroom = readById(id);
+        classroomRepository.delete(classroom);
+        postUpdate(classroom, EntityStatus.DELETED);
     }
+
+
+    private void postUpdate(Classroom classroom, EntityStatus entityStatus){
+        streamBridge.send("classroom-topic", ClassroomTransformer.convertClassroomToUpdateEvent(classroom, entityStatus));
+    }
+
+    private void postUpdate(ClassroomDto classroom, EntityStatus entityStatus){
+        streamBridge.send("classroom-topic", ClassroomTransformer.convertClassroomToUpdateEvent(classroom, entityStatus));
+    }
+
+
 
 }
