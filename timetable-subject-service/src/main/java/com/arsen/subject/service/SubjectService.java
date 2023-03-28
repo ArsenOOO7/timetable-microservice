@@ -3,15 +3,18 @@ package com.arsen.subject.service;
 import com.arsen.common.exception.EntityNotFoundException;
 import com.arsen.subject.domain.Subject;
 import com.arsen.subject.dto.SubjectDto;
+import com.arsen.subject.event.EntityStatus;
 import com.arsen.subject.repository.SubjectRepository;
 import com.arsen.subject.transform.SubjectTransformer;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class SubjectService {
 
+    private final StreamBridge streamBridge;
     private final SubjectRepository subjectRepository;
 
 
@@ -32,8 +35,11 @@ public class SubjectService {
         }
 
         Subject subject = SubjectTransformer.convertSubjectDtoToEntity(subjectDto);
-        return SubjectTransformer.convertSubjectToDto(subjectRepository.save(subject));
+        subjectDto = SubjectTransformer.convertSubjectToDto(subjectRepository.save(subject));
 
+        postUpdate(subject, EntityStatus.CREATED);
+
+        return subjectDto;
     }
 
     public void update(SubjectDto subjectDto){
@@ -46,9 +52,19 @@ public class SubjectService {
         subject.setSubjectName(subjectDto.getSubjectName());
         subjectRepository.save(subject);
 
+        postUpdate(subject, EntityStatus.UPDATED);
+
+
     }
 
     public void delete(long id){
-        subjectRepository.delete(readById(id));
+        Subject subject = readById(id);
+        subjectRepository.delete(subject);
+        postUpdate(subject, EntityStatus.DELETED);
+    }
+
+    private void postUpdate(Subject subject, EntityStatus entityStatus){
+        System.out.println("Add new subject");
+        streamBridge.send("subject-topic", SubjectTransformer.convertSubjectToUpdateEvent(subject, entityStatus));
     }
 }
