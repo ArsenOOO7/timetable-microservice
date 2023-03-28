@@ -5,9 +5,11 @@ import com.arsen.teacher.domain.Teacher;
 import com.arsen.teacher.dto.TeacherDto;
 import com.arsen.teacher.dto.TeacherQueryDto;
 import com.arsen.teacher.dto.TeacherResultSearchDto;
+import com.arsen.teacher.event.EntityStatus;
 import com.arsen.teacher.repository.TeacherRepository;
 import com.arsen.teacher.transformer.TeacherTransformer;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TeacherService {
 
+    private final StreamBridge streamBridge;
     private final TeacherRepository teacherRepository;
 
     public Teacher readById(long id){
@@ -38,8 +41,9 @@ public class TeacherService {
             throw new NullPointerException("Teacher cannot be null!");
         }
 
-        return TeacherTransformer.convertTeacherToDto(teacherRepository.save(TeacherTransformer.convertTeacherDtoToEntity(teacherDto)));
-
+        teacherDto = TeacherTransformer.convertTeacherToDto(teacherRepository.save(TeacherTransformer.convertTeacherDtoToEntity(teacherDto)));
+        postUpdate(teacherDto, EntityStatus.CREATED);
+        return teacherDto;
     }
 
 
@@ -49,13 +53,22 @@ public class TeacherService {
             throw new NullPointerException("Teacher cannot be null!");
         }
 
-        teacherRepository.save(TeacherTransformer.convertTeacherDtoToEntity(teacherDto));
+        postUpdate(teacherRepository.save(TeacherTransformer.convertTeacherDtoToEntity(teacherDto)), EntityStatus.UPDATED);
 
     }
 
 
     public void delete(long id){
-        teacherRepository.delete(readById(id));
+        Teacher teacher = readById(id);
+        teacherRepository.delete(teacher);
+        postUpdate(teacher, EntityStatus.DELETED);
     }
 
+    private void postUpdate(Teacher teacher, EntityStatus status){
+        streamBridge.send("teacher-topic", TeacherTransformer.convertTeacherToUpdateEvent(teacher, status));
+    }
+
+    private void postUpdate(TeacherDto teacher, EntityStatus status){
+        streamBridge.send("teacher-topic", TeacherTransformer.convertTeacherToUpdateEvent(teacher, status));
+    }
 }
