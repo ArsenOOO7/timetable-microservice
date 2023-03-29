@@ -1,5 +1,6 @@
 package com.arsen.group.service;
 
+import com.arsen.common.event.EntityStatus;
 import com.arsen.group.domain.Group;
 import com.arsen.group.dto.GroupDto;
 import com.arsen.group.event.GroupEventUpdate;
@@ -34,7 +35,7 @@ public class GroupCommandService {
                 group, groupDto.getGroupIds()
         );
 
-        postUpdate(groupDto, GroupEventUpdate.GroupStatus.CREATED);
+        postUpdate(groupDto, EntityStatus.CREATED);
         return groupDto;
     }
 
@@ -54,7 +55,7 @@ public class GroupCommandService {
                 group, groupDto.getGroupIds()
         );
 
-        postUpdate(groupDto, GroupEventUpdate.GroupStatus.UPDATED);
+        postUpdate(groupDto, EntityStatus.UPDATED);
 
     }
 
@@ -62,7 +63,7 @@ public class GroupCommandService {
     public void delete(long id){
         GroupDto group = groupReadService.readById(id, true);
         groupRepository.deleteById(id);
-        postUpdate(group, GroupEventUpdate.GroupStatus.DELETED);
+        postUpdate(group, EntityStatus.DELETED);
     }
 
 
@@ -81,7 +82,7 @@ public class GroupCommandService {
     }
 
 
-    public void postUpdate(GroupDto groupDto, GroupEventUpdate.GroupStatus status){
+    public void postUpdate(GroupDto groupDto, EntityStatus status){
         GroupEventUpdate groupEventDto =  GroupTransformer.convertToGroupEvent(groupDto, status);
         streamBridge.send("group-topic", groupEventDto);
     }

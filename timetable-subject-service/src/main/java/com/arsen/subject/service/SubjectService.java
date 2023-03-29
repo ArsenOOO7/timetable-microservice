@@ -3,7 +3,7 @@ package com.arsen.subject.service;
 import com.arsen.common.exception.EntityNotFoundException;
 import com.arsen.subject.domain.Subject;
 import com.arsen.subject.dto.SubjectDto;
-import com.arsen.subject.event.EntityStatus;
+import com.arsen.common.event.EntityStatus;
 import com.arsen.subject.repository.SubjectRepository;
 import com.arsen.subject.transform.SubjectTransformer;
 import lombok.RequiredArgsConstructor;

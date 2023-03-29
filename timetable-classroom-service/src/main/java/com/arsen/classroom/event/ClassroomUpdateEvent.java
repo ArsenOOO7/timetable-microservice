@@ -1,5 +1,6 @@
 package com.arsen.classroom.event;
 
+import com.arsen.common.event.EntityStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

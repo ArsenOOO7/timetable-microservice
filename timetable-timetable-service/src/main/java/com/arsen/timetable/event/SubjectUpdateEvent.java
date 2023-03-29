@@ -1,5 +1,6 @@
 package com.arsen.timetable.event;
 
+import com.arsen.common.event.EntityStatus;
 import com.arsen.timetable.dto.readonly.SubjectDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

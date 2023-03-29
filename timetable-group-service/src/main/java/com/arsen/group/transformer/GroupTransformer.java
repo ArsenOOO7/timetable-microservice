@@ -1,5 +1,6 @@
 package com.arsen.group.transformer;
 
+import com.arsen.common.event.EntityStatus;
 import com.arsen.group.domain.Group;
 import com.arsen.group.dto.GroupDto;
 import com.arsen.group.event.GroupEventUpdate;
@@ -38,7 +39,7 @@ public class GroupTransformer {
     }
 
 
-    public static GroupEventUpdate convertToGroupEvent(GroupDto groupDto, GroupEventUpdate.GroupStatus status){
+    public static GroupEventUpdate convertToGroupEvent(GroupDto groupDto, EntityStatus status){
         return new GroupEventUpdate(
                 groupDto.getId(),
                 groupDto.toString(),

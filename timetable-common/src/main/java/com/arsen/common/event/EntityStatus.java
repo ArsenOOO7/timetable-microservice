@@ -1,4 +1,4 @@
-package com.arsen.classroom.event;
+package com.arsen.common.event;
 
 public enum EntityStatus {
 

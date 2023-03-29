@@ -1,5 +1,6 @@
 package com.arsen.group.management.event;
 
+import com.arsen.common.event.EntityStatus;
 import com.arsen.group.management.dto.GroupDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,18 +13,12 @@ import java.util.Set;
 @Getter
 public class GroupEventUpdate extends GroupDto {
 
-    public GroupEventUpdate(long id, String fullName, boolean collective, Set<Long> groupIds, GroupStatus groupStatus) {
+    public GroupEventUpdate(long id, String fullName, boolean collective, Set<Long> groupIds, EntityStatus groupStatus) {
         super(id, fullName, collective, groupIds);
         this.status = groupStatus;
     }
 
-    public enum GroupStatus{
-        CREATED,
-        UPDATED,
-        DELETED;
-    }
-
-    private GroupStatus status;
+    private EntityStatus status;
 
 
 
