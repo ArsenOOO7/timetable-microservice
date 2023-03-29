@@ -5,7 +5,7 @@ import com.arsen.teacher.domain.Teacher;
 import com.arsen.teacher.dto.TeacherDto;
 import com.arsen.teacher.dto.TeacherQueryDto;
 import com.arsen.teacher.dto.TeacherResultSearchDto;
-import com.arsen.teacher.event.EntityStatus;
+import com.arsen.common.event.EntityStatus;
 import com.arsen.teacher.repository.TeacherRepository;
 import com.arsen.teacher.transformer.TeacherTransformer;
 import lombok.RequiredArgsConstructor;

@@ -2,7 +2,7 @@ package com.arsen.classroom.service;
 
 import com.arsen.classroom.domain.Classroom;
 import com.arsen.classroom.dto.ClassroomDto;
-import com.arsen.classroom.event.EntityStatus;
+import com.arsen.common.event.EntityStatus;
 import com.arsen.classroom.repository.ClassroomRepository;
 import com.arsen.classroom.transformer.ClassroomTransformer;
 import com.arsen.common.exception.EntityNotFoundException;

@@ -2,7 +2,7 @@ package com.arsen.teacher.transformer;
 
 import com.arsen.teacher.domain.Teacher;
 import com.arsen.teacher.dto.TeacherDto;
-import com.arsen.teacher.event.EntityStatus;
+import com.arsen.common.event.EntityStatus;
 import com.arsen.teacher.event.TeacherUpdateEvent;
 
 public class TeacherTransformer {

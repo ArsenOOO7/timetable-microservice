@@ -3,7 +3,7 @@ package com.arsen.classroom.transformer;
 import com.arsen.classroom.domain.Classroom;
 import com.arsen.classroom.dto.ClassroomDto;
 import com.arsen.classroom.event.ClassroomUpdateEvent;
-import com.arsen.classroom.event.EntityStatus;
+import com.arsen.common.event.EntityStatus;
 
 public class ClassroomTransformer {
 

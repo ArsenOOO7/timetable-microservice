@@ -2,7 +2,7 @@ package com.arsen.subject.transform;
 
 import com.arsen.subject.domain.Subject;
 import com.arsen.subject.dto.SubjectDto;
-import com.arsen.subject.event.EntityStatus;
+import com.arsen.common.event.EntityStatus;
 import com.arsen.subject.event.SubjectUpdateEvent;
 
 public class SubjectTransformer {
