@@ -51,4 +51,12 @@ public class TeacherTransformer {
         );
     }
 
+    public static void copyValues(Teacher teacher, TeacherDto from){
+        teacher.setFirstName(from.getFirstName());
+        teacher.setLastName(from.getLastName());
+        teacher.setFatherName(from.getFatherName());
+        teacher.setEmail(from.getEmail());
+        teacher.setMeetingLink(from.getMeetingLink());
+    }
+
 }

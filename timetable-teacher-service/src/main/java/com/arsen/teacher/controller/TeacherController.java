@@ -46,7 +46,7 @@ public class TeacherController {
     @PutMapping("/{id}")
     @ResponseStatus(OK)
     public void update(@PathVariable long id, /*@Valid*/ @RequestBody TeacherDto teacherDto){
-        teacherService.update(teacherDto);
+        teacherService.update(id, teacherDto);
     }
 
 

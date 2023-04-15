@@ -46,13 +46,13 @@ public class SubjectService {
         return subjectDto;
     }
 
-    public void update(SubjectDto subjectDto){
+    public void update(long id, SubjectDto subjectDto){
 
         if(subjectDto == null){
             throw new EntityNullReferenceException("Subject cannot be null!");
         }
 
-        Subject subject = readById(subjectDto.getId());
+        Subject subject = readById(id);
         subject.setSubjectName(subjectDto.getSubjectName());
         subjectRepository.save(subject);
 

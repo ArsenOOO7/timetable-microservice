@@ -43,7 +43,7 @@ public class SubjectController {
 
     @PutMapping("/{id}")
     public void update(@PathVariable long id, /*@Valid*/ @RequestBody SubjectDto subjectDto){
-        subjectService.update(subjectDto);
+        subjectService.update(id, subjectDto);
     }
 
     @DeleteMapping("/{id}")

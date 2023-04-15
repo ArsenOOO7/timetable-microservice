@@ -50,7 +50,7 @@ public class GroupController {
     @PutMapping("/{id}")
     @ResponseStatus(OK)
     public void update(@PathVariable long id, @RequestBody GroupDto groupDto){
-        groupCommandService.update(groupDto);
+        groupCommandService.update(id, groupDto);
     }
 
     @DeleteMapping("/{id}")

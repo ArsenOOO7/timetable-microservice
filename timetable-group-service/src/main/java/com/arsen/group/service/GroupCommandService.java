@@ -40,13 +40,13 @@ public class GroupCommandService {
         return groupDto;
     }
 
-    public void update(GroupDto groupDto){
+    public void update(long id, GroupDto groupDto){
 
         if(groupDto == null){
             throw new EntityNullReferenceException("Group cannot be null!");
         }
 
-        Group group = groupReadService.readByIdWithGroups(groupDto.getId());
+        Group group = groupReadService.readByIdWithGroups(id);
         GroupTransformer.copyValues(group, groupDto);
         groupCollective(group, groupDto.getGroupIds());
 

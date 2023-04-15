@@ -48,13 +48,15 @@ public class TeacherService {
     }
 
 
-    public void update(TeacherDto teacherDto){
+    public void update(long id, TeacherDto teacherDto){
 
         if(teacherDto == null){
             throw new EntityNullReferenceException("Teacher cannot be null!");
         }
 
-        postUpdate(teacherRepository.save(TeacherTransformer.convertTeacherDtoToEntity(teacherDto)), EntityStatus.UPDATED);
+        Teacher teacher = readById(id);
+        TeacherTransformer.copyValues(teacher, teacherDto);
+        postUpdate(teacherRepository.save(teacher), EntityStatus.UPDATED);
 
     }
 

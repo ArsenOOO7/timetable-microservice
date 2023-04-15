@@ -45,8 +45,8 @@ public class ClassroomTransformer {
 
 
     public static void copyValues(Classroom classroom, ClassroomDto classroomDto){
-        classroom.setName(classroom.getName());
-        classroom.setAddress(classroom.getAddress());
+        classroom.setName(classroomDto.getName());
+        classroom.setAddress(classroomDto.getAddress());
     }
 
 }

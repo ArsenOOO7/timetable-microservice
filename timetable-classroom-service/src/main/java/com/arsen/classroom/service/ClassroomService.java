@@ -48,13 +48,13 @@ public class ClassroomService {
     }
 
 
-    public void update(ClassroomDto classroomDto){
+    public void update(long id, ClassroomDto classroomDto){
 
         if(classroomDto == null){
             throw new NullPointerException("Classroom cannot be null!");
         }
 
-        Classroom classroom = readById(classroomDto.getId());
+        Classroom classroom = readById(id);
         ClassroomTransformer.copyValues(classroom, classroomDto);
 
         postUpdate(classroomRepository.save(classroom), EntityStatus.UPDATED);

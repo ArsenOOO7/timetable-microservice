@@ -106,13 +106,13 @@ public class LessonService {
     }
 
 
-    public void update(LessonDto lessonDto) {
+    public void update(long id, LessonDto lessonDto) {
 
         if (lessonDto == null) {
             throw new EntityNullReferenceException("Lesson cannot be null!");
         }
 
-        Lesson lesson = readById(lessonDto.getId());
+        Lesson lesson = readById(id);
         lesson.setLessonType(lessonDto.getLessonType());
         lesson.setLessonNumber(lessonDto.getLessonNumber());
         lesson.setLessonDate(lessonDto.getLessonDate());
