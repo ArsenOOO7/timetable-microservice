@@ -1,9 +1,9 @@
 package com.arsen.group.service;
 
+import com.arsen.common.dto.SearchDto;
 import com.arsen.common.exception.EntityNotFoundException;
 import com.arsen.group.domain.Group;
 import com.arsen.group.dto.GroupDto;
-import com.arsen.group.dto.GroupQuerySearchDto;
 import com.arsen.group.dto.GroupResultSearchDto;
 import com.arsen.group.repository.GroupRepository;
 import lombok.RequiredArgsConstructor;
@@ -61,11 +61,11 @@ public class GroupReadService {
 
 
     /**
-     * @param searchDto {@link GroupQuerySearchDto}
+     * @param searchDto {@link SearchDto}
      * @return {@link GroupResultSearchDto}
      */
-    public List<GroupResultSearchDto> searchGroupByQuery(GroupQuerySearchDto searchDto){
-        return groupRepository.findQueryGroup(searchDto.getGroupQuery());
+    public List<GroupResultSearchDto> searchGroupByQuery(SearchDto searchDto){
+        return groupRepository.findQueryGroup(searchDto.getSearchQuery());
     }
 
 

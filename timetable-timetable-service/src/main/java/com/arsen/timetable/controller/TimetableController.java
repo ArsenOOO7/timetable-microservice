@@ -38,7 +38,7 @@ public class TimetableController {
 
     @PutMapping("/{id}")
     public void update(@PathVariable long id, @RequestBody LessonDto lessonDto){
-        lessonService.update(lessonDto);
+        lessonService.update(id, lessonDto);
     }
 
     @DeleteMapping("/{id}")

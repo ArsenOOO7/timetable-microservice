@@ -1,4 +1,4 @@
-package com.arsen.teacher.dto;
+package com.arsen.common.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,9 +7,7 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter @Getter
-public class TeacherQueryDto {
-
+@Getter @Setter
+public class SearchDto {
     private String searchQuery;
-
 }

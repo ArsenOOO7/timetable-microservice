@@ -17,7 +17,10 @@ public class Classroom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String name;
+    @Column(nullable = false)
     private String address;
+
+    @Column(nullable = false)
+    private String name;
 
 }

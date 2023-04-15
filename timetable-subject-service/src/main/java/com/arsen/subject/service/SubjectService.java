@@ -1,5 +1,6 @@
 package com.arsen.subject.service;
 
+import com.arsen.common.dto.SearchDto;
 import com.arsen.common.exception.EntityNotFoundException;
 import com.arsen.common.exception.EntityNullReferenceException;
 import com.arsen.subject.domain.Subject;
@@ -10,6 +11,8 @@ import com.arsen.subject.transform.SubjectTransformer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -43,13 +46,13 @@ public class SubjectService {
         return subjectDto;
     }
 
-    public void update(SubjectDto subjectDto){
+    public void update(long id, SubjectDto subjectDto){
 
         if(subjectDto == null){
             throw new EntityNullReferenceException("Subject cannot be null!");
         }
 
-        Subject subject = readById(subjectDto.getId());
+        Subject subject = readById(id);
         subject.setSubjectName(subjectDto.getSubjectName());
         subjectRepository.save(subject);
 
@@ -67,5 +70,9 @@ public class SubjectService {
     private void postUpdate(Subject subject, EntityStatus entityStatus){
         System.out.println("Add new subject");
         streamBridge.send("subject-topic", SubjectTransformer.convertSubjectToUpdateEvent(subject, entityStatus));
+    }
+
+    public List<SubjectDto> search(SearchDto dto) {
+        return subjectRepository.findAllByQuery(dto.getSearchQuery());
     }
 }
