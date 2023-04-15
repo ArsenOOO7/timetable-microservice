@@ -13,3 +13,10 @@ spring:
         subjectUpdateEventConsumer-in-0:
           destination: subject-topic
           group: subject-up-to-date
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      group-management-service:
+        failureRateThreshold: 30
+        slow-call-duration-threshold: 10000ms

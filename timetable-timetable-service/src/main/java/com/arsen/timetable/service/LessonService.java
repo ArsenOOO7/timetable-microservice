@@ -45,7 +45,7 @@ public class LessonService {
         List<TimetableResponseDto> timetableResponse = timetableRepository
                 .findTimetableByTeacher(searchDto.getTeacherId(), searchDto.getStartDate(), searchDto.getEndDate());
 
-        List<MultipleGroupLessonDto> groups = groupManagementClient.readByGroup(
+        List<MultipleGroupLessonDto> groups = groupManagementClient.readByLessons(
                 timetableResponse.stream().map(TimetableResponseDto::getId).collect(Collectors.toSet()));
 
         int i = 0;
