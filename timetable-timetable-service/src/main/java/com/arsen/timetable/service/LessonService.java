@@ -1,6 +1,7 @@
 package com.arsen.timetable.service;
 
 import com.arsen.common.exception.EntityNotFoundException;
+import com.arsen.common.exception.EntityNullReferenceException;
 import com.arsen.timetable.client.GroupManagementClient;
 import com.arsen.timetable.domain.Lesson;
 import com.arsen.timetable.dto.LessonCreatedBrieflyResponseDto;
@@ -74,7 +75,7 @@ public class LessonService {
     public LessonCreatedBrieflyResponseDto create(LessonDto lessonDto){
 
         if(lessonDto == null){
-            throw new NullPointerException("Lesson cannot be null!");
+            throw new EntityNullReferenceException("Lesson cannot be null!");
         }
 
         Lesson lesson = new Lesson();
@@ -108,7 +109,7 @@ public class LessonService {
     public void update(LessonDto lessonDto) {
 
         if (lessonDto == null) {
-            throw new NullPointerException("Lesson cannot be null!");
+            throw new EntityNullReferenceException("Lesson cannot be null!");
         }
 
         Lesson lesson = readById(lessonDto.getId());

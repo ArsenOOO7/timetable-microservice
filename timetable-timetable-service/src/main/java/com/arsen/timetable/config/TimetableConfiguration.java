@@ -1,5 +1,6 @@
 package com.arsen.timetable.config;
 
+import com.arsen.common.config.CommonConfig;
 import com.arsen.timetable.event.ClassroomUpdateEvent;
 import com.arsen.timetable.event.SubjectUpdateEvent;
 import com.arsen.timetable.event.TeacherUpdateEvent;
@@ -10,11 +11,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 import java.util.function.Consumer;
 
 @Configuration
 @EnableRabbit
+@Import(CommonConfig.class)
 @RequiredArgsConstructor
 public class TimetableConfiguration {
 

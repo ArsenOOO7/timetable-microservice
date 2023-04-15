@@ -1,6 +1,7 @@
 package com.arsen.timetable.service.readonly;
 
 import com.arsen.common.exception.EntityNotFoundException;
+import com.arsen.common.exception.EntityNullReferenceException;
 import com.arsen.timetable.domain.readonly.ClassroomRead;
 import com.arsen.timetable.dto.readonly.ClassroomDto;
 import com.arsen.timetable.event.ClassroomUpdateEvent;
@@ -40,7 +41,7 @@ public class ClassroomReadService {
     public void create(ClassroomDto classroomDto){
 
         if(classroomDto == null){
-            throw new NullPointerException("Classroom cannot be null!");
+            throw new EntityNullReferenceException("Classroom cannot be null!");
         }
 
         classroomReadRepository.save(
@@ -52,7 +53,7 @@ public class ClassroomReadService {
     public void update(ClassroomDto classroomDto){
 
         if(classroomDto == null){
-            throw new NullPointerException("Classroom cannot be null!");
+            throw new EntityNullReferenceException("Classroom cannot be null!");
         }
 
         ClassroomRead classroomRead = readById(classroomDto.getId());

@@ -1,6 +1,7 @@
 package com.arsen.subject.service;
 
 import com.arsen.common.exception.EntityNotFoundException;
+import com.arsen.common.exception.EntityNullReferenceException;
 import com.arsen.subject.domain.Subject;
 import com.arsen.subject.dto.SubjectDto;
 import com.arsen.common.event.EntityStatus;
@@ -31,7 +32,7 @@ public class SubjectService {
     public SubjectDto create(SubjectDto subjectDto){
 
         if(subjectDto == null){
-            throw new NullPointerException("Subject cannot be null!");
+            throw new EntityNullReferenceException("Subject cannot be null!");
         }
 
         Subject subject = SubjectTransformer.convertSubjectDtoToEntity(subjectDto);
@@ -45,7 +46,7 @@ public class SubjectService {
     public void update(SubjectDto subjectDto){
 
         if(subjectDto == null){
-            throw new NullPointerException("Subject cannot be null!");
+            throw new EntityNullReferenceException("Subject cannot be null!");
         }
 
         Subject subject = readById(subjectDto.getId());

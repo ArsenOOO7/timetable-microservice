@@ -1,6 +1,7 @@
 package com.arsen.group.service;
 
 import com.arsen.common.event.EntityStatus;
+import com.arsen.common.exception.EntityNullReferenceException;
 import com.arsen.group.domain.Group;
 import com.arsen.group.dto.GroupDto;
 import com.arsen.group.event.GroupEventUpdate;
@@ -24,7 +25,7 @@ public class GroupCommandService {
     public GroupDto create(GroupDto groupDto){
 
         if(groupDto == null){
-            throw new NullPointerException("Group cannot be null!");
+            throw new EntityNullReferenceException("Group cannot be null!");
         }
 
         Group group = GroupTransformer.convetDtoToGroup(groupDto);
@@ -42,7 +43,7 @@ public class GroupCommandService {
     public void update(GroupDto groupDto){
 
         if(groupDto == null){
-            throw new NullPointerException("Group cannot be null!");
+            throw new EntityNullReferenceException("Group cannot be null!");
         }
 
         Group group = groupReadService.readByIdWithGroups(groupDto.getId());

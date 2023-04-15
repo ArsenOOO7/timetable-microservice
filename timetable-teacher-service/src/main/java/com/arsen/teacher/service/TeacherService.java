@@ -1,6 +1,7 @@
 package com.arsen.teacher.service;
 
 import com.arsen.common.exception.EntityNotFoundException;
+import com.arsen.common.exception.EntityNullReferenceException;
 import com.arsen.teacher.domain.Teacher;
 import com.arsen.teacher.dto.TeacherDto;
 import com.arsen.teacher.dto.TeacherQueryDto;
@@ -38,7 +39,7 @@ public class TeacherService {
     public TeacherDto create(TeacherDto teacherDto){
 
         if(teacherDto == null){
-            throw new NullPointerException("Teacher cannot be null!");
+            throw new EntityNullReferenceException("Teacher cannot be null!");
         }
 
         teacherDto = TeacherTransformer.convertTeacherToDto(teacherRepository.save(TeacherTransformer.convertTeacherDtoToEntity(teacherDto)));
@@ -50,7 +51,7 @@ public class TeacherService {
     public void update(TeacherDto teacherDto){
 
         if(teacherDto == null){
-            throw new NullPointerException("Teacher cannot be null!");
+            throw new EntityNullReferenceException("Teacher cannot be null!");
         }
 
         postUpdate(teacherRepository.save(TeacherTransformer.convertTeacherDtoToEntity(teacherDto)), EntityStatus.UPDATED);

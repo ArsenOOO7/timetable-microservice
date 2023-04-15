@@ -1,6 +1,7 @@
 package com.arsen.group.management.service;
 
 import com.arsen.common.exception.EntityNotFoundException;
+import com.arsen.common.exception.EntityNullReferenceException;
 import com.arsen.group.management.domain.GroupRead;
 import com.arsen.group.management.dto.GroupDto;
 import com.arsen.group.management.event.GroupEventUpdate;
@@ -52,7 +53,7 @@ public class GroupReadService {
     public void create(GroupDto groupAddDto){
 
         if(groupAddDto == null){
-            throw new NullPointerException("Group cannot be null!");
+            throw new EntityNullReferenceException("Group cannot be null!");
         }
 
         GroupRead groupRead = new GroupRead();
@@ -73,7 +74,7 @@ public class GroupReadService {
     public void update(GroupDto groupDto){
 
         if(groupDto == null){
-            throw new NullPointerException("Group cannot be null!");
+            throw new EntityNullReferenceException("Group cannot be null!");
         }
 
         GroupRead groupRead = readById(groupDto.getId(), true);
