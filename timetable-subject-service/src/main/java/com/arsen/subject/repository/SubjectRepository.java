@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -15,5 +16,8 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
 
     @Query("select new com.arsen.subject.dto.SubjectDto(s.id, s.subjectName) from Subject s where s.id = :id")
     Optional<SubjectDto> findDtoById(@Param("id") long id);
+
+    @Query("select new com.arsen.subject.dto.SubjectDto(s.id, s.subjectName) from Subject s where lower(s.subjectName) like lower(concat('%', :query, '%'))")
+    List<SubjectDto> findAllByQuery(@Param("query") String query);
 
 }

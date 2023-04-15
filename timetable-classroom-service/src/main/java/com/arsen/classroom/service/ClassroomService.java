@@ -2,13 +2,16 @@ package com.arsen.classroom.service;
 
 import com.arsen.classroom.domain.Classroom;
 import com.arsen.classroom.dto.ClassroomDto;
-import com.arsen.common.event.EntityStatus;
 import com.arsen.classroom.repository.ClassroomRepository;
 import com.arsen.classroom.transformer.ClassroomTransformer;
+import com.arsen.common.dto.SearchDto;
+import com.arsen.common.event.EntityStatus;
 import com.arsen.common.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -75,5 +78,7 @@ public class ClassroomService {
     }
 
 
-
+    public List<ClassroomDto> search(SearchDto dto) {
+        return classroomRepository.findAllByName(dto.getSearchQuery());
+    }
 }

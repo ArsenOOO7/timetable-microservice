@@ -1,10 +1,10 @@
 package com.arsen.teacher.service;
 
+import com.arsen.common.dto.SearchDto;
 import com.arsen.common.exception.EntityNotFoundException;
 import com.arsen.common.exception.EntityNullReferenceException;
 import com.arsen.teacher.domain.Teacher;
 import com.arsen.teacher.dto.TeacherDto;
-import com.arsen.teacher.dto.TeacherQueryDto;
 import com.arsen.teacher.dto.TeacherResultSearchDto;
 import com.arsen.common.event.EntityStatus;
 import com.arsen.teacher.repository.TeacherRepository;
@@ -32,8 +32,8 @@ public class TeacherService {
             .orElseThrow(() -> new EntityNotFoundException("Teacher with id " + id + " is not found!"));
     }
 
-    public List<TeacherResultSearchDto> findAllByQuery(TeacherQueryDto teacherQueryDto){
-        return teacherRepository.findAllByQuery(teacherQueryDto.getSearchQuery());
+    public List<TeacherResultSearchDto> findAllByQuery(SearchDto searchDto){
+        return teacherRepository.findAllByQuery(searchDto.getSearchQuery());
     }
 
     public TeacherDto create(TeacherDto teacherDto){
