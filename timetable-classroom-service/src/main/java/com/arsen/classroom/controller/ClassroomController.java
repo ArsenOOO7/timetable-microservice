@@ -1,6 +1,7 @@
 package com.arsen.classroom.controller;
 
 import com.arsen.classroom.dto.ClassroomDto;
+import com.arsen.classroom.dto.ClassroomResponseDto;
 import com.arsen.classroom.service.ClassroomService;
 import com.arsen.common.dto.SearchDto;
 import lombok.RequiredArgsConstructor;
@@ -28,18 +29,18 @@ public class ClassroomController {
     private final ClassroomService classroomService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClassroomDto> readClassroom(@PathVariable long id) {
+    public ResponseEntity<ClassroomResponseDto> readClassroom(@PathVariable long id) {
         return ResponseEntity.ok(classroomService.readById(id, true));
     }
 
 
     @PostMapping
-    public ResponseEntity<ClassroomDto> create(@RequestBody ClassroomDto classroomDto) {
+    public ResponseEntity<ClassroomResponseDto> create(@RequestBody ClassroomDto classroomDto) {
         return ResponseEntity.status(CREATED).body(classroomService.create(classroomDto));
     }
 
     @PostMapping("/search")
-    public ResponseEntity<List<ClassroomDto>> search(@RequestBody SearchDto dto){
+    public ResponseEntity<List<ClassroomResponseDto>> search(@RequestBody SearchDto dto){
         return ResponseEntity.ok(classroomService.search(dto));
     }
 
