@@ -2,6 +2,7 @@ package com.arsen.subject.controller;
 
 import com.arsen.common.dto.SearchDto;
 import com.arsen.subject.dto.SubjectDto;
+import com.arsen.subject.dto.SubjectResponseDto;
 import com.arsen.subject.service.SubjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -27,17 +28,17 @@ public class SubjectController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<SubjectDto> read(@PathVariable long id){
+    public ResponseEntity<SubjectResponseDto> read(@PathVariable long id){
         return ResponseEntity.ok(subjectService.readById(id, true));
     }
 
     @PostMapping
-    public ResponseEntity<SubjectDto> create(/*@Valid*/ @RequestBody SubjectDto subjectDto){
+    public ResponseEntity<SubjectResponseDto> create(/*@Valid*/ @RequestBody SubjectDto subjectDto){
         return ResponseEntity.status(CREATED).body(subjectService.create(subjectDto));
     }
 
     @PostMapping("/search")
-    public ResponseEntity<List<SubjectDto>> search(@RequestBody SearchDto dto){
+    public ResponseEntity<List<SubjectResponseDto>> search(@RequestBody SearchDto dto){
         return ResponseEntity.ok(subjectService.search(dto));
     }
 
