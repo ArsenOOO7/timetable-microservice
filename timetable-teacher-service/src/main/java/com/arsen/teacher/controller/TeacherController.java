@@ -2,6 +2,7 @@ package com.arsen.teacher.controller;
 
 import com.arsen.common.dto.SearchDto;
 import com.arsen.teacher.dto.TeacherDto;
+import com.arsen.teacher.dto.TeacherResponseDto;
 import com.arsen.teacher.dto.TeacherResultSearchDto;
 import com.arsen.teacher.service.TeacherService;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,7 @@ public class TeacherController {
     private final TeacherService teacherService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<TeacherDto> read(@PathVariable long id){
+    public ResponseEntity<TeacherResponseDto> read(@PathVariable long id){
         return ResponseEntity.ok(teacherService.readById(id, true));
     }
 
@@ -39,7 +40,7 @@ public class TeacherController {
     }
 
     @PostMapping
-    public ResponseEntity<TeacherDto> create(/*@Valid*/ @RequestBody TeacherDto teacherDto){
+    public ResponseEntity<TeacherResponseDto> create(/*@Valid*/ @RequestBody TeacherDto teacherDto){
         return ResponseEntity.status(CREATED).body(teacherService.create(teacherDto));
     }
 
