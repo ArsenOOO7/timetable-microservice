@@ -2,6 +2,7 @@ package com.arsen.teacher.repository;
 
 import com.arsen.teacher.domain.Teacher;
 import com.arsen.teacher.dto.TeacherDto;
+import com.arsen.teacher.dto.TeacherResponseDto;
 import com.arsen.teacher.dto.TeacherResultSearchDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,7 +22,7 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
             "or lower(concat(t.firstName, ' ', t.lastName, ' ', t.fatherName)) like lower(concat('%', :query, '%'))")
     List<TeacherResultSearchDto> findAllByQuery(@Param("query") String query);
 
-    @Query("select new com.arsen.teacher.dto.TeacherDto(t.id, t.firstName, t.lastName, t.fatherName, t.email, t.meetingLink) from Teacher t where t.id = :id")
-    Optional<TeacherDto> findDtoById(@Param("id") long id);
+    @Query("select new com.arsen.teacher.dto.TeacherResponseDto(t.id, t.firstName, t.lastName, t.fatherName, t.email, t.meetingLink) from Teacher t where t.id = :id")
+    Optional<TeacherResponseDto> findDtoById(@Param("id") long id);
 
 }

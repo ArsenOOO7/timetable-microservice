@@ -14,7 +14,6 @@ import java.util.Set;
 @Setter @Getter
 public class LessonDto {
 
-    private long id;
     private long subjectId;
     private long teacherId;
     private long classroomId;

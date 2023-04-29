@@ -1,17 +1,17 @@
 package com.arsen.subject.dto;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter @Getter
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SubjectDto {
+public class SubjectResponseDto {
 
-    @NotNull
+    private long id;
     private String subjectName;
 
 }

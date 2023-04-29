@@ -4,9 +4,9 @@ import com.arsen.common.event.EntityStatus;
 import com.arsen.common.exception.EntityNullReferenceException;
 import com.arsen.group.domain.Group;
 import com.arsen.group.dto.GroupDto;
-import com.arsen.group.event.GroupEventUpdate;
+import com.arsen.group.dto.GroupResponseDto;
+import com.arsen.group.mapper.GroupMapper;
 import com.arsen.group.repository.GroupRepository;
-import com.arsen.group.transformer.GroupTransformer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
@@ -21,23 +21,21 @@ public class GroupCommandService {
     private final GroupReadService groupReadService;
 
     private final StreamBridge streamBridge;
+    private final GroupMapper mapper;
 
-    public GroupDto create(GroupDto groupDto){
+    public GroupResponseDto create(GroupDto groupDto){
 
         if(groupDto == null){
             throw new EntityNullReferenceException("Group cannot be null!");
         }
 
-        Group group = GroupTransformer.convetDtoToGroup(groupDto);
+        Group group = mapper.fromDto(groupDto);
         groupCollective(group, groupDto.getGroupIds());
         group = groupRepository.save(group);
 
-        groupDto = GroupTransformer.convertEntityToDto(
-                group, groupDto.getGroupIds()
-        );
+        postUpdate(group, EntityStatus.CREATED);
 
-        postUpdate(groupDto, EntityStatus.CREATED);
-        return groupDto;
+        return mapper.toDto(group);
     }
 
     public void update(long id, GroupDto groupDto){
@@ -47,22 +45,17 @@ public class GroupCommandService {
         }
 
         Group group = groupReadService.readByIdWithGroups(id);
-        GroupTransformer.copyValues(group, groupDto);
+        group = mapper.update(groupDto, group);
         groupCollective(group, groupDto.getGroupIds());
 
         group = groupRepository.save(group);
-
-        groupDto = GroupTransformer.convertEntityToDto(
-                group, groupDto.getGroupIds()
-        );
-
-        postUpdate(groupDto, EntityStatus.UPDATED);
+        postUpdate(group, EntityStatus.UPDATED);
 
     }
 
 
     public void delete(long id){
-        GroupDto group = groupReadService.readById(id, true);
+        Group group = groupReadService.readById(id);
         groupRepository.deleteById(id);
         postUpdate(group, EntityStatus.DELETED);
     }
@@ -70,22 +63,15 @@ public class GroupCommandService {
 
 
     private void groupCollective(Group group, Set<Long> groupIds){
-
         if(!group.isCollective()){
             return;
         }
-
-        //TODO: Think about it
-        if(group.getGroups().size() != groupIds.size()) {
-            Set<Group> groups = groupReadService.readGroups(groupIds);
-            group.getGroups().addAll(groups);
-        }
+        group.addGroups(groupReadService.readGroups(groupIds));
     }
 
 
-    public void postUpdate(GroupDto groupDto, EntityStatus status){
-        GroupEventUpdate groupEventDto =  GroupTransformer.convertToGroupEvent(groupDto, status);
-        streamBridge.send("group-topic", groupEventDto);
+    public void postUpdate(Group group, EntityStatus status){
+        streamBridge.send("group-topic", mapper.toEvent(group, status));
     }
 
 }

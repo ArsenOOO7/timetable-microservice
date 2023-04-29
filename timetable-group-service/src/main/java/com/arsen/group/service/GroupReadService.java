@@ -3,8 +3,9 @@ package com.arsen.group.service;
 import com.arsen.common.dto.SearchDto;
 import com.arsen.common.exception.EntityNotFoundException;
 import com.arsen.group.domain.Group;
-import com.arsen.group.dto.GroupDto;
+import com.arsen.group.dto.GroupResponseDto;
 import com.arsen.group.dto.GroupResultSearchDto;
+import com.arsen.group.mapper.GroupMapper;
 import com.arsen.group.repository.GroupRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ import java.util.Set;
 public class GroupReadService {
 
     private final GroupRepository groupRepository;
+    private final GroupMapper mapper;
 
 
     /**
@@ -41,9 +43,9 @@ public class GroupReadService {
      * Returns GroupDto
      * @param id of entity
      * @param dto
-     * @return {@link GroupDto}
+     * @return {@link GroupResponseDto}
      */
-    public GroupDto readById(long id, boolean dto){
+    public GroupResponseDto readById(long id, boolean dto){
         return groupRepository.readByIdDto(id)
                 .orElseThrow(() -> new EntityNotFoundException("Group with id " + id + " is not found!!"));
     }
@@ -57,6 +59,15 @@ public class GroupReadService {
     public Group readByIdWithGroups(long id){
         return groupRepository.getGroupWithGroups(id)
                 .orElseThrow(() -> new EntityNotFoundException("Group with id " + id + " is not found!!"));
+    }
+
+    /**
+     * Returns Group with Groups (related)
+     * @param id long
+     * @return {@link Group}
+     */
+    public GroupResponseDto readByIdWithGroups(long id, boolean dto){
+        return mapper.toDto(readByIdWithGroups(id));
     }
 
 

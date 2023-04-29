@@ -2,6 +2,7 @@ package com.arsen.group.controller;
 
 import com.arsen.common.dto.SearchDto;
 import com.arsen.group.dto.GroupDto;
+import com.arsen.group.dto.GroupResponseDto;
 import com.arsen.group.dto.GroupResultSearchDto;
 import com.arsen.group.service.GroupCommandService;
 import com.arsen.group.service.GroupReadService;
@@ -31,14 +32,14 @@ public class GroupController {
     private final GroupReadService groupReadService;
 
     @PostMapping
-    public ResponseEntity<GroupDto> create(@RequestBody GroupDto groupDto){
+    public ResponseEntity<GroupResponseDto> create(@RequestBody GroupDto groupDto){
         return ResponseEntity.status(CREATED).body(groupCommandService.create(groupDto));
     }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<GroupDto> read(@PathVariable long id){
-        return ResponseEntity.ok(groupReadService.readById(id, true));
+    public ResponseEntity<GroupResponseDto> read(@PathVariable long id){
+        return ResponseEntity.ok(groupReadService.readByIdWithGroups(id, true));
     }
 
 

@@ -1,6 +1,15 @@
 package com.arsen.group.management.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,15 +35,34 @@ public class GroupRead {
     @Column(nullable = false)
     boolean collective = false;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "collective_groups", joinColumns = @JoinColumn(name = "collective_group_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
     private Set<GroupRead> groups = new HashSet<>();
 
-    @ManyToMany(mappedBy = "groups", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private Set<GroupRead> collectiveGroups;
+    @ManyToMany(mappedBy = "groups")
+    private Set<GroupRead> collectiveGroups = new HashSet<>();
 
     @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
     private Set<GroupLesson> lessons;
+
+    public void addGroup(GroupRead group){
+        if(groups.add(group)) {
+            group.getCollectiveGroups().add(this);
+        }
+    }
+
+    public void removeGroup(GroupRead group){
+        if(groups.remove(group)){
+            group.getCollectiveGroups().remove(this);
+        }
+    }
+
+    public void addGroups(Set<GroupRead> groupSet){
+        /*for (GroupRead group : groupSet) {
+            addGroup(group);
+        }*/
+        groups.addAll(groupSet);
+    }
 
     @Override
     public boolean equals(Object o) {

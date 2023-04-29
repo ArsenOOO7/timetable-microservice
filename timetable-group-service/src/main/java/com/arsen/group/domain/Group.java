@@ -1,11 +1,21 @@
 package com.arsen.group.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -39,15 +49,31 @@ public class Group {
     private boolean collective = false;
 
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(name = "collective_groups",
         joinColumns = @JoinColumn(name = "collective_group_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
-    private Set<Group> groups;
+    private Set<Group> groups = new HashSet<>();
 
     @ManyToMany(mappedBy = "groups")
-    /*@JoinTable(name = "collective_groups",
-            joinColumns = @JoinColumn(name = "group_id"), inverseJoinColumns = @JoinColumn(name = "collective_group_id"))*/
-    private Set<Group> collectiveGroups;
+    private Set<Group> collectiveGroups = new HashSet<>();
+
+    public void addGroup(Group group){
+        if(groups.add(group)) {
+            group.getCollectiveGroups().add(this);
+        }
+    }
+
+    public void removeGroup(Group group){
+        if(groups.remove(group)){
+            group.getCollectiveGroups().remove(this);
+        }
+    }
+
+    public void addGroups(Set<Group> groupSet){
+        for (Group group : groupSet) {
+            addGroup(group);
+        }
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -60,5 +86,16 @@ public class Group {
     @Override
     public int hashCode() {
         return Objects.hash(id, cypher, academicYear, number, master, college, collective);
+    }
+
+    @Override
+    public String toString() {
+        return cypher +
+                (master ? 'м' : "") +
+                (college ? 'к' : "") +
+                '-' +
+                academicYear +
+                (collective ? '.' : "") +
+                number;
     }
 }

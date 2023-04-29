@@ -2,8 +2,9 @@ package com.arsen.classroom.service;
 
 import com.arsen.classroom.domain.Classroom;
 import com.arsen.classroom.dto.ClassroomDto;
+import com.arsen.classroom.dto.ClassroomResponseDto;
+import com.arsen.classroom.mapper.ClassroomMapper;
 import com.arsen.classroom.repository.ClassroomRepository;
-import com.arsen.classroom.transformer.ClassroomTransformer;
 import com.arsen.common.dto.SearchDto;
 import com.arsen.common.event.EntityStatus;
 import com.arsen.common.exception.EntityNotFoundException;
@@ -19,32 +20,33 @@ public class ClassroomService {
 
     private final StreamBridge streamBridge;
     private final ClassroomRepository classroomRepository;
+    private final ClassroomMapper mapper;
+
 
     public Classroom readById(long id){
         return classroomRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Classroom with id " + id + " not found!"));
     }
 
-    public ClassroomDto readById(long id, boolean dto){
+    public ClassroomResponseDto readById(long id, boolean dto){
         return classroomRepository.findDtoById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Classroom with id " + id + " not found!"));
     }
 
 
 
-    public ClassroomDto create(ClassroomDto classroomDto){
+    public ClassroomResponseDto create(ClassroomDto classroomDto){
 
         if(classroomDto == null){
             throw new NullPointerException("Classroom cannot be null!");
         }
 
-        classroomDto = ClassroomTransformer.convertEntityToDto(
-            classroomRepository.save(ClassroomTransformer.convertDtoToEntity(classroomDto))
-        );
+        Classroom classroom = mapper.fromDto(classroomDto);
+        classroom = classroomRepository.save(classroom);
 
-        postUpdate(classroomDto, EntityStatus.CREATED);
+        postUpdate(classroom, EntityStatus.CREATED);
 
-        return classroomDto;
+        return mapper.toDto(classroom);
     }
 
 
@@ -55,7 +57,8 @@ public class ClassroomService {
         }
 
         Classroom classroom = readById(id);
-        ClassroomTransformer.copyValues(classroom, classroomDto);
+        classroom.setName(classroomDto.getName());
+        classroom.setAddress(classroomDto.getAddress());
 
         postUpdate(classroomRepository.save(classroom), EntityStatus.UPDATED);
 
@@ -70,15 +73,10 @@ public class ClassroomService {
 
 
     private void postUpdate(Classroom classroom, EntityStatus entityStatus){
-        streamBridge.send("classroom-topic", ClassroomTransformer.convertClassroomToUpdateEvent(classroom, entityStatus));
+        streamBridge.send("classroom-topic", mapper.toEvent(classroom, entityStatus));
     }
 
-    private void postUpdate(ClassroomDto classroom, EntityStatus entityStatus){
-        streamBridge.send("classroom-topic", ClassroomTransformer.convertClassroomToUpdateEvent(classroom, entityStatus));
-    }
-
-
-    public List<ClassroomDto> search(SearchDto dto) {
+    public List<ClassroomResponseDto> search(SearchDto dto) {
         return classroomRepository.findAllByName(dto.getSearchQuery());
     }
 }

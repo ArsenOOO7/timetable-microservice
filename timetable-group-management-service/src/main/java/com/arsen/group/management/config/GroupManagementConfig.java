@@ -2,7 +2,7 @@ package com.arsen.group.management.config;
 
 import com.arsen.common.config.CommonConfig;
 import com.arsen.group.management.event.GroupEventUpdate;
-import com.arsen.group.management.service.GroupReadService;
+import com.arsen.group.management.service.GroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.context.annotation.Bean;
@@ -17,10 +17,10 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor
 public class GroupManagementConfig {
 
-    private final GroupReadService groupReadService;
+    private final GroupService groupService;
 
     @Bean
     public Consumer<GroupEventUpdate> updateGroupEvent() {
-        return groupReadService::synchronizeWithGroups;
+        return groupService::synchronizeWithGroups;
     }
 }
