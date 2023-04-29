@@ -2,7 +2,10 @@ package com.arsen.group.management.service;
 
 import com.arsen.group.management.domain.GroupLesson;
 import com.arsen.group.management.domain.GroupRead;
-import com.arsen.group.management.dto.*;
+import com.arsen.group.management.dto.GroupLessonDto;
+import com.arsen.group.management.dto.GroupLessonsRequestDto;
+import com.arsen.group.management.dto.LessonGroupResponseDto;
+import com.arsen.group.management.dto.MultipleLessonGroupResponseDto;
 import com.arsen.group.management.repository.GroupLessonRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +15,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.mapping;
+import static java.util.stream.Collectors.toSet;
 
 @Service
 @RequiredArgsConstructor
