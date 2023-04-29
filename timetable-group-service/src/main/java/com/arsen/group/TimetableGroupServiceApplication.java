@@ -1,12 +1,13 @@
 package com.arsen.group;
 
-import com.arsen.common.config.CommonConfig;
+import com.arsen.common.annotation.EnableCommon;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Import;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
-@Import(CommonConfig.class)
+@EnableCommon
+@EnableDiscoveryClient
 public class TimetableGroupServiceApplication {
 
 	public static void main(String[] args) {
