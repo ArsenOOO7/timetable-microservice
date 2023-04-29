@@ -1,7 +1,7 @@
 package com.arsen.group.repository;
 
 import com.arsen.group.domain.Group;
-import com.arsen.group.dto.GroupDto;
+import com.arsen.group.dto.GroupResponseDto;
 import com.arsen.group.dto.GroupResultSearchDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -36,9 +36,9 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
 
 
 
-    @Query("select new com.arsen.group.dto.GroupDto(g.id, g.cypher, g.academicYear, g.number, g.master, g.college, g.collective) from Group g " +
+    @Query("select new com.arsen.group.dto.GroupResponseDto(g.id, g.cypher, g.academicYear, g.number, g.master, g.college, g.collective) from Group g " +
             "where g.id = :id")
-    Optional<GroupDto> readByIdDto(@Param("id") long id);
+    Optional<GroupResponseDto> readByIdDto(@Param("id") long id);
 
 
     Set<Group> findAllByIdIn(Set<Long> ids);
