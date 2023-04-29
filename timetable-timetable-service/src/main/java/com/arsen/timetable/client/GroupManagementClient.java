@@ -7,6 +7,7 @@ import com.arsen.timetable.dto.group.GroupLessonsRequestDto;
 import com.arsen.timetable.dto.group.MultipleGroupLessonDto;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,8 +31,11 @@ public interface GroupManagementClient {
     @CircuitBreaker(name = "group-management-service", fallbackMethod = "getDefaultGroupsByLessons")
     List<MultipleGroupLessonDto> readByLessons(@RequestBody Set<Long> ids);
 
-    @PostMapping("/api/group/management")
-    void create(@RequestBody GroupLessonDto lessonDto);
+    @DeleteMapping("/{lesson}/{group}")
+    void delete(@PathVariable long lesson, @PathVariable long group);
+
+    @DeleteMapping("/{lesson}")
+    void delete(@PathVariable long lesson);
 
     default MultipleGroupLessonDto getDefaultGroupLesson(long lesson, Throwable throwable){
         return new MultipleGroupLessonDto(lesson, Set.of(new GroupDto(0, "UNKNOWN")));

@@ -32,7 +32,7 @@ public class GroupService {
      * @param groupIds set of ids
      * @return Set of {@link GroupRead}
      */
-    private Set<GroupRead> readGroups(Set<Long> groupIds){
+    public Set<GroupRead> readGroups(Set<Long> groupIds){
         return groupReadRepository.findAllByIdIn(groupIds);
     }
 

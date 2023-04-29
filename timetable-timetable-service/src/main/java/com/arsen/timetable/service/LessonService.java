@@ -16,8 +16,11 @@ import com.arsen.timetable.service.readonly.ClassroomReadService;
 import com.arsen.timetable.service.readonly.SubjectReadService;
 import com.arsen.timetable.service.readonly.TeacherReadService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -33,6 +36,7 @@ public class LessonService {
     private final TeacherReadService teacherReadService;
 
     private final GroupManagementClient groupManagementClient;
+    private final StreamBridge streamBridge;
 
 
     public Lesson readById(long id){
@@ -94,13 +98,15 @@ public class LessonService {
 
         lesson = timetableRepository.save(lesson);
 
-        GroupLessonDto groupLesson = new GroupLessonDto();
-        groupLesson.setLessonId(lesson.getId());
-        groupLesson.setLessonDate(lesson.getLessonDate());
-        for (Long groupId : lessonDto.getGroupIds()) {
-            groupLesson.setGroupId(groupId);
-            groupManagementClient.create(groupLesson);
-        }
+
+        long lessonId = lesson.getId();
+        LocalDate date = lesson.getLessonDate();
+
+        List<GroupLessonDto> groupLessonDtos = lessonDto.getGroupIds().stream()
+                .map(id -> new GroupLessonDto(id, lessonId, date))
+                .toList();
+
+        streamBridge.send("lesson-topic", groupLessonDtos);
 
         return new LessonCreatedBrieflyResponseDto(lesson.getId(), lesson.getLessonDate());
     }
@@ -139,6 +145,10 @@ public class LessonService {
 
     public void delete(long id){
         timetableRepository.deleteById(id);
+        groupManagementClient.delete(id);
     }
 
+    public void delete(long id, long group){
+        groupManagementClient.delete(id, group);
+    }
 }

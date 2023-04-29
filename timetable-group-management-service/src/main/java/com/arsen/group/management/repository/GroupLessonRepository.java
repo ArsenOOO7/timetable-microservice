@@ -15,6 +15,7 @@ import java.util.Set;
 public interface GroupLessonRepository extends JpaRepository<GroupLesson, Long> {
 
     void deleteByLessonIdAndGroupId(long lessonId, long groupId);
+    void deleteByLessonId(long lesson);
 
     @Query("SELECT new com.arsen.group.management.dto.GroupResponseDto(g.id, g.fullName) FROM GroupRead g JOIN g.lessons l WHERE l.lessonId = :lessonId")
     Set<GroupResponseDto> findGroupsByLessonId(@Param("lessonId") long lessonId);

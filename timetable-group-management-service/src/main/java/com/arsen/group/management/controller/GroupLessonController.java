@@ -1,6 +1,5 @@
 package com.arsen.group.management.controller;
 
-import com.arsen.group.management.dto.GroupLessonDto;
 import com.arsen.group.management.dto.GroupLessonsRequestDto;
 import com.arsen.group.management.dto.MultipleLessonGroupResponseDto;
 import com.arsen.group.management.service.GroupLessonService;
@@ -42,17 +41,16 @@ public class GroupLessonController {
         return ResponseEntity.ok(groupLessonService.readGroupWithLessonsMultiple(requestDto));
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody GroupLessonDto groupLessonDto){
-        groupLessonService.create(groupLessonDto);
-    }
-
-
     @DeleteMapping("/{lesson}/{group}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable long lesson, @PathVariable long group){
         groupLessonService.delete(lesson, group);
+    }
+
+    @DeleteMapping("/{lesson}")
+    @ResponseStatus(HttpStatus.OK)
+    public void delete(@PathVariable long lesson){
+        groupLessonService.delete(lesson);
     }
 
 }

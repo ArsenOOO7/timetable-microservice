@@ -54,4 +54,9 @@ public class TimetableController {
         lessonService.delete(id);
     }
 
+    @DeleteMapping("/{id}/{groupId}")
+    public void delete(@PathVariable long id, @PathVariable long groupId){
+        lessonService.delete(id, groupId);
+    }
+
 }
