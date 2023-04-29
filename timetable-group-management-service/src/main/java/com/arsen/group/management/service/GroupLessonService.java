@@ -19,7 +19,7 @@ import static java.util.stream.Collectors.*;
 public class GroupLessonService {
 
     private final GroupLessonRepository groupLessonRepository;
-    private final GroupReadService groupReadService;
+    private final GroupService groupService;
 
 
     public MultipleLessonGroupResponseDto readLessonWithGroups(long lessonId){
@@ -59,7 +59,7 @@ public class GroupLessonService {
             throw new NullPointerException("Group lesson cannot be null!!");
         }
 
-        GroupRead groupRead = groupReadService.readById(groupLessonDto.getGroupId());
+        GroupRead groupRead = groupService.readById(groupLessonDto.getGroupId());
         GroupLesson groupLesson = new GroupLesson();
         groupLesson.setLessonId(groupLessonDto.getLessonId());
         groupLesson.setLessonDate(groupLessonDto.getLessonDate());

@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
-public class GroupReadService {
+public class GroupService {
 
     private final GroupReadRepository groupReadRepository;
 
@@ -37,13 +37,11 @@ public class GroupReadService {
     }
 
     public void synchronizeWithGroups(GroupEventUpdate groupEventUpdate){
-
         switch(groupEventUpdate.getStatus()){
             case CREATED -> create(groupEventUpdate);
             case UPDATED -> update(groupEventUpdate);
             case DELETED -> delete(groupEventUpdate.getId());
         }
-
     }
 
     /**
@@ -103,7 +101,7 @@ public class GroupReadService {
         }
 
         if(ids != null && (groupRead.getGroups() != null && groupRead.getGroups().size() != ids.size())){
-            groupRead.setGroups(readGroups(ids));
+            groupRead.addGroups(readGroups(ids));
         }
     }
 

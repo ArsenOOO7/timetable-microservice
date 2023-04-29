@@ -12,6 +12,8 @@ import org.mapstruct.Mappings;
 
 import java.util.Set;
 
+import static java.util.stream.Collectors.toSet;
+
 @Mapper
 public interface GroupMapper {
 
@@ -35,10 +37,8 @@ public interface GroupMapper {
     GroupEventUpdate toEvent(Group group, EntityStatus status);
 
 
-    Set<Long> mapToId(Set<Group> groupSet);
-
-    default Long mapToId(Group group){
-        return group.getId();
+    default Set<Long> mapToId(Set<Group> groupSet){
+        return groupSet.stream().map(Group::getId).collect(toSet());
     }
 
 }
