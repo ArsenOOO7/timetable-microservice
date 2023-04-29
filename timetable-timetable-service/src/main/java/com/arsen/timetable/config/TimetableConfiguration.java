@@ -1,6 +1,6 @@
 package com.arsen.timetable.config;
 
-import com.arsen.common.config.CommonConfig;
+import com.arsen.common.annotation.EnableCommon;
 import com.arsen.timetable.event.ClassroomUpdateEvent;
 import com.arsen.timetable.event.SubjectUpdateEvent;
 import com.arsen.timetable.event.TeacherUpdateEvent;
@@ -9,15 +9,16 @@ import com.arsen.timetable.service.readonly.SubjectReadService;
 import com.arsen.timetable.service.readonly.TeacherReadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 import java.util.function.Consumer;
 
 @Configuration
 @EnableRabbit
-@Import(CommonConfig.class)
+@EnableCommon
+@EnableDiscoveryClient
 @RequiredArgsConstructor
 public class TimetableConfiguration {
 
