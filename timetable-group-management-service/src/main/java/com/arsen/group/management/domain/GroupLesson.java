@@ -36,4 +36,9 @@ public class GroupLesson {
     @JoinColumn(name = "group_id")
     private GroupRead group;
 
+    public GroupLesson(long lessonId, LocalDate lessonDate, GroupRead group) {
+        this.lessonId = lessonId;
+        this.lessonDate = lessonDate;
+        this.group = group;
+    }
 }

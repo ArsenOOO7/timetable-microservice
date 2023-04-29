@@ -1,5 +1,6 @@
 package com.arsen.group.management.service;
 
+import com.arsen.common.exception.EntityNullReferenceException;
 import com.arsen.group.management.domain.GroupLesson;
 import com.arsen.group.management.domain.GroupRead;
 import com.arsen.group.management.dto.GroupLessonDto;
@@ -58,25 +59,25 @@ public class GroupLessonService {
     }
 
 
-    public void create(GroupLessonDto groupLessonDto){
+    public void create(List<GroupLessonDto> groupLessons){
 
-        if(groupLessonDto == null){
-            throw new NullPointerException("Group lesson cannot be null!!");
+        if(groupLessons == null || groupLessons.isEmpty()){
+            throw new EntityNullReferenceException("Group lessons cannot be null!!");
         }
 
-        GroupRead groupRead = groupService.readById(groupLessonDto.getGroupId());
-        GroupLesson groupLesson = new GroupLesson();
-        groupLesson.setLessonId(groupLessonDto.getLessonId());
-        groupLesson.setLessonDate(groupLessonDto.getLessonDate());
-        groupLesson.setGroup(groupRead);
+        Set<GroupRead> groups = groupService.readGroups(groupLessons.stream().map(GroupLessonDto::getGroupId).collect(toSet()));
+        GroupLessonDto groupLessonDto = groupLessons.get(0);
 
-        groupLessonRepository.save(groupLesson);
+        List<GroupLesson> lessons = groups.stream().map(group -> new GroupLesson(groupLessonDto.getLessonId(), groupLessonDto.getLessonDate(), group)).toList();
+        groupLessonRepository.saveAll(lessons);
 
     }
 
-
     public void delete(long lesson, long group){
         groupLessonRepository.deleteByLessonIdAndGroupId(lesson, group);
+    }
+    public void delete(long lesson){
+        groupLessonRepository.deleteByLessonId(lesson);
     }
 
 }
