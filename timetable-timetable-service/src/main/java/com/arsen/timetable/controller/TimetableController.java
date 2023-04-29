@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.CREATED;
+
 @RestController
 @RequestMapping("/api/timetable")
 @RequiredArgsConstructor
@@ -32,8 +34,8 @@ public class TimetableController {
     }
 
     @PostMapping
-    public LessonCreatedBrieflyResponseDto create(@RequestBody LessonDto lessonDto){
-        return lessonService.create(lessonDto);
+    public ResponseEntity<LessonCreatedBrieflyResponseDto> create(@RequestBody LessonDto lessonDto){
+        return ResponseEntity.status(CREATED).body(lessonService.create(lessonDto));
     }
 
     @PutMapping("/{id}")
