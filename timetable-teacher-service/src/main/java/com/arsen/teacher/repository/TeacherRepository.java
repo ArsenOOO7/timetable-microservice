@@ -1,7 +1,6 @@
 package com.arsen.teacher.repository;
 
 import com.arsen.teacher.domain.Teacher;
-import com.arsen.teacher.dto.TeacherDto;
 import com.arsen.teacher.dto.TeacherResponseDto;
 import com.arsen.teacher.dto.TeacherResultSearchDto;
 import org.springframework.data.jpa.repository.JpaRepository;

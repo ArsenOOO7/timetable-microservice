@@ -3,7 +3,6 @@ package com.arsen.group.management.repository;
 import com.arsen.group.management.domain.GroupLesson;
 import com.arsen.group.management.dto.GroupResponseDto;
 import com.arsen.group.management.dto.LessonGroupResponseDto;
-import com.arsen.group.management.dto.MultipleLessonGroupResponseDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
