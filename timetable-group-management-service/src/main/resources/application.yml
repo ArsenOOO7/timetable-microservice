@@ -10,3 +10,6 @@ spring:
         updateTimetableEvent-in-0:
           destination: lesson-topic
           group: lesson-update-queue
+
+server:
+  port: 8005

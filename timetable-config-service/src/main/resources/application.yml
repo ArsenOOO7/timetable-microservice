@@ -6,6 +6,9 @@ spring:
   cloud:
     config:
       server:
+        git:
+          uri: https://github.com/ArsenOOO7/timetable-configuration
+          clone-on-start: true
+          default-label: master
         native:
-          search-locations: file:///home/arsen/Projects/Repos/Java/timetable-micro/timetable-config-service/src/main/resources/config
-
+          search-locations: classpath:/config
