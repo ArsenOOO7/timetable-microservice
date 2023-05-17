@@ -25,6 +25,7 @@ import java.util.Set;
 public class GroupReadService {
 
     private final GroupRepository groupRepository;
+    private final GroupElasticService groupElasticService;
     private final GroupMapper mapper;
 
 
@@ -73,10 +74,10 @@ public class GroupReadService {
 
     /**
      * @param searchDto {@link SearchDto}
-     * @return {@link GroupResultSearchDto}
+     * @return list of {@link GroupResultSearchDto}
      */
     public List<GroupResultSearchDto> searchGroupByQuery(SearchDto searchDto){
-        return groupRepository.findQueryGroup(searchDto.getSearchQuery());
+        return groupElasticService.searchGroupsByQuery(searchDto);
     }
 
 
