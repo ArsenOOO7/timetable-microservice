@@ -19,6 +19,7 @@ public class GroupCommandService {
 
     private final GroupRepository groupRepository;
     private final GroupReadService groupReadService;
+    private final GroupElasticService groupElasticService;
 
     private final StreamBridge streamBridge;
     private final GroupMapper mapper;
@@ -33,6 +34,7 @@ public class GroupCommandService {
         groupCollective(group, groupDto.getGroupIds());
         group = groupRepository.save(group);
 
+        groupElasticService.create(group);
         postUpdate(group, EntityStatus.CREATED);
 
         return mapper.toDto(group);
@@ -49,6 +51,7 @@ public class GroupCommandService {
         groupCollective(group, groupDto.getGroupIds());
 
         group = groupRepository.save(group);
+        groupElasticService.update(group);
         postUpdate(group, EntityStatus.UPDATED);
 
     }
@@ -56,7 +59,8 @@ public class GroupCommandService {
 
     public void delete(long id){
         Group group = groupReadService.readById(id);
-        groupRepository.deleteById(id);
+        groupRepository.delete(group);
+        groupElasticService.delete(id);
         postUpdate(group, EntityStatus.DELETED);
     }
 

@@ -2,14 +2,17 @@ package com.arsen.group.mapper;
 
 import com.arsen.common.event.EntityStatus;
 import com.arsen.group.domain.Group;
+import com.arsen.group.domain.GroupDocument;
 import com.arsen.group.dto.GroupDto;
 import com.arsen.group.dto.GroupResponseDto;
+import com.arsen.group.dto.GroupResultSearchDto;
 import com.arsen.group.event.GroupEventUpdate;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
 
+import java.util.List;
 import java.util.Set;
 
 import static java.util.stream.Collectors.toSet;
@@ -35,6 +38,11 @@ public interface GroupMapper {
     @Mapping(target = "fullName", expression = "java(group.toString())")
     @Mapping(target = "groupIds", expression = "java(mapToId(group.getGroups()))")
     GroupEventUpdate toEvent(Group group, EntityStatus status);
+
+    @Mapping(target = "groupName", expression = "java(group.toString())")
+    GroupDocument toDocument(Group group);
+
+    List<GroupResultSearchDto> fromDocuments(List<GroupDocument> groupDocumentList);
 
 
     default Set<Long> mapToId(Set<Group> groupSet){
