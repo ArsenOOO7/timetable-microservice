@@ -24,6 +24,8 @@ public class TeacherService {
     private final TeacherRepository teacherRepository;
     private final TeacherMapper mapper;
 
+    private final TeacherElasticService teacherElasticService;
+
     public Teacher readById(long id){
         return teacherRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Teacher with id " + id + " is not found!"));
@@ -35,7 +37,7 @@ public class TeacherService {
     }
 
     public List<TeacherResultSearchDto> findAllByQuery(SearchDto searchDto){
-        return teacherRepository.findAllByQuery(searchDto.getSearchQuery());
+        return teacherElasticService.searchTeachers(searchDto);
     }
 
     public TeacherResponseDto create(TeacherDto teacherDto){
@@ -48,6 +50,7 @@ public class TeacherService {
         teacher = teacherRepository.save(teacher);
 
         postUpdate(teacher, EntityStatus.CREATED);
+        teacherElasticService.create(teacher);
 
         return mapper.toDto(teacher);
     }
@@ -69,12 +72,14 @@ public class TeacherService {
                 .build();
 
         postUpdate(teacherRepository.save(teacher), EntityStatus.UPDATED);
+        teacherElasticService.update(teacher);
 
     }
 
 
     public void delete(long id){
         Teacher teacher = readById(id);
+        teacherElasticService.delete(id);
         teacherRepository.delete(teacher);
         postUpdate(teacher, EntityStatus.DELETED);
     }

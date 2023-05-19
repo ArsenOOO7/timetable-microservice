@@ -41,4 +41,8 @@ public class Teacher {
     @Column
     private String meetingLink;
 
+    @Override
+    public String toString() {
+        return String.join(" ", lastName, firstName, fatherName);
+    }
 }
