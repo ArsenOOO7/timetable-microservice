@@ -10,3 +10,7 @@ eureka:
     fetch-registry: true
     instance:
       prefer-ip-address: true
+
+elasticsearch:
+  address: localhost
+  port: 9200
