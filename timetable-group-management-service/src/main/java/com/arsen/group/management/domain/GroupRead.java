@@ -1,6 +1,5 @@
 package com.arsen.group.management.domain;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -35,7 +34,7 @@ public class GroupRead {
     @Column(nullable = false)
     boolean collective = false;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany
     @JoinTable(name = "collective_groups", joinColumns = @JoinColumn(name = "collective_group_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
     private Set<GroupRead> groups = new HashSet<>();
 
@@ -45,24 +44,11 @@ public class GroupRead {
     @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
     private Set<GroupLesson> lessons;
 
-    public void addGroup(GroupRead group){
-        if(groups.add(group)) {
-            group.getCollectiveGroups().add(this);
-        }
-    }
-
-    public void removeGroup(GroupRead group){
-        if(groups.remove(group)){
-            group.getCollectiveGroups().remove(this);
-        }
-    }
-
-    public void addGroups(Set<GroupRead> groupSet){
-        /*for (GroupRead group : groupSet) {
-            addGroup(group);
-        }*/
+    public void resolveGroups(Set<GroupRead> groupSet) {
+        groups.removeIf(group -> !groupSet.contains(group));
         groups.addAll(groupSet);
     }
+
 
     @Override
     public boolean equals(Object o) {
