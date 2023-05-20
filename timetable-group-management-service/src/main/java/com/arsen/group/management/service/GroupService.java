@@ -100,8 +100,8 @@ public class GroupService {
             return;
         }
 
-        if(ids != null && (groupRead.getGroups() != null && groupRead.getGroups().size() != ids.size())){
-            groupRead.addGroups(readGroups(ids));
+        if(ids != null && (groupRead.getGroups() != null)){
+            groupRead.resolveGroups(readGroups(ids));
         }
     }
 

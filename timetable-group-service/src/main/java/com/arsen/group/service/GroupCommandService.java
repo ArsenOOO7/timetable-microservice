@@ -10,6 +10,7 @@ import com.arsen.group.repository.GroupRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
@@ -60,10 +61,33 @@ public class GroupCommandService {
     public void delete(long id){
         Group group = groupReadService.readById(id);
         groupRepository.delete(group);
-        groupElasticService.delete(id);
+
+        if(!group.isCollective()) {
+            groupElasticService.delete(id);
+        }
+
         postUpdate(group, EntityStatus.DELETED);
     }
 
+
+    public void addGroup(long collectiveGroupId, long groupId){
+
+        Group collectiveGroup = groupReadService.readByIdWithGroups(collectiveGroupId);
+        Group group = groupReadService.readById(groupId);
+
+        collectiveGroup.addGroup(group);
+        collectiveGroup = groupRepository.save(collectiveGroup);
+        postUpdate(collectiveGroup, EntityStatus.UPDATED);
+    }
+
+    public void removeGroup(long collectiveGroupId, long groupId){
+        Group collectiveGroup = groupReadService.readByIdWithGroups(collectiveGroupId);
+        Group group = groupReadService.readById(groupId);
+
+        collectiveGroup.removeGroup(group);
+        collectiveGroup = groupRepository.save(collectiveGroup);
+        postUpdate(collectiveGroup, EntityStatus.UPDATED);
+    }
 
 
     private void groupCollective(Group group, Set<Long> groupIds){
