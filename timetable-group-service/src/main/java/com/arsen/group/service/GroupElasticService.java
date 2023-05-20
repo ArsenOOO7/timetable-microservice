@@ -26,6 +26,10 @@ public class GroupElasticService {
             throw new EntityNullReferenceException("Group cannot be null!");
         }
 
+        if(group.isCollective()){
+            return;
+        }
+
         GroupDocument groupDocument = groupMapper.toDocument(group);
         groupElasticRepository.save(groupDocument);
 
@@ -35,6 +39,10 @@ public class GroupElasticService {
     public void update(Group group){
         if(group == null){
             throw new EntityNullReferenceException("Group cannot be null!");
+        }
+
+        if(group.isCollective()){
+            return;
         }
 
         GroupDocument groupDocument = groupElasticRepository.findById(group.getId()).orElseThrow(() -> new EntityNotFoundException("Group with id " + group.getId() + " is not found!"));

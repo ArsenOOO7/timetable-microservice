@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -58,6 +59,18 @@ public class GroupController {
     @ResponseStatus(OK)
     public void delete(@PathVariable long id){
         groupCommandService.delete(id);
+    }
+
+    @PatchMapping("/{id}/{groupId}")
+    @ResponseStatus(OK)
+    public void addGroup(@PathVariable long id, @PathVariable long groupId){
+        groupCommandService.addGroup(id, groupId);
+    }
+
+    @DeleteMapping("/{id}/{groupId}")
+    @ResponseStatus(OK)
+    public void removeGroup(@PathVariable long id, @PathVariable long groupId){
+        groupCommandService.removeGroup(id, groupId);
     }
 
 }

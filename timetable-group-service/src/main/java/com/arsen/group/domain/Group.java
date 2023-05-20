@@ -49,7 +49,7 @@ public class Group {
     private boolean collective = false;
 
 
-    @ManyToMany(cascade = {CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST})
     @JoinTable(name = "collective_groups",
         joinColumns = @JoinColumn(name = "collective_group_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
     private Set<Group> groups = new HashSet<>();
