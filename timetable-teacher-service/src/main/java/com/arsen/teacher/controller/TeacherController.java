@@ -7,6 +7,7 @@ import com.arsen.teacher.dto.TeacherResultSearchDto;
 import com.arsen.teacher.service.TeacherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,7 @@ public class TeacherController {
     private final TeacherService teacherService;
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_UNIT_MANAGER')")
     public ResponseEntity<TeacherResponseDto> read(@PathVariable long id){
         return ResponseEntity.ok(teacherService.readById(id, true));
     }
@@ -39,6 +41,7 @@ public class TeacherController {
         return ResponseEntity.ok(teacherService.findAllByQuery(searchDto));
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_UNIT_MANAGER')")
     @PostMapping
     public ResponseEntity<TeacherResponseDto> create(/*@Valid*/ @RequestBody TeacherDto teacherDto){
         return ResponseEntity.status(CREATED).body(teacherService.create(teacherDto));
@@ -46,6 +49,7 @@ public class TeacherController {
 
     @PutMapping("/{id}")
     @ResponseStatus(OK)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_UNIT_MANAGER')")
     public void update(@PathVariable long id, /*@Valid*/ @RequestBody TeacherDto teacherDto){
         teacherService.update(id, teacherDto);
     }
@@ -53,6 +57,7 @@ public class TeacherController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(OK)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_UNIT_MANAGER')")
     public void delete(@PathVariable long id){
         teacherService.delete(id);
     }
