@@ -25,7 +25,6 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequestMapping("/api/classroom")
 @RequiredArgsConstructor
-@PreAuthorize(value = "hasAnyRole('ADMIN', 'UNIT_MANAGER')")
 public class ClassroomController {
 
     private final ClassroomService classroomService;
