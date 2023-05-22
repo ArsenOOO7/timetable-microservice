@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.arsen</groupId>
-	<artifactId>timetable-gateaway</artifactId>
+	<artifactId>timetable-gateway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>timetable-gateaway</name>
 	<description>timetable-gateaway</description>
