@@ -15,14 +15,9 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @Log4j2
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ErrorDto> entityNotFound(EntityNotFoundException notFoundException){
-        return getErrorDto(notFoundException, NOT_FOUND);
-    }
-
-    @ExceptionHandler(EntityNullReferenceException.class)
-    public ResponseEntity<ErrorDto> entityNull(EntityNullReferenceException entityNullReferenceException){
-        return getErrorDto(entityNullReferenceException, BAD_REQUEST);
+    @ExceptionHandler(TimetableException.class)
+    public ResponseEntity<ErrorDto> baseException(TimetableException exception){
+        return getErrorDto(exception, exception.getStatus());
     }
 
     @ExceptionHandler(Exception.class)
