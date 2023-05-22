@@ -1,8 +1,3 @@
-jwt:
-  token:
-    secret: secretJWTCypher
-    expires: 60
-    starts: Bearer
 server:
   port: 8090
 spring:

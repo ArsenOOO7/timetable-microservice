@@ -1,14 +1,12 @@
 package com.arsen.group;
 
 import com.arsen.common.annotation.EnableCommon;
-import com.arsen.common.annotation.EnableElasticsearch;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
-@EnableCommon
-@EnableElasticsearch
+@EnableCommon(elastic = true)
 @EnableDiscoveryClient
 public class TimetableGroupServiceApplication {
 

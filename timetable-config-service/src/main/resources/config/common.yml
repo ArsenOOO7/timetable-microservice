@@ -1,0 +1,5 @@
+jwt:
+  token:
+    secret: secretJWTCypher
+    expires: 60
+    starts: Bearer

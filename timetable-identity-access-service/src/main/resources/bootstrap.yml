@@ -4,5 +4,6 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
+      name: identity-access, common
   profiles:
     active: dev
