@@ -27,6 +27,8 @@ public class GroupConfig {
                 .cors().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/swagger/**").permitAll()
+                        .requestMatchers("/api/group/search").permitAll())
                 .formLogin().disable()
                 .addFilterBefore(jwtVerifyFilter, UsernamePasswordAuthenticationFilter.class)
                 .httpBasic()
