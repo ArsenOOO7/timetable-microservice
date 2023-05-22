@@ -33,30 +33,33 @@ spring:
           filters:
             - AuthenticationFilter
 
-        - id: group-management
-          uri: lb://group-management
-          predicates:
-            - Path=/api/group/management/**
-
         - id: groups
           uri: lb://groups
           predicates:
             - Path=/api/group/**
+          filters:
+            - AuthenticationFilter
 
         - id: subjects
           uri: lb://subjects
           predicates:
             - Path=/api/subject/**
+          filters:
+            - AuthenticationFilter
 
         - id: teachers
           uri: lb://teachers
           predicates:
             - Path=/api/teacher/**
+          filters:
+            - AuthenticationFilter
 
         - id: timetable
           uri: lb://timetable
           predicates:
             - Path=/api/timetable/**
+          filters:
+            - AuthenticationFilter
 
 management:
   endpoint:

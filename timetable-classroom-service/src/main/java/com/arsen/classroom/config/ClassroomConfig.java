@@ -27,11 +27,12 @@ public class ClassroomConfig {
                 .cors().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeHttpRequests(auth -> auth.anyRequest().hasAnyRole("ADMIN", "UNIT_MANAGER"))
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/swagger/**").permitAll()
+                        .requestMatchers("/api/**").hasAnyRole("ADMIN", "UNIT_MANAGER"))
                 .formLogin().disable()
                 .addFilterBefore(jwtVerifyFilter, UsernamePasswordAuthenticationFilter.class)
-                .httpBasic()
-                .and().build();
+                .httpBasic().and()
+                .build();
     }
 
 }
