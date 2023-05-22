@@ -1,6 +1,7 @@
 package com.arsen.timetable.dto;
 
 import com.arsen.timetable.domain.LessonType;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ public class LessonDto {
     private long teacherId;
     private long classroomId;
 
-
+    @Min(1)
     private short lessonNumber;
     private LocalDate lessonDate;
 

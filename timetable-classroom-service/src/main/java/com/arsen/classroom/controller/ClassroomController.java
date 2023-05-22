@@ -4,6 +4,7 @@ import com.arsen.classroom.dto.ClassroomDto;
 import com.arsen.classroom.dto.ClassroomResponseDto;
 import com.arsen.classroom.service.ClassroomService;
 import com.arsen.common.dto.SearchDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -36,7 +37,7 @@ public class ClassroomController {
 
 
     @PostMapping
-    public ResponseEntity<ClassroomResponseDto> create(@RequestBody ClassroomDto classroomDto) {
+    public ResponseEntity<ClassroomResponseDto> create(@Valid @RequestBody ClassroomDto classroomDto) {
         return ResponseEntity.status(CREATED).body(classroomService.create(classroomDto));
     }
 
@@ -48,7 +49,7 @@ public class ClassroomController {
 
     @PutMapping("/{id}")
     @ResponseStatus(OK)
-    public void update(@PathVariable long id, @RequestBody ClassroomDto classroomDto) {
+    public void update(@PathVariable long id, @Valid @RequestBody ClassroomDto classroomDto) {
         classroomService.update(id, classroomDto);
     }
 

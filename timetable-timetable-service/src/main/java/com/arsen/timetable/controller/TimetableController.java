@@ -5,6 +5,7 @@ import com.arsen.timetable.dto.LessonDto;
 import com.arsen.timetable.dto.LessonSearchDto;
 import com.arsen.timetable.dto.TimetableResponseDto;
 import com.arsen.timetable.service.LessonService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -42,13 +43,13 @@ public class TimetableController {
 
     @PostMapping
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_UNIT_MANAGER')")
-    public ResponseEntity<LessonCreatedBrieflyResponseDto> create(@RequestBody LessonDto lessonDto){
+    public ResponseEntity<LessonCreatedBrieflyResponseDto> create(@Valid @RequestBody LessonDto lessonDto){
         return ResponseEntity.status(CREATED).body(lessonService.create(lessonDto));
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_UNIT_MANAGER')")
-    public void update(@PathVariable long id, @RequestBody LessonDto lessonDto){
+    public void update(@PathVariable long id, @Valid @RequestBody LessonDto lessonDto){
         lessonService.update(id, lessonDto);
     }
 

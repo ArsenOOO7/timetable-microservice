@@ -4,6 +4,7 @@ import com.arsen.common.dto.SearchDto;
 import com.arsen.subject.dto.SubjectDto;
 import com.arsen.subject.dto.SubjectResponseDto;
 import com.arsen.subject.service.SubjectService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,7 +34,7 @@ public class SubjectController {
     }
 
     @PostMapping
-    public ResponseEntity<SubjectResponseDto> create(/*@Valid*/ @RequestBody SubjectDto subjectDto){
+    public ResponseEntity<SubjectResponseDto> create(@Valid @RequestBody SubjectDto subjectDto){
         return ResponseEntity.status(CREATED).body(subjectService.create(subjectDto));
     }
 
@@ -43,7 +44,7 @@ public class SubjectController {
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable long id, /*@Valid*/ @RequestBody SubjectDto subjectDto){
+    public void update(@PathVariable long id, @Valid @RequestBody SubjectDto subjectDto){
         subjectService.update(id, subjectDto);
     }
 

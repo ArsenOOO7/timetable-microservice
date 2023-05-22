@@ -5,6 +5,7 @@ import com.arsen.teacher.dto.TeacherDto;
 import com.arsen.teacher.dto.TeacherResponseDto;
 import com.arsen.teacher.dto.TeacherResultSearchDto;
 import com.arsen.teacher.service.TeacherService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -43,14 +44,14 @@ public class TeacherController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_UNIT_MANAGER')")
     @PostMapping
-    public ResponseEntity<TeacherResponseDto> create(/*@Valid*/ @RequestBody TeacherDto teacherDto){
+    public ResponseEntity<TeacherResponseDto> create(@Valid @RequestBody TeacherDto teacherDto){
         return ResponseEntity.status(CREATED).body(teacherService.create(teacherDto));
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(OK)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_UNIT_MANAGER')")
-    public void update(@PathVariable long id, /*@Valid*/ @RequestBody TeacherDto teacherDto){
+    public void update(@PathVariable long id, @Valid @RequestBody TeacherDto teacherDto){
         teacherService.update(id, teacherDto);
     }
 

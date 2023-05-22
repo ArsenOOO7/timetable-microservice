@@ -6,6 +6,7 @@ import com.arsen.group.dto.GroupResponseDto;
 import com.arsen.group.dto.GroupResultSearchDto;
 import com.arsen.group.service.GroupCommandService;
 import com.arsen.group.service.GroupReadService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,7 +36,7 @@ public class GroupController {
 
     @PostMapping
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_UNIT_MANAGER')")
-    public ResponseEntity<GroupResponseDto> create(@RequestBody GroupDto groupDto){
+    public ResponseEntity<GroupResponseDto> create(@Valid @RequestBody GroupDto groupDto){
         return ResponseEntity.status(CREATED).body(groupCommandService.create(groupDto));
     }
 
@@ -55,7 +56,7 @@ public class GroupController {
     @PutMapping("/{id}")
     @ResponseStatus(OK)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_UNIT_MANAGER')")
-    public void update(@PathVariable long id, @RequestBody GroupDto groupDto){
+    public void update(@PathVariable long id, @Valid @RequestBody GroupDto groupDto){
         groupCommandService.update(id, groupDto);
     }
 

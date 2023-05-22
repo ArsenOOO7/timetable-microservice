@@ -1,5 +1,6 @@
 package com.arsen.classroom.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,10 @@ import lombok.Setter;
 @Setter @Getter
 public class ClassroomDto {
 
-    private String name;
+    @NotBlank
     private String address;
+
+    @NotBlank
+    private String name;
 
 }
