@@ -1,0 +1,13 @@
+package com.arsen.identity.management;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class TimetableIdentityAccessServiceApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(TimetableIdentityAccessServiceApplication.class, args);
+	}
+
+}
