@@ -1,7 +1,7 @@
 package com.arsen.common.security;
 
 
-import co.elastic.clients.util.TriFunction;
+import com.arsen.common.functional.TriFunction;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;

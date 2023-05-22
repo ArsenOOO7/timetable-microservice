@@ -1,6 +1,6 @@
 package com.arsen.common.annotation;
 
-import com.arsen.common.config.CommonConfig;
+import com.arsen.common.selector.ComponentSelector;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -14,6 +14,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target(TYPE)
 
 @Configuration
-@Import(CommonConfig.class)
+@Import(ComponentSelector.class)
 public @interface EnableCommon {
+    boolean elastic() default false;
 }
