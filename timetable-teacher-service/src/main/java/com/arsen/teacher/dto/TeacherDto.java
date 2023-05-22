@@ -12,8 +12,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TeacherDto {
 
-    private long id;
-
     @NotNull
     private String firstName;
 
