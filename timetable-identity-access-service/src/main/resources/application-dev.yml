@@ -1,0 +1,8 @@
+spring:
+  flyway:
+    enabled: false
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create
+    generate-ddl: true

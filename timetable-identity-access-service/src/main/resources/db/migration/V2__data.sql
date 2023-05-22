@@ -1,0 +1,1 @@
+INSERT INTO users(email, password, role) VALUES('timetable.admin@pnu.edu.ua', '$2a$10$DTDIEvuoPwgSlKfm5kYk9uOuK2ZCHwJbSzYQQBtRNGhZoQHmCaekO', 'ADMIN');
