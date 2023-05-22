@@ -6,6 +6,7 @@ import com.arsen.classroom.service.ClassroomService;
 import com.arsen.common.dto.SearchDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequestMapping("/api/classroom")
 @RequiredArgsConstructor
+@PreAuthorize(value = "hasAnyRole('ADMIN', 'UNIT_MANAGER')")
 public class ClassroomController {
 
     private final ClassroomService classroomService;
