@@ -8,6 +8,7 @@ import com.arsen.group.service.GroupCommandService;
 import com.arsen.group.service.GroupReadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -33,12 +34,14 @@ public class GroupController {
     private final GroupReadService groupReadService;
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_UNIT_MANAGER')")
     public ResponseEntity<GroupResponseDto> create(@RequestBody GroupDto groupDto){
         return ResponseEntity.status(CREATED).body(groupCommandService.create(groupDto));
     }
 
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_UNIT_MANAGER')")
     public ResponseEntity<GroupResponseDto> read(@PathVariable long id){
         return ResponseEntity.ok(groupReadService.readByIdWithGroups(id, true));
     }
@@ -51,24 +54,28 @@ public class GroupController {
 
     @PutMapping("/{id}")
     @ResponseStatus(OK)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_UNIT_MANAGER')")
     public void update(@PathVariable long id, @RequestBody GroupDto groupDto){
         groupCommandService.update(id, groupDto);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(OK)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_UNIT_MANAGER')")
     public void delete(@PathVariable long id){
         groupCommandService.delete(id);
     }
 
     @PatchMapping("/{id}/{groupId}")
     @ResponseStatus(OK)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_UNIT_MANAGER')")
     public void addGroup(@PathVariable long id, @PathVariable long groupId){
         groupCommandService.addGroup(id, groupId);
     }
 
     @DeleteMapping("/{id}/{groupId}")
     @ResponseStatus(OK)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_UNIT_MANAGER')")
     public void removeGroup(@PathVariable long id, @PathVariable long groupId){
         groupCommandService.removeGroup(id, groupId);
     }

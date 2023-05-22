@@ -7,6 +7,7 @@ import com.arsen.timetable.dto.TimetableResponseDto;
 import com.arsen.timetable.service.LessonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,21 +41,25 @@ public class TimetableController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_UNIT_MANAGER')")
     public ResponseEntity<LessonCreatedBrieflyResponseDto> create(@RequestBody LessonDto lessonDto){
         return ResponseEntity.status(CREATED).body(lessonService.create(lessonDto));
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_UNIT_MANAGER')")
     public void update(@PathVariable long id, @RequestBody LessonDto lessonDto){
         lessonService.update(id, lessonDto);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_UNIT_MANAGER')")
     public void delete(@PathVariable long id){
         lessonService.delete(id);
     }
 
     @DeleteMapping("/{id}/{groupId}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_UNIT_MANAGER')")
     public void delete(@PathVariable long id, @PathVariable long groupId){
         lessonService.delete(id, groupId);
     }
