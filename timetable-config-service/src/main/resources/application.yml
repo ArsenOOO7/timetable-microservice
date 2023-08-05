@@ -2,7 +2,7 @@ server:
   port: 8888
 spring:
   profiles:
-    active: native
+    active: dev
   cloud:
     config:
       server:
@@ -11,4 +11,4 @@ spring:
           clone-on-start: true
           default-label: master
         native:
-          search-locations: classpath:/config
+          search-locations: classpath:../timetable-configuration
