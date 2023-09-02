@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  postgres_db:
+    image: postgres
+    container_name: postgres_db
+    ports:
+      - target: 5432
+        published: 5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  rabbitmq_db:
+    image: rabbitmq
+    container_name: rabbitmq_db
+    ports:
+      - target: 5672
+        published: 5672
+    environment:
+      - RABBITMQ_DEFAULT_USER=rabbitmq
+      - RABBITMQ_DEFAULT_PASS=rabbitmq
+
+  elasticsearch_db:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.9.1
+    container_name: elasticsearch_db
+    ports:
+      - target: 9200
+        published: 9200
+      - target: 9300
+        published: 9300
+    environment:
+      - ELASTIC_USERNAME=elasticsearch
+      - ELASTIC_PASSWORD=elasticsearch
+      - discovery.type=single-node
