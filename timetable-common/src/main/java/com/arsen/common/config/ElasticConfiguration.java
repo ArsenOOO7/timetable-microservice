@@ -15,9 +15,9 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 @EnableElasticsearchRepositories
 public class ElasticConfiguration {
 
-    @Value("${elasticsearch.address:localhost}")
+    @Value("${elasticsearch.address}")
     private String elasticAddress;
-    @Value("${elasticsearch.port:9200}")
+    @Value("${elasticsearch.port}")
     private int elasticPort;
 
     @Bean

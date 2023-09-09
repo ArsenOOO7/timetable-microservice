@@ -21,10 +21,10 @@ import java.util.Map;
 @Component
 public class JwtVerifyFilter extends OncePerRequestFilter {
 
-    @Value("${jwt.token.starts:Bearer}")
+    @Value("${jwt.token.starts}")
     private String tokenStart;
 
-    @Value("${jwt.token.secret:WeNeedAddDefaultValue}")
+    @Value("${jwt.token.secret}")
     private String secret;
 
     @Override
