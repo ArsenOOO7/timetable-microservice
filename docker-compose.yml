@@ -20,7 +20,7 @@ services:
       - RABBITMQ_DEFAULT_PASS=rabbitmq
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.9.1
+    image: elasticsearch:8.9.2
     container_name: elasticsearch
     ports:
       - 9200:9200
@@ -29,3 +29,4 @@ services:
       - ELASTIC_USERNAME=elasticsearch
       - ELASTIC_PASSWORD=elasticsearch
       - discovery.type=single-node
+      - xpack.security.enabled=false
