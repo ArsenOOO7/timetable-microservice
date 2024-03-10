@@ -1,8 +1,0 @@
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/teacher-service
-    username: postgres
-    password: postgres
-  sql:
-    init:
-      platform: postgres

@@ -1,8 +1,0 @@
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/timetable-service
-    username: postgres
-    password: postgres
-  sql:
-    init:
-      platform: postgres

@@ -1,9 +1,0 @@
-spring:
-  application:
-    name: group-management
-  cloud:
-    config:
-      uri: http://localhost:8888
-      name: group-management, common
-  profiles:
-    active: dev

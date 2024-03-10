@@ -1,9 +1,0 @@
-spring:
-  application:
-    name: teachers
-  cloud:
-    config:
-      uri: http://localhost:8888
-      name: teachers, common
-  profiles:
-    active: dev
