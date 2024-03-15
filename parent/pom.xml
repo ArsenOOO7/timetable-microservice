@@ -3,16 +3,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.pnu.system</groupId>
     <artifactId>parent-pom</artifactId>
     <packaging>pom</packaging>
-    <version>0.1</version>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.5</version>
-        <relativePath/>
+        <groupId>com.pnu.system</groupId>
+        <artifactId>spring-parent-pom</artifactId>
+        <version>0.1</version>
+        <relativePath>../spring-parent</relativePath>
     </parent>
 
     <properties>
