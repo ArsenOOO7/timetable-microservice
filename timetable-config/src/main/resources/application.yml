@@ -1,0 +1,15 @@
+server:
+  port: 7777
+
+spring:
+  application:
+    name: timetable-config-service
+  profiles:
+    active: local, native
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/ArsenOOO7/timetable-configuration
+          clone-on-start: true
+          basedir: timetable-config/target/config
