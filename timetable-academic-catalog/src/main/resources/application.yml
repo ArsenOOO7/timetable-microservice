@@ -1,0 +1,10 @@
+
+server:
+  port: 7002
+spring:
+  profiles:
+    active: local
+  application:
+    name: timetable-academic-catalog-ms
+  config:
+    import: configserver:${configUrl:http://localhost:7777}

@@ -1,0 +1,11 @@
+
+server:
+  port: 7001
+spring:
+  profiles:
+    active: local
+  application:
+    name: timetable-lesson-location-ms
+  config:
+    import: configserver:${configUrl:http://localhost:7777}
+
