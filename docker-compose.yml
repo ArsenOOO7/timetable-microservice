@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: "postgres:latest"
+    container_name: "timetable-postgres"
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  elasticsearch:
+    image: "elasticsearch:8.12.2"
+    container_name: "timetable-elasticsearch"
+    restart: unless-stopped
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - discovery=single-node
