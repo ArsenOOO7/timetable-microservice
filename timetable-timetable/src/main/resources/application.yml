@@ -1,0 +1,9 @@
+server:
+  port: 7004
+spring:
+  profiles:
+    active: local
+  application:
+    name: timetable-timetable-ms
+  config:
+    import: configserver:${configUrl:http://localhost:7777}

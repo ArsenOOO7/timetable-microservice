@@ -19,6 +19,7 @@
         <module>timetable-lesson-location</module>
         <module>timetable-academic-catalog</module>
         <module>timetable-group</module>
+        <module>timetable-timetable</module>
     </modules>
 
 </project>
