@@ -17,6 +17,7 @@
         <module>timetable-config</module>
         <module>timetable-identity-access</module>
         <module>timetable-lesson-location</module>
+        <module>timetable-academic-catalog</module>
     </modules>
 
 </project>
