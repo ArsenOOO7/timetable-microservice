@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: timetable-config-service
+    name: timetable-config-ms
   profiles:
     active: local, native
   cloud:
