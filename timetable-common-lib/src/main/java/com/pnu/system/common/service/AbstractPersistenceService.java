@@ -12,15 +12,16 @@ import java.util.List;
 @Transactional
 public abstract class AbstractPersistenceService<T extends BaseEntityProvider> {
 
-    public T getOne(String guid) {
-        T entity = getRepository().findById(guid)
-                .orElseThrow(() -> new EntityNotFoundException(guid, getEntityType().getSimpleName()));
-        initEntity(entity);
-        return entity;
+    public T getOne(String id) {
+        if (id == null) {
+            throw new EntityNotFoundException(null, getEntityType().getSimpleName());
+        }
+        return getRepository().findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(id, getEntityType().getSimpleName()));
     }
 
-    public T getCloned(String guid) {
-        return getCloned(getOne(guid));
+    public T getCloned(String id) {
+        return getCloned(getOne(id));
     }
 
     public T getCloned(T entity) {
@@ -64,8 +65,8 @@ public abstract class AbstractPersistenceService<T extends BaseEntityProvider> {
     }
 
     @Transactional
-    public void delete(String guid) {
-        delete(getOne(guid));
+    public void delete(String id) {
+        delete(getOne(id));
     }
 
     @Transactional

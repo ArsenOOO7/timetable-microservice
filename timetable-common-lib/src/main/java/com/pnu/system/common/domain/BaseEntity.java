@@ -14,7 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class BaseEntity implements BaseEntityProvider {
 
     @Id
-    @Column(name = "guid")
+    @Column(name = "id")
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
