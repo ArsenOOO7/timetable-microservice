@@ -6,9 +6,9 @@
 
     <parent>
         <groupId>com.pnu.system</groupId>
-        <artifactId>parent-pom</artifactId>
+        <artifactId>parent-jpa-pom</artifactId>
         <version>0.1</version>
-        <relativePath>../parent</relativePath>
+        <relativePath>../parent-jpa</relativePath>
     </parent>
 
     <artifactId>timetable-group</artifactId>
