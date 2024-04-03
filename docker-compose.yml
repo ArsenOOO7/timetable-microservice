@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   postgres:
-    image: "postgres:latest"
+    image: "postgres:16.2"
     container_name: "timetable-postgres"
     restart: unless-stopped
     ports:
@@ -10,6 +10,8 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   elasticsearch:
     image: "elasticsearch:8.12.2"
