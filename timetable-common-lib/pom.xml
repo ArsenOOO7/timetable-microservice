@@ -46,6 +46,11 @@
             <version>${querydsl.version}</version>
             <classifier>jakarta</classifier>
         </dependency>
+        <!--        TODO: Think about it-->
+        <dependency>
+            <groupId>org.hibernate.search</groupId>
+            <artifactId>hibernate-search-backend-elasticsearch</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
