@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="create-schema" author="arsen" context="local" dbms="postgresql">
+        <sqlFile path="db/init.sql" dbms="postgresql"/>
+    </changeSet>
+
+    <changeSet id="add_lesson_location" author="arsen">
+        <createTable tableName="lesson_location">
+            <column name="id" type="varchar(40)">
+                <constraints primaryKey="true" primaryKeyName="lesson_location_pk" nullable="false"/>
+            </column>
+            <column name="type_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add_location_type" author="arsen">
+        <createTable tableName="location_type">
+            <column name="id" type="varchar(40)">
+                <constraints primaryKey="true" primaryKeyName="location_type_pk" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="short_name" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add_lesson_location_fk" author="arsen">
+        <addForeignKeyConstraint baseTableName="lesson_location" baseColumnNames="type_id"
+                                 constraintName="lesson_location_fk1"
+                                 referencedTableName="location_type"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>
