@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1" author="JJerome">
+        <createTable tableName="user">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKeyName="user_pk" primaryKey="true"/>
+            </column>
+            <column name="first_name" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="user_role">
+            <column name="user_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex tableName="user_role" indexName="user_role_idx1">
+            <column name="user_id"/>
+        </createIndex>
+
+        <createTable tableName="role">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKeyName="user_role_pk" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="role_permission">
+            <column name="role_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="permission_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex tableName="role_permission" indexName="role_permission_idx1">
+            <column name="role_id"/>
+        </createIndex>
+
+        <createTable tableName="permission">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKeyName="permission_pk" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="group" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="student_group">
+            <column name="user_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="group_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex tableName="student_group" indexName="student_group_idx1">
+            <column name="user_id"/>
+        </createIndex>
+        <createIndex tableName="student_group" indexName="student_group_idx2">
+            <column name="group_id"/>
+        </createIndex>
+
+        <createTable tableName="teacher_profile">
+            <column name="user_id" type="varchar(40)">
+                <constraints nullable="false" primaryKeyName="teacher_profile_pk" primaryKey="true"/>
+            </column>
+            <column name="personal_link" type="varchar(255)"/>
+            <column name="academic_status_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="char_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex tableName="teacher_profile" indexName="teacher_profile_idx1">
+            <column name="academic_status_id"/>
+        </createIndex>
+        <createIndex tableName="teacher_profile" indexName="teacher_profile_idx2">
+            <column name="char_id"/>
+        </createIndex>
+
+        <createTable tableName="academic_status">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKeyName="academic_status_pk" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="short_name" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="add_setup_fk" author="JJerome">
+
+<!--    user_role    -->
+
+        <addForeignKeyConstraint baseTableName="user_role"
+                                 baseColumnNames="user_id"
+                                 constraintName="user_role_fk1"
+                                 referencedTableName="user"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="user_role"
+                                 baseColumnNames="role_id"
+                                 constraintName="user_role_fk2"
+                                 referencedTableName="role"
+                                 referencedColumnNames="id"/>
+
+<!--    role_permission    -->
+
+        <addForeignKeyConstraint baseTableName="role_permission"
+                                 baseColumnNames="role_id"
+                                 constraintName="role_permission_fk1"
+                                 referencedTableName="role"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="role_permission"
+                                 baseColumnNames="permission_id"
+                                 constraintName="role_permission_fk2"
+                                 referencedTableName="permission"
+                                 referencedColumnNames="id"/>
+
+<!--    student_group    -->
+
+        <addForeignKeyConstraint baseTableName="student_group"
+                                 baseColumnNames="user_id"
+                                 constraintName="student_group_fk1"
+                                 referencedTableName="user"
+                                 referencedColumnNames="id"/>
+
+<!--    teacher_profile    -->
+
+        <addForeignKeyConstraint baseTableName="teacher_profile"
+                                 baseColumnNames="academic_status_id"
+                                 constraintName="teacher_profile_fk1"
+                                 referencedTableName="academic_status"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>
