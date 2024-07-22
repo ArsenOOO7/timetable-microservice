@@ -2,7 +2,7 @@ server:
   port: 7004
 spring:
   profiles:
-    active: local
+    active: ${TIMETABLE_ACTIVE_PROFILE:local}
   application:
     name: timetable-timetable-ms
   config:
