@@ -129,11 +129,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
 
-    <changeSet id="add_setup_fk" author="JJerome">
 
-<!--    lesson    -->
+        <!--    lesson    -->
 
         <addForeignKeyConstraint baseTableName="lesson"
                                  baseColumnNames="lesson_location_id"
@@ -153,7 +151,7 @@
                                  referencedTableName="lesson_type"
                                  referencedColumnNames="id"/>
 
-<!--    lesson_group    -->
+        <!--    lesson_group    -->
 
         <addForeignKeyConstraint baseTableName="lesson_group"
                                  baseColumnNames="lesson_id"

@@ -125,11 +125,7 @@
             </column>
         </createTable>
 
-    </changeSet>
-
-    <changeSet id="add_setup_fk" author="JJerome">
-
-<!--    chair    -->
+        <!--    chair    -->
 
         <addForeignKeyConstraint baseTableName="chair"
                                  baseColumnNames="department_id"
@@ -137,7 +133,7 @@
                                  referencedTableName="department"
                                  referencedColumnNames="id"/>
 
-<!--    chair_specialties    -->
+        <!--    chair_specialties    -->
 
         <addForeignKeyConstraint baseTableName="chair_specialties"
                                  baseColumnNames="chair_id"
@@ -151,7 +147,7 @@
                                  referencedTableName="specialty"
                                  referencedColumnNames="id"/>
 
-<!--    specialty    -->
+        <!--    specialty    -->
 
         <addForeignKeyConstraint baseTableName="specialty"
                                  baseColumnNames="domain_id"
@@ -159,7 +155,7 @@
                                  referencedTableName="knowledge_domain"
                                  referencedColumnNames="id"/>
 
-<!--    educational_program    -->
+        <!--    educational_program    -->
 
         <addForeignKeyConstraint baseTableName="educational_program"
                                  baseColumnNames="specialty_id"
@@ -167,7 +163,7 @@
                                  referencedTableName="specialty"
                                  referencedColumnNames="id"/>
 
-<!--    subject    -->
+        <!--    subject    -->
 
         <addForeignKeyConstraint baseTableName="subject"
                                  baseColumnNames="educational_program_id"
@@ -175,6 +171,6 @@
                                  referencedTableName="educational_program"
                                  referencedColumnNames="id"/>
 
-    </changeSet>
 
+    </changeSet>
 </databaseChangeLog>

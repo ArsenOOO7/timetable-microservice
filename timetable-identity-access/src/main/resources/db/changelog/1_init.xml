@@ -135,11 +135,8 @@
             </column>
         </createTable>
 
-    </changeSet>
 
-    <changeSet id="add_setup_fk" author="JJerome">
-
-<!--    user_role    -->
+        <!--    user_role    -->
 
         <addForeignKeyConstraint baseTableName="user_role"
                                  baseColumnNames="user_id"
@@ -153,7 +150,7 @@
                                  referencedTableName="role"
                                  referencedColumnNames="id"/>
 
-<!--    role_permission    -->
+        <!--    role_permission    -->
 
         <addForeignKeyConstraint baseTableName="role_permission"
                                  baseColumnNames="role_id"
@@ -167,7 +164,7 @@
                                  referencedTableName="permission"
                                  referencedColumnNames="id"/>
 
-<!--    student_group    -->
+        <!--    student_group    -->
 
         <addForeignKeyConstraint baseTableName="student_group"
                                  baseColumnNames="user_id"
@@ -175,13 +172,14 @@
                                  referencedTableName="user"
                                  referencedColumnNames="id"/>
 
-<!--    teacher_profile    -->
+        <!--    teacher_profile    -->
 
         <addForeignKeyConstraint baseTableName="teacher_profile"
                                  baseColumnNames="academic_status_id"
                                  constraintName="teacher_profile_fk1"
                                  referencedTableName="academic_status"
                                  referencedColumnNames="id"/>
+
     </changeSet>
 
 </databaseChangeLog>

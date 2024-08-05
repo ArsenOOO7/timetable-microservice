@@ -80,11 +80,8 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
 
-    <changeSet id="add_setup_fk" author="JJerome">
-
-<!--    group    -->
+        <!--    group    -->
 
         <addForeignKeyConstraint baseTableName="group"
                                  baseColumnNames="parent_id"
@@ -92,7 +89,7 @@
                                  referencedTableName="group"
                                  referencedColumnNames="id"/>
 
-<!--    collective_group    -->
+        <!--    collective_group    -->
 
         <addForeignKeyConstraint baseTableName="collective_group"
                                  baseColumnNames="collective_group_id"
@@ -106,7 +103,7 @@
                                  referencedTableName="group"
                                  referencedColumnNames="id"/>
 
-<!--    group_category_link    -->
+        <!--    group_category_link    -->
 
         <addForeignKeyConstraint baseTableName="group_category_link"
                                  baseColumnNames="group_id"
