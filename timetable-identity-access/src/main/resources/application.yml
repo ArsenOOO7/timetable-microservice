@@ -3,7 +3,7 @@ server:
   port: 7000
 spring:
   profiles:
-    active: local
+    active: ${TIMETABLE_ACTIVE_PROFILE:local}
   application:
     name: timetable-identity-access-ms
   config:

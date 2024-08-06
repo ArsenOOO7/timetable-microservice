@@ -5,7 +5,7 @@ spring:
   application:
     name: timetable-config-ms
   profiles:
-    active: local, native
+    active: ${TIMETABLE_ACTIVE_PROFILE:local, native}
   cloud:
     config:
       server:
