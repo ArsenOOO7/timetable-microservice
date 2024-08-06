@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1" author="JJerome">
+        <createTable tableName="department">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKeyName="department_pk" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="short_name" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="chair">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKeyName="chair_pk" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="short_name" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="department_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex tableName="chair" indexName="chair_idx1">
+            <column name="department_id"/>
+        </createIndex>
+
+        <createTable tableName="chair_specialties">
+            <column name="chair_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="specialty_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex tableName="chair_specialties" indexName="chair_specialties_idx1">
+            <column name="chair_id"/>
+        </createIndex>
+        <createIndex tableName="chair_specialties" indexName="chair_specialties_idx2">
+            <column name="specialty_id"/>
+        </createIndex>
+
+        <createTable tableName="specialty">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKeyName="specialty_pk" primaryKey="true"/>
+            </column>
+            <column name="code" type="varchar(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="short_name" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="domain_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex tableName="specialty" indexName="specialty_idx1">
+            <column name="domain_id"/>
+        </createIndex>
+
+        <createTable tableName="knowledge_domain">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKeyName="knowledge_domain_pk" primaryKey="true"/>
+            </column>
+            <column name="code" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="educational_program">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKeyName="educational_program_pk" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="specialty_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="subject">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKeyName="subject_pk" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="educational_program_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <!--    chair    -->
+
+        <addForeignKeyConstraint baseTableName="chair"
+                                 baseColumnNames="department_id"
+                                 constraintName="chair_fk1"
+                                 referencedTableName="department"
+                                 referencedColumnNames="id"/>
+
+        <!--    chair_specialties    -->
+
+        <addForeignKeyConstraint baseTableName="chair_specialties"
+                                 baseColumnNames="chair_id"
+                                 constraintName="chair_specialties_fk1"
+                                 referencedTableName="chair"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="chair_specialties"
+                                 baseColumnNames="specialty_id"
+                                 constraintName="chair_specialties_fk2"
+                                 referencedTableName="specialty"
+                                 referencedColumnNames="id"/>
+
+        <!--    specialty    -->
+
+        <addForeignKeyConstraint baseTableName="specialty"
+                                 baseColumnNames="domain_id"
+                                 constraintName="specialty_fk1"
+                                 referencedTableName="knowledge_domain"
+                                 referencedColumnNames="id"/>
+
+        <!--    educational_program    -->
+
+        <addForeignKeyConstraint baseTableName="educational_program"
+                                 baseColumnNames="specialty_id"
+                                 constraintName="educational_program_fk1"
+                                 referencedTableName="specialty"
+                                 referencedColumnNames="id"/>
+
+        <!--    subject    -->
+
+        <addForeignKeyConstraint baseTableName="subject"
+                                 baseColumnNames="educational_program_id"
+                                 constraintName="subject_fk1"
+                                 referencedTableName="educational_program"
+                                 referencedColumnNames="id"/>
+
+
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1" author="JJerome">
+        <createTable tableName="group">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKeyName="group_pk" primaryKey="true"/>
+            </column>
+            <column name="parent_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="specialty_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="academic_year" type="smallint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="number" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex tableName="group" indexName="group_idx1">
+            <column name="parent_id"/>
+        </createIndex>
+        
+        <createTable tableName="collective_group">
+            <column name="collective_group_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="group_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex tableName="collective_group" indexName="collective_group_idx1">
+            <column name="collective_group_id"/>
+        </createIndex>
+        <createIndex tableName="collective_group" indexName="collective_group_idx2">
+            <column name="group_id"/>
+        </createIndex>
+
+
+        <createTable tableName="group_category_link">
+            <column name="group_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="group_category_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex tableName="group_category_link" indexName="group_category_link_idx1">
+            <column name="group_id"/>
+        </createIndex>
+        <createIndex tableName="group_category_link" indexName="group_category_link_idx2">
+            <column name="group_category_id"/>
+        </createIndex>
+
+        <createTable tableName="group_category">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKeyName="group_category_pk" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="short_name" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <!--    group    -->
+
+        <addForeignKeyConstraint baseTableName="group"
+                                 baseColumnNames="parent_id"
+                                 constraintName="group_fk1"
+                                 referencedTableName="group"
+                                 referencedColumnNames="id"/>
+
+        <!--    collective_group    -->
+
+        <addForeignKeyConstraint baseTableName="collective_group"
+                                 baseColumnNames="collective_group_id"
+                                 constraintName="collective_group_fk1"
+                                 referencedTableName="group"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="collective_group"
+                                 baseColumnNames="group_id"
+                                 constraintName="collective_group_fk2"
+                                 referencedTableName="group"
+                                 referencedColumnNames="id"/>
+
+        <!--    group_category_link    -->
+
+        <addForeignKeyConstraint baseTableName="group_category_link"
+                                 baseColumnNames="group_id"
+                                 constraintName="group_category_link_fk1"
+                                 referencedTableName="group"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="group_category_link"
+                                 baseColumnNames="group_category_id"
+                                 constraintName="group_category_link_fk2"
+                                 referencedTableName="group_category"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

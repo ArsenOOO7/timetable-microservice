@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1" author="JJerome">
+        <createTable tableName="lesson">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKeyName="lesson_pk" primaryKey="true"/>
+            </column>
+            <column name="date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="number" type="smallint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lesson_location_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="teacher_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subject_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="online" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex tableName="lesson" indexName="lesson_idx1">
+            <column name="lesson_location_id"/>
+        </createIndex>
+        <createIndex tableName="lesson" indexName="lesson_idx2">
+            <column name="teacher_id"/>
+        </createIndex>
+
+        <createTable tableName="lesson_type">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKeyName="lesson_type_pk" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="short_name" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="lesson_group">
+            <column name="lesson_id" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="group_id" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex tableName="lesson_group" indexName="lesson_group_idx1">
+            <column name="lesson_id"/>
+        </createIndex>
+        <createIndex tableName="lesson_group" indexName="lesson_group_idx2">
+            <column name="group_id"/>
+        </createIndex>
+
+        <createTable tableName="group_snapshot">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKeyName="group_snapshot_pk" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="lesson_location_snapshot">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKeyName="lesson_location_snapshot_pk" primaryKey="true"/>
+            </column>
+            <column name="type_short_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="varchar(255)"/>
+            <column name="deleted" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="user_snapshot">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKeyName="user_snapshot_pk" primaryKey="true"/>
+            </column>
+            <column name="first_name" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="persona_link" type="varchar(255)"/>
+            <column name="type" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="subject_snapshot">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKeyName="subject_snapshot_pk" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+
+        <!--    lesson    -->
+
+        <addForeignKeyConstraint baseTableName="lesson"
+                                 baseColumnNames="lesson_location_id"
+                                 constraintName="lesson_fk1"
+                                 referencedTableName="lesson_location_snapshot"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="lesson"
+                                 baseColumnNames="teacher_id"
+                                 constraintName="lesson_fk2"
+                                 referencedTableName="user_snapshot"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="lesson"
+                                 baseColumnNames="type_id"
+                                 constraintName="lesson_fk3"
+                                 referencedTableName="lesson_type"
+                                 referencedColumnNames="id"/>
+
+        <!--    lesson_group    -->
+
+        <addForeignKeyConstraint baseTableName="lesson_group"
+                                 baseColumnNames="lesson_id"
+                                 constraintName="lesson_group_fk1"
+                                 referencedTableName="lesson"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="lesson_group"
+                                 baseColumnNames="group_id"
+                                 constraintName="lesson_group_fk2"
+                                 referencedTableName="group_snapshot"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>
