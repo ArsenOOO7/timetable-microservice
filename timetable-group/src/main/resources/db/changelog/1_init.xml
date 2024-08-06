@@ -44,10 +44,10 @@
             </column>
         </createTable>
         <createIndex tableName="collective_group" indexName="collective_group_idx1">
-            <column name="collective_group_id"></column>
+            <column name="collective_group_id"/>
         </createIndex>
         <createIndex tableName="collective_group" indexName="collective_group_idx2">
-            <column name="group_id"></column>
+            <column name="group_id"/>
         </createIndex>
 
 
@@ -60,10 +60,10 @@
             </column>
         </createTable>
         <createIndex tableName="group_category_link" indexName="group_category_link_idx1">
-            <column name="group_id"></column>
+            <column name="group_id"/>
         </createIndex>
         <createIndex tableName="group_category_link" indexName="group_category_link_idx2">
-            <column name="group_category_id"></column>
+            <column name="group_category_id"/>
         </createIndex>
 
         <createTable tableName="group_category">
