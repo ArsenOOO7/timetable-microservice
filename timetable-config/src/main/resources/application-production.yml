@@ -1,0 +1,6 @@
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          default-label: master

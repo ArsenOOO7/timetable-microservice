@@ -1,0 +1,10 @@
+server:
+  port: 7000
+spring:
+  profiles:
+    active: ${TIMETABLE_ACTIVE_PROFILE:local}
+  application:
+    name: timetable-identity-access-ms
+  config:
+    import: configserver:${configUrl:http://localhost:7777}
+

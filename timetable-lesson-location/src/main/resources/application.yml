@@ -1,0 +1,15 @@
+server:
+  port: 7001
+spring:
+  profiles:
+    active: ${TIMETABLE_ACTIVE_PROFILE:local}
+  application:
+    name: timetable-lesson-location-ms
+  config:
+    import: configserver:${configUrl:http://localhost:7777}
+  jpa:
+    properties:
+      hibernate:
+        default_schema: lesson_location_microservice
+
+
