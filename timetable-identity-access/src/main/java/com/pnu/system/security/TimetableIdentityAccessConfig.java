@@ -1,4 +1,4 @@
-package com.pnu.system.secutiry;
+package com.pnu.system.security;
 
 import com.pnu.system.common.secutity.filter.TimetableSecurityFilter;
 import lombok.RequiredArgsConstructor;
