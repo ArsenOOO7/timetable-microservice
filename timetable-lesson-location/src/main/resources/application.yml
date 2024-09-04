@@ -1,4 +1,3 @@
-
 server:
   port: 7001
 spring:
@@ -8,4 +7,9 @@ spring:
     name: timetable-lesson-location-ms
   config:
     import: configserver:${configUrl:http://localhost:7777}
+  jpa:
+    properties:
+      hibernate:
+        default_schema: lesson_location_microservice
+
 
