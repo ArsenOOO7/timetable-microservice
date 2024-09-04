@@ -14,7 +14,7 @@ public class TimetableMethodSecurityConfig {
 
     @Bean
     public MethodSecurityExpressionHandler expressionHandler(TimetablePermissionEvaluator evaluator) {
-        var handler = new DefaultMethodSecurityExpressionHandler();
+        DefaultMethodSecurityExpressionHandler handler = new DefaultMethodSecurityExpressionHandler();
         handler.setPermissionEvaluator(evaluator);
         return handler;
     }

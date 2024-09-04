@@ -63,17 +63,14 @@ public class JwtUtils {
 
     public void authenticate(String header) {
         DecodedJWT decodedJWT = verifyToken(header);
-
         if (Objects.isNull(decodedJWT)) {
             return;
         }
 
         UserJWTDetails userDetails = getUserDetails(decodedJWT);
-
         List<GrantedAuthority> authorities = userDetails.getPermissions().stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(toUnmodifiableList());
-
         SecurityContextHolder.getContext()
                 .setAuthentication(new UsernamePasswordAuthenticationToken(userDetails, null, authorities));
     }

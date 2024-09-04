@@ -1,4 +1,4 @@
-package com.pnu.system.api.auth.dto;
+package com.pnu.system.api.dto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -8,5 +8,7 @@ import lombok.Setter;
 @Setter
 @Builder
 public class UserTokenResponse {
+
     private String token;
+
 }

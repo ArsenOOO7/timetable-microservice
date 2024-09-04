@@ -1,4 +1,4 @@
-package com.pnu.system.domain.enums;
+package com.pnu.system.constant;
 
 public enum RoleType {
     SUPER_ADMIN,

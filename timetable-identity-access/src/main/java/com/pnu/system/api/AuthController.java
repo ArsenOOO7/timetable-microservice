@@ -1,13 +1,11 @@
-package com.pnu.system.api.auth;
+package com.pnu.system.api;
 
-import com.pnu.system.api.auth.dto.UserCreateDto;
-import com.pnu.system.api.auth.dto.UserCredentialDto;
-import com.pnu.system.api.auth.dto.UserTokenResponse;
+import com.pnu.system.api.dto.UserCreateDto;
+import com.pnu.system.api.dto.UserCredentialDto;
+import com.pnu.system.api.dto.UserTokenResponse;
 import com.pnu.system.domain.User;
 import com.pnu.system.service.AuthService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

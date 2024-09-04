@@ -1,6 +1,7 @@
 package com.pnu.system.repository;
 
 import com.pnu.system.domain.Permission;
+import com.pnu.system.domain.QUser;
 import com.pnu.system.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,6 +13,8 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
 
+    QUser qUser = QUser.user;
+
     Optional<User> findByEmail(String email);
 
     @Query("""
@@ -21,4 +24,5 @@ public interface UserRepository extends JpaRepository<User, String> {
             WHERE u.id = :userId
             """)
     List<Permission> findPermissionsByUserId(String userId);
+
 }

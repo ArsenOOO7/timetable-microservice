@@ -8,5 +8,7 @@ import java.util.List;
 @Getter
 @Setter
 public class UserJWTDetails extends BaseEntity {
+
     private List<String> permissions;
+
 }
