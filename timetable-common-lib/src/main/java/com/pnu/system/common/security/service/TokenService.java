@@ -1,6 +1,6 @@
-package com.pnu.system.common.secutity.service;
+package com.pnu.system.common.security.service;
 
-import com.pnu.system.common.secutity.model.UserDetails;
+import com.pnu.system.common.security.model.UserDetails;
 import com.pnu.system.common.utils.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-import static com.pnu.system.common.secutity.constant.TokenClaims.CLAIM_KEY_PERMISSIONS;
+import static com.pnu.system.common.security.constant.TokenClaims.CLAIM_KEY_PERMISSIONS;
 
 
 @Service

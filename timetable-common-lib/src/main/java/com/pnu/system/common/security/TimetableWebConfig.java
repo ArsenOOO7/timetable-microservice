@@ -1,4 +1,4 @@
-package com.pnu.system.common.secutity;
+package com.pnu.system.common.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.pnu.system.common.secutity.constant;
+package com.pnu.system.common.security.constant;
 
 public class TokenClaims {
 

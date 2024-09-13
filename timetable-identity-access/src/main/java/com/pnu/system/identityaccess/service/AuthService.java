@@ -2,13 +2,14 @@ package com.pnu.system.identityaccess.service;
 
 import com.pnu.system.common.constant.PermissionName;
 import com.pnu.system.common.exception.EntityNotFoundException;
-import com.pnu.system.common.secutity.model.UserDetails;
+import com.pnu.system.common.security.model.UserDetails;
 import com.pnu.system.common.utils.BeanUtils;
 import com.pnu.system.common.utils.JwtUtils;
 import com.pnu.system.common.utils.UserUtils;
 import com.pnu.system.identityaccess.api.dto.UserCredentialDto;
 import com.pnu.system.identityaccess.api.dto.UserTokenResponse;
 import com.pnu.system.identityaccess.api.dto.UserWhoamiResponseDto;
+import com.pnu.system.identityaccess.domain.Permission;
 import com.pnu.system.identityaccess.domain.User;
 import com.pnu.system.identityaccess.mapper.AuthMapper;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +32,14 @@ public class AuthService {
 
         UserDetails userDetails = new UserDetails();
         userDetails.setId(user.getId());
-        userDetails.setPermissions(roleService.getPermissionNamesByRoleIds(BeanUtils.getIds(user.getRoles())));
+
+        List<String> permissions = user.getRoles().stream().flatMap(role -> role.getPermissions().stream())
+                .map(Permission::getName)
+                .map(PermissionName::name)
+                .distinct()
+                .toList();
+
+        userDetails.setPermissions(permissions);
 
         return authMapper.asUserTokenResponse(jwtUtils.generateToken(userDetails));
     }

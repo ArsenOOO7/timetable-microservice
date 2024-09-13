@@ -1,6 +1,6 @@
-package com.pnu.system.common.secutity;
+package com.pnu.system.common.security;
 
-import com.pnu.system.common.secutity.filter.TimetableSecurityFilter;
+import com.pnu.system.common.security.filter.TimetableSecurityFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

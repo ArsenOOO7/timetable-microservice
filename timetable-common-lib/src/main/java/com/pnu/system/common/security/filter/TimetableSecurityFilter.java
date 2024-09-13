@@ -1,6 +1,6 @@
-package com.pnu.system.common.secutity.filter;
+package com.pnu.system.common.security.filter;
 
-import com.pnu.system.common.secutity.service.TokenService;
+import com.pnu.system.common.security.service.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,6 +1,6 @@
 package com.pnu.system.identityaccess.security;
 
-import com.pnu.system.common.secutity.TimetableCommonWebSecurityConfig;
+import com.pnu.system.common.security.TimetableCommonWebSecurityConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

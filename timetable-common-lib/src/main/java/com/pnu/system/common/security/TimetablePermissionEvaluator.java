@@ -1,4 +1,4 @@
-package com.pnu.system.common.secutity;
+package com.pnu.system.common.security;
 
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;

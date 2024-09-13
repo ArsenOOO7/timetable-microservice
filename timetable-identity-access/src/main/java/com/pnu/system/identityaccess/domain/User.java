@@ -1,8 +1,11 @@
 package com.pnu.system.identityaccess.domain;
 
+import com.pnu.system.common.constant.UserType;
 import com.pnu.system.common.domain.VersionEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -10,6 +13,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +23,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "user")
+@Table(name = "app_user")
 public class User extends VersionEntity {
 
     @Column(name = "first_name")
@@ -29,6 +33,10 @@ public class User extends VersionEntity {
     @NotBlank
     @Column(name = "email")
     private String email;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
+    private UserType type;
     @NotEmpty
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

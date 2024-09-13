@@ -11,7 +11,7 @@
 
 
     <changeSet id="1" author="JJerome">
-        <createTable tableName="user">
+        <createTable tableName="app_user">
             <column name="id" type="varchar(40)">
                 <constraints nullable="false" primaryKeyName="user_pk" primaryKey="true"/>
             </column>
@@ -49,7 +49,7 @@
 
         <createTable tableName="role">
             <column name="id" type="varchar(40)">
-                <constraints nullable="false" primaryKeyName="user_role_pk" primaryKey="true"/>
+                <constraints nullable="false" primaryKeyName="role_pk" primaryKey="true"/>
             </column>
             <column name="name" type="varchar(64)">
                 <constraints nullable="false"/>
@@ -147,7 +147,7 @@
         <addForeignKeyConstraint baseTableName="user_role"
                                  baseColumnNames="user_id"
                                  constraintName="user_role_fk1"
-                                 referencedTableName="user"
+                                 referencedTableName="app_user"
                                  referencedColumnNames="id"/>
 
         <addForeignKeyConstraint baseTableName="user_role"
@@ -175,7 +175,7 @@
         <addForeignKeyConstraint baseTableName="student_group"
                                  baseColumnNames="user_id"
                                  constraintName="student_group_fk1"
-                                 referencedTableName="user"
+                                 referencedTableName="app_user"
                                  referencedColumnNames="id"/>
 
         <!--    teacher_profile    -->

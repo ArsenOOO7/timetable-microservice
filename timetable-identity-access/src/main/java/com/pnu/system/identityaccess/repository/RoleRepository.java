@@ -20,7 +20,7 @@ public interface RoleRepository extends JpaRepository<Role, String> {
         return QueryDslFactory.getQueryFactory()
                 .select(qPermission.name)
                 .from(qRole)
-                .innerJoin(qRole.permissions)
+                .innerJoin(qRole.permissions, qPermission)
                 .where(qRole.id.in(roleIds))
                 .fetch();
     }
