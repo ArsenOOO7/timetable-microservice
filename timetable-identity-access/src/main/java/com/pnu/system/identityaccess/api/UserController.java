@@ -1,6 +1,6 @@
 package com.pnu.system.identityaccess.api;
 
-import com.pnu.system.identityaccess.domain.User;
+import com.pnu.system.identityaccess.api.dto.UserPreviewDto;
 import com.pnu.system.identityaccess.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +16,8 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping
-    public List<User> getUsers() {
-        return userService.getAllUsers();
+    @GetMapping("/list")
+    public List<UserPreviewDto> getUsers() {
+        return userService.getPreviewUsers();
     }
 }

@@ -1,6 +1,7 @@
 package com.pnu.system.identityaccess.service;
 
 import com.pnu.system.common.service.AbstractPersistenceService;
+import com.pnu.system.identityaccess.api.dto.UserPreviewDto;
 import com.pnu.system.identityaccess.domain.User;
 import com.pnu.system.identityaccess.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +17,8 @@ public class UserService extends AbstractPersistenceService<User> {
 
     private final UserRepository userRepository;
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserPreviewDto> getPreviewUsers() {
+        return userRepository.getPreviewUsers();
     }
 
     public Optional<User> getByEmail(String email) {
