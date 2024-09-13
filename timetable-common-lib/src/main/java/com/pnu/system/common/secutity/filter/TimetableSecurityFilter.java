@@ -1,6 +1,6 @@
 package com.pnu.system.common.secutity.filter;
 
-import com.pnu.system.common.utils.JwtUtils;
+import com.pnu.system.common.secutity.service.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,11 +16,12 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 @Component
 @RequiredArgsConstructor
 public class TimetableSecurityFilter extends OncePerRequestFilter {
-    private final JwtUtils jwtUtils;
+
+    private final TokenService tokenService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        jwtUtils.authenticate(request.getHeader(AUTHORIZATION));
+        tokenService.authenticate(request.getHeader(AUTHORIZATION));
         filterChain.doFilter(request, response);
     }
 }
