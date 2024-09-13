@@ -1,6 +1,6 @@
 package com.pnu.system.identityaccess.domain;
 
-import com.pnu.system.common.domain.BaseEntity;
+import com.pnu.system.common.domain.VersionEntity;
 import com.pnu.system.identityaccess.constant.RoleType;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -25,7 +25,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "role")
-public class Role extends BaseEntity {
+public class Role extends VersionEntity {
 
     @NotBlank
     @Max(60)
@@ -43,8 +43,5 @@ public class Role extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "permission_id")
     )
     private List<Permission> permissions;
-    @NotNull
-    @Column(name = "version")
-    private Integer version;
 
 }

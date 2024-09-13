@@ -20,5 +20,10 @@ public enum PermissionName {
     LESSON_SEARCH,
     LESSON_RESTRICTED_SEARCH,
     LESSON_ANALYTICS,
-    LESSON_PERSONAL_ANALYTICS,
+    LESSON_PERSONAL_ANALYTICS;
+
+    @Override
+    public String toString() {
+        return name();
+    }
 }

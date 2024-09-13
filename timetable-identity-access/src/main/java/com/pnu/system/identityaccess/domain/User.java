@@ -1,6 +1,6 @@
 package com.pnu.system.identityaccess.domain;
 
-import com.pnu.system.common.domain.BaseEntity;
+import com.pnu.system.common.domain.VersionEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -10,7 +10,6 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +20,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "user")
-public class User extends BaseEntity {
+public class User extends VersionEntity {
 
     @Column(name = "first_name")
     private String firstName;
@@ -41,9 +40,6 @@ public class User extends BaseEntity {
     @NotBlank
     @Column(name = "password")
     private String password;
-    @NotNull
-    @Column(name = "version")
-    private Integer version;
 
     public List<Role> getRoles() {
         if (roles == null) {
