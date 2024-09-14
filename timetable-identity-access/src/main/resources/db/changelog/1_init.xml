@@ -109,12 +109,8 @@
                 <constraints nullable="false" primaryKeyName="teacher_profile_pk" primaryKey="true"/>
             </column>
             <column name="personal_link" type="varchar(255)"/>
-            <column name="academic_status_id" type="varchar(40)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="char_id" type="varchar(40)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="academic_status_id" type="varchar(40)"/>
+            <column name="chair_id" type="varchar(40)"/>
             <column name="version" type="integer">
                 <constraints nullable="false"/>
             </column>

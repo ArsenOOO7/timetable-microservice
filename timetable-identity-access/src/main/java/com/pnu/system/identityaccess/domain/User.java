@@ -2,7 +2,9 @@ package com.pnu.system.identityaccess.domain;
 
 import com.pnu.system.common.constant.UserType;
 import com.pnu.system.common.domain.VersionEntity;
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -45,6 +47,9 @@ public class User extends VersionEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<Role> roles;
+    @ElementCollection
+    @CollectionTable(name = "student_group", joinColumns = @JoinColumn(name = "user_id"))
+    private List<String> groupIds;
     @NotBlank
     @Column(name = "password")
     private String password;

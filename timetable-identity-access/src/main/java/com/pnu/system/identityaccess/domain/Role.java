@@ -19,6 +19,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -36,7 +37,7 @@ public class Role extends VersionEntity {
     @Column(name = "type")
     private RoleType type;
     @NotEmpty
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinTable(
             name = "role_permission",
             joinColumns = @JoinColumn(name = "role_id"),
@@ -44,4 +45,10 @@ public class Role extends VersionEntity {
     )
     private List<Permission> permissions;
 
+    public List<Permission> getPermissions() {
+        if (permissions == null) {
+            permissions = new ArrayList<>();
+        }
+        return permissions;
+    }
 }
