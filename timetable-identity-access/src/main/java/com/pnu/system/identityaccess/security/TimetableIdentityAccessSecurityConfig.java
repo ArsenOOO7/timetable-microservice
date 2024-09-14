@@ -13,7 +13,7 @@ import static com.pnu.system.common.constant.PermissionName.USER_EDIT;
 @Slf4j
 @Configuration
 @EnableWebSecurity
-public class TimetableIdentityAccessConfig extends TimetableCommonWebSecurityConfig {
+public class TimetableIdentityAccessSecurityConfig extends TimetableCommonWebSecurityConfig {
 
     @Override
     protected void configreHttpRequests(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry registry) {
