@@ -13,11 +13,4 @@
 
     <artifactId>timetable-identity-access</artifactId>
     <version>0.1</version>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
-        </dependency>
-    </dependencies>
-
 </project>

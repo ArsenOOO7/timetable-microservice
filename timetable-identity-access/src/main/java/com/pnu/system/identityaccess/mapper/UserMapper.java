@@ -9,5 +9,4 @@ public interface UserMapper {
 
     User asUser(UserCreateDto userCreateDto);
 
-
 }

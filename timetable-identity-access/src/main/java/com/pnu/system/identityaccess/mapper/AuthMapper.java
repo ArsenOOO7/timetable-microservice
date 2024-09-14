@@ -15,4 +15,6 @@ public interface AuthMapper {
 
     UserTokenResponse asUserTokenResponse(String token);
 
+    List<String> asStringPermissionNames(List<PermissionName> permissions);
+
 }
