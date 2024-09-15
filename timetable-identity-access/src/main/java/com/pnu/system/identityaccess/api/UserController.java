@@ -4,11 +4,15 @@ import com.pnu.system.identityaccess.api.dto.UserCreateRequest;
 import com.pnu.system.identityaccess.api.dto.UserPreviewDto;
 import com.pnu.system.identityaccess.api.dto.UserResponseDto;
 import com.pnu.system.identityaccess.api.dto.UserUpdateRequest;
+import com.pnu.system.identityaccess.api.validator.UserCreateValidator;
+import com.pnu.system.identityaccess.api.validator.UserUpdateValidator;
 import com.pnu.system.identityaccess.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,8 +28,18 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final UserCreateValidator userCreateValidator;
+    private final UserUpdateValidator userUpdateValidator;
 
-    //TODO: Add validation!! @JJerome
+    @InitBinder("userCreateRequest")
+    public void initUserCreateRequestBinder(WebDataBinder binder) {
+        binder.addValidators(userCreateValidator);
+    }
+
+    @InitBinder("userCreateRequest")
+    public void initUserUpdateRequestBinder(WebDataBinder binder) {
+        binder.addValidators(userUpdateValidator);
+    }
 
     @PostMapping
     public UserResponseDto create(@Valid @RequestBody UserCreateRequest userCreateRequest) {
