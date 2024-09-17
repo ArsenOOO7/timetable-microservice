@@ -36,7 +36,7 @@ public class UserController {
         binder.addValidators(userCreateValidator);
     }
 
-    @InitBinder("userCreateRequest")
+    @InitBinder("userUpdateRequest")
     public void initUserUpdateRequestBinder(WebDataBinder binder) {
         binder.addValidators(userUpdateValidator);
     }

@@ -36,7 +36,11 @@ public class UserService extends AbstractPersistenceService<User> {
     }
 
     public UserResponseDto update(UserUpdateRequest userUpdateRequest) {
+        User existent = getOne(userUpdateRequest.getId());
         User user = mapper.asUser(userUpdateRequest);
+
+        user.setPassword(existent.getPassword());
+
         assignRoles2User(user, userUpdateRequest.getRoleIds());
         User updated = super.update(user);
         createTeacherProfile(updated);

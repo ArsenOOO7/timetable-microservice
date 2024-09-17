@@ -29,4 +29,7 @@ public class UserUpdateRequest {
     private List<String> roleIds;
     private List<String> groupIds;
 
+    @NotNull
+    private Integer version;
+
 }

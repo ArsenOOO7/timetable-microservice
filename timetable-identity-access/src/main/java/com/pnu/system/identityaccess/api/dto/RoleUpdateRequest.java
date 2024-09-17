@@ -17,6 +17,7 @@ public class RoleUpdateRequest {
     @NotNull
     private RoleType type;
     private List<String> permissionIds;
+    @NotNull
     private Integer version;
 
 }
