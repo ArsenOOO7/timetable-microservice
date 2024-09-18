@@ -1,6 +1,6 @@
-package com.pnu.system.repository;
+package com.pnu.system.lessonlocation.repository;
 
-import com.pnu.system.domain.LessonLocation;
+import com.pnu.system.lessonlocation.domain.LessonLocation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

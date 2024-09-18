@@ -17,6 +17,6 @@ public class UserResponseDto {
     private UserType type;
     private List<String> groupIds;
     private List<UserRoleDto> roles;
-    private int version;
+    private Integer version;
 
 }

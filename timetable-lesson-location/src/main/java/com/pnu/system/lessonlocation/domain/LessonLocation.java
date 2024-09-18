@@ -1,7 +1,7 @@
-package com.pnu.system.domain;
+package com.pnu.system.lessonlocation.domain;
 
 
-import com.pnu.system.common.domain.BaseEntity;
+import com.pnu.system.common.domain.VersionEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "lesson_location")
-public class LessonLocation extends BaseEntity {
+public class LessonLocation extends VersionEntity {
     @OneToOne
     @JoinColumn(name = "type_id")
     private LocationType locationType;
@@ -24,6 +24,4 @@ public class LessonLocation extends BaseEntity {
     private String name;
     @Column(name = "address")
     private String address;
-    @Column(name = "version")
-    private Integer version;
 }

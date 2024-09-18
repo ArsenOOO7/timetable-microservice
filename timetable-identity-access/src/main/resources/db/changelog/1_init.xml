@@ -119,7 +119,7 @@
             <column name="academic_status_id"/>
         </createIndex>
         <createIndex tableName="teacher_profile" indexName="teacher_profile_idx2">
-            <column name="char_id"/>
+            <column name="chair_id"/>
         </createIndex>
 
         <createTable tableName="academic_status">
