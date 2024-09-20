@@ -1,6 +1,6 @@
 package com.pnu.system.lessonlocation.service;
 
-import com.pnu.system.common.exception.InvalidParameterException;
+import com.pnu.system.common.exception.ValidationException;
 import com.pnu.system.common.service.AbstractPersistenceService;
 import com.pnu.system.lessonlocation.api.dto.LessonLocationTypeCreateRequest;
 import com.pnu.system.lessonlocation.api.dto.LessonLocationTypeResponseDto;
@@ -42,8 +42,7 @@ public class LocationTypeService extends AbstractPersistenceService<LocationType
     @Override
     public void delete(LocationType entity) {
         if (lessonLocationRepository.existsByLocationTypeId(entity.getId())) {
-            //TODO: create validation exception
-            throw new InvalidParameterException("Some error");
+            throw new ValidationException("Lesson Location Type is used in Lesson Location.");
         }
         super.delete(entity);
     }
