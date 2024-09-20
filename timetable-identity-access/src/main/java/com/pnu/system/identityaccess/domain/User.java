@@ -13,9 +13,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,14 +29,11 @@ public class User extends VersionEntity {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @NotBlank
     @Column(name = "email")
     private String email;
-    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private UserType type;
-    @NotEmpty
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
@@ -50,7 +44,6 @@ public class User extends VersionEntity {
     @ElementCollection
     @CollectionTable(name = "student_group", joinColumns = @JoinColumn(name = "user_id"))
     private List<String> groupIds;
-    @NotBlank
     @Column(name = "password")
     private String password;
 

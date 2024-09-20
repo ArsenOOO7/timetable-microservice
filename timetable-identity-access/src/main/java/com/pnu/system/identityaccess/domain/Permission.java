@@ -9,7 +9,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
@@ -17,15 +16,12 @@ import lombok.Getter;
 @Table(name = "permission")
 public class Permission extends BaseEntity {
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "name")
     private PermissionName name;
-    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "group")
     private PermissionGroup group;
-    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private RoleType type;

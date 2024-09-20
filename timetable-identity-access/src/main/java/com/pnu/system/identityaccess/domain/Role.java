@@ -12,10 +12,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,15 +24,11 @@ import java.util.List;
 @Table(name = "role")
 public class Role extends VersionEntity {
 
-    @NotBlank
-    @Max(60)
     @Column(name = "name")
     private String name;
-    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private RoleType type;
-    @NotEmpty
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinTable(
             name = "role_permission",

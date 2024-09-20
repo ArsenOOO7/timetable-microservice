@@ -10,7 +10,6 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,7 +30,6 @@ public class TeacherProfile implements BaseEntityProvider {
     private String academicStatusId;
     @Column(name = "chair_id")
     private String chairId;
-    @NotNull
     @Version
     @Column(name = "version")
     private Integer version;
