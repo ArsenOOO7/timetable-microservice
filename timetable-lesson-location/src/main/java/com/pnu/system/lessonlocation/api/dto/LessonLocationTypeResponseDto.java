@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class LessonLocationTypeDto {
+public class LessonLocationTypeResponseDto {
     private String id;
     private String name;
     private String shortName;

@@ -1,7 +1,7 @@
 package com.pnu.system.lessonlocation.api;
 
 import com.pnu.system.lessonlocation.api.dto.LessonLocationTypeCreateDto;
-import com.pnu.system.lessonlocation.api.dto.LessonLocationTypeDto;
+import com.pnu.system.lessonlocation.api.dto.LessonLocationTypeResponseDto;
 import com.pnu.system.lessonlocation.api.dto.LessonLocationTypeUpdateDto;
 import com.pnu.system.lessonlocation.service.LocationTypeService;
 import lombok.RequiredArgsConstructor;
@@ -24,17 +24,17 @@ public class LessonLocationTypeController {
     private final LocationTypeService locationTypeService;
 
     @PostMapping
-    public LessonLocationTypeDto create(@RequestBody LessonLocationTypeCreateDto lessonLocationTypeCreateDto) {
+    public LessonLocationTypeResponseDto create(@RequestBody LessonLocationTypeCreateDto lessonLocationTypeCreateDto) {
         return locationTypeService.create(lessonLocationTypeCreateDto);
     }
 
     @PutMapping
-    public LessonLocationTypeDto update(@RequestBody LessonLocationTypeUpdateDto lessonLocationTypeUpdateDto) {
+    public LessonLocationTypeResponseDto update(@RequestBody LessonLocationTypeUpdateDto lessonLocationTypeUpdateDto) {
         return locationTypeService.update(lessonLocationTypeUpdateDto);
     }
 
     @GetMapping("/{id}")
-    public LessonLocationTypeDto getById(@PathVariable String id) {
+    public LessonLocationTypeResponseDto getById(@PathVariable String id) {
         return locationTypeService.getById(id);
     }
 
@@ -44,7 +44,7 @@ public class LessonLocationTypeController {
     }
 
     @GetMapping("/list")
-    public List<LessonLocationTypeDto> getAll() {
+    public List<LessonLocationTypeResponseDto> getAll() {
         return locationTypeService.getAll();
     }
 }

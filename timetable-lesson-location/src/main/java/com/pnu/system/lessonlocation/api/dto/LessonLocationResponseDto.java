@@ -7,9 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class LessonLocationDto {
+public class LessonLocationResponseDto {
     private String id;
-    private LessonLocationTypeDto locationType;
+    private LessonLocationTypeResponseDto locationType;
     private String name;
     private String address;
     private Integer version;
