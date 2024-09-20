@@ -13,8 +13,10 @@ import lombok.Setter;
 @Entity
 @Table(name = "location_type")
 public class LocationType extends VersionEntity {
+
     @Column(name = "name")
     private String name;
     @Column(name = "short_name")
     private String shortName;
+
 }

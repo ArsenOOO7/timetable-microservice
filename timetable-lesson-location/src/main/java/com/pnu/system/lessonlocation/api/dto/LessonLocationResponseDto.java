@@ -8,9 +8,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class LessonLocationResponseDto {
+
     private String id;
     private LessonLocationTypeResponseDto locationType;
     private String name;
     private String address;
     private Integer version;
+
 }

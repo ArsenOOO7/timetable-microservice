@@ -12,6 +12,7 @@ import java.util.List;
 
 @Repository
 public interface LocationTypeRepository extends JpaRepository<LocationType, String> {
+
     QLocationType qLocationType = QLocationType.locationType;
 
     default List<LessonLocationTypeResponseDto> getAll() {

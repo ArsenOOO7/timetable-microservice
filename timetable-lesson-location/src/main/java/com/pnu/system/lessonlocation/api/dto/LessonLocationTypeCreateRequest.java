@@ -1,17 +1,19 @@
 package com.pnu.system.lessonlocation.api.dto;
 
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class LessonLocationTypeCreateDto {
+public class LessonLocationTypeCreateRequest {
+
     @NotBlank
-    @Max(255)
+    @Size(max = 255)
     private String name;
     @NotBlank
-    @Max(32)
+    @Size(max = 32)
     private String shortName;
+
 }

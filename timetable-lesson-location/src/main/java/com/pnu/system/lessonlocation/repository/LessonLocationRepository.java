@@ -1,5 +1,6 @@
 package com.pnu.system.lessonlocation.repository;
 
+import com.pnu.system.common.dto.BaseSearchRequest;
 import com.pnu.system.common.utils.QueryDslFactory;
 import com.pnu.system.lessonlocation.api.dto.LessonLocationResponseDto;
 import com.pnu.system.lessonlocation.api.dto.LessonLocationTypeResponseDto;
@@ -14,10 +15,13 @@ import java.util.List;
 
 @Repository
 public interface LessonLocationRepository extends JpaRepository<LessonLocation, String> {
+
     QLessonLocation qLessonLocation = QLessonLocation.lessonLocation;
     QLocationType qLocationType = QLocationType.locationType;
 
-    default List<LessonLocationResponseDto> getAll() {
+    boolean existsByLocationTypeId(String locationTypeId);
+
+    default List<LessonLocationResponseDto> getAll(BaseSearchRequest request) {
         return QueryDslFactory.getQueryFactory()
                 .select(Projections.constructor(
                         LessonLocationResponseDto.class,
@@ -34,6 +38,8 @@ public interface LessonLocationRepository extends JpaRepository<LessonLocation, 
                 ))
                 .from(qLessonLocation)
                 .join(qLessonLocation.locationType, qLocationType)
+                .limit(request.getLimit())
+                .offset(request.getOffset())
                 .fetch();
     }
 }

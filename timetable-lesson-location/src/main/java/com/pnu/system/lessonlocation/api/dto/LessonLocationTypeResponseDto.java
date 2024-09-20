@@ -8,8 +8,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class LessonLocationTypeResponseDto {
+
     private String id;
     private String name;
     private String shortName;
     private Integer version;
+
 }

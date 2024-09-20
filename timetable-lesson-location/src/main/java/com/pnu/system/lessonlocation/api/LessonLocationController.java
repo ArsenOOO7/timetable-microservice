@@ -1,10 +1,12 @@
 package com.pnu.system.lessonlocation.api;
 
 
+import com.pnu.system.common.dto.BaseSearchRequest;
 import com.pnu.system.lessonlocation.api.dto.LessonLocationCreateRequest;
 import com.pnu.system.lessonlocation.api.dto.LessonLocationResponseDto;
 import com.pnu.system.lessonlocation.api.dto.LessonLocationUpdateRequest;
 import com.pnu.system.lessonlocation.service.LessonLocationService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,20 +23,21 @@ import java.util.List;
 @RequestMapping("/location")
 @RequiredArgsConstructor
 public class LessonLocationController {
+
     private final LessonLocationService lessonLocationService;
 
     @PostMapping
-    private LessonLocationResponseDto createLocation(@RequestBody LessonLocationCreateRequest createRequest) {
+    private LessonLocationResponseDto createLocation(@Valid @RequestBody LessonLocationCreateRequest createRequest) {
         return lessonLocationService.create(createRequest);
     }
 
     @PutMapping
-    private LessonLocationResponseDto updateLocation(@RequestBody LessonLocationUpdateRequest updateRequest) {
+    private LessonLocationResponseDto updateLocation(@Valid @RequestBody LessonLocationUpdateRequest updateRequest) {
         return lessonLocationService.update(updateRequest);
     }
 
     @GetMapping("/{id}")
-    private LessonLocationResponseDto getLessonLocation(@PathVariable String id) {
+    private LessonLocationResponseDto getById(@PathVariable String id) {
         return lessonLocationService.getById(id);
     }
 
@@ -43,8 +46,8 @@ public class LessonLocationController {
         lessonLocationService.delete(id);
     }
 
-    @GetMapping("/list")
-    private List<LessonLocationResponseDto> getLocations() {
-        return lessonLocationService.getAll();
+    @PostMapping("/list")
+    private List<LessonLocationResponseDto> getAll(@Valid @RequestBody BaseSearchRequest request) {
+        return lessonLocationService.getAll(request);
     }
 }

@@ -1,9 +1,10 @@
 package com.pnu.system.lessonlocation.api;
 
-import com.pnu.system.lessonlocation.api.dto.LessonLocationTypeCreateDto;
+import com.pnu.system.lessonlocation.api.dto.LessonLocationTypeCreateRequest;
 import com.pnu.system.lessonlocation.api.dto.LessonLocationTypeResponseDto;
 import com.pnu.system.lessonlocation.api.dto.LessonLocationTypeUpdateDto;
 import com.pnu.system.lessonlocation.service.LocationTypeService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,12 +25,12 @@ public class LessonLocationTypeController {
     private final LocationTypeService locationTypeService;
 
     @PostMapping
-    public LessonLocationTypeResponseDto create(@RequestBody LessonLocationTypeCreateDto lessonLocationTypeCreateDto) {
-        return locationTypeService.create(lessonLocationTypeCreateDto);
+    public LessonLocationTypeResponseDto create(@Valid @RequestBody LessonLocationTypeCreateRequest lessonLocationTypeCreateRequest) {
+        return locationTypeService.create(lessonLocationTypeCreateRequest);
     }
 
     @PutMapping
-    public LessonLocationTypeResponseDto update(@RequestBody LessonLocationTypeUpdateDto lessonLocationTypeUpdateDto) {
+    public LessonLocationTypeResponseDto update(@Valid @RequestBody LessonLocationTypeUpdateDto lessonLocationTypeUpdateDto) {
         return locationTypeService.update(lessonLocationTypeUpdateDto);
     }
 
