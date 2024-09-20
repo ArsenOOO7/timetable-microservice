@@ -1,6 +1,6 @@
 package com.pnu.system.identityaccess.api.dto;
 
-import com.pnu.system.identityaccess.constant.RoleType;
+import com.pnu.system.common.constant.RoleType;
 import com.pnu.system.identityaccess.domain.Permission;
 import lombok.Getter;
 import lombok.Setter;

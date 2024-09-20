@@ -1,6 +1,6 @@
 package com.pnu.system.identityaccess.api.dto;
 
-import com.pnu.system.identityaccess.constant.RoleType;
+import com.pnu.system.common.constant.RoleType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;

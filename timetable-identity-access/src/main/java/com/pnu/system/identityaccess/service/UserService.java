@@ -59,6 +59,10 @@ public class UserService extends AbstractPersistenceService<User> {
         return repository.findByEmail(email);
     }
 
+    public boolean existsByEmail(String email) {
+        return repository.existsByEmail(email);
+    }
+
     private void assignRoles2User(User user, List<String> roleIds) {
         List<Role> roles = roleService.getAll(roleIds);
         user.setRoles(roles);

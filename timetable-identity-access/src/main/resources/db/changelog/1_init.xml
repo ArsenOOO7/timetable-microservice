@@ -22,7 +22,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="email" type="varchar(255)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="password" type="varchar(255)">
                 <constraints nullable="false"/>
@@ -52,7 +52,7 @@
                 <constraints nullable="false" primaryKeyName="role_pk" primaryKey="true"/>
             </column>
             <column name="name" type="varchar(64)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="type" type="varchar(20)">
                 <constraints nullable="false"/>

@@ -1,7 +1,7 @@
 package com.pnu.system.identityaccess.domain;
 
+import com.pnu.system.common.constant.RoleType;
 import com.pnu.system.common.domain.VersionEntity;
-import com.pnu.system.identityaccess.constant.RoleType;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

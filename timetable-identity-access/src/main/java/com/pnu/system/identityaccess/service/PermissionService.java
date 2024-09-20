@@ -1,7 +1,7 @@
 package com.pnu.system.identityaccess.service;
 
+import com.pnu.system.common.constant.RoleType;
 import com.pnu.system.common.exception.InvalidParameterException;
-import com.pnu.system.identityaccess.constant.RoleType;
 import com.pnu.system.identityaccess.domain.Permission;
 import com.pnu.system.identityaccess.repository.PermissionRepository;
 import lombok.RequiredArgsConstructor;

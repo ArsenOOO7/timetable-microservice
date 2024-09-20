@@ -51,7 +51,7 @@ public class UserController {
         return userService.update(userUpdateRequest);
     }
 
-    @PostMapping("/{id}")
+    @GetMapping("/{id}")
     public UserResponseDto getById(@PathVariable String id) {
         return userService.getById(id);
     }

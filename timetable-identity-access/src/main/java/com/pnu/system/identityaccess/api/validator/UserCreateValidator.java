@@ -1,14 +1,11 @@
 package com.pnu.system.identityaccess.api.validator;
 
 import com.pnu.system.identityaccess.api.dto.UserCreateRequest;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
 
-@RequiredArgsConstructor
 @Component
-public class UserCreateValidator implements Validator {
+public class UserCreateValidator extends AbstractUserValidator {
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -18,6 +15,6 @@ public class UserCreateValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         UserCreateRequest request = (UserCreateRequest) target;
-        //validate @JJerome
+        validateUserType(request.getType(), request.getRoleIds(), errors);
     }
 }

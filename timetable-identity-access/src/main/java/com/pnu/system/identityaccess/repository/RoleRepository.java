@@ -17,6 +17,8 @@ public interface RoleRepository extends JpaRepository<Role, String> {
     QRole qRole = QRole.role;
     QPermission qPermission = QPermission.permission;
 
+    boolean existsByName(String name);
+
     default Role getRoleById(String id) {
         return QueryDslFactory.getQueryFactory()
                 .selectFrom(qRole)

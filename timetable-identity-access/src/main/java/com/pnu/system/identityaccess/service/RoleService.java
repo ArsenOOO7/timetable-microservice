@@ -49,6 +49,10 @@ public class RoleService extends AbstractPersistenceService<Role> {
         return repository.getPermissionNamesByRoleIds(roleIds);
     }
 
+    public boolean existsByName(String name) {
+        return repository.existsByName(name);
+    }
+
     private void assignPermissionsToRole(Role role, List<String> permissionIds) {
         List<Permission> permissions = permissionService.getAll(permissionIds);
         role.setPermissions(permissions);

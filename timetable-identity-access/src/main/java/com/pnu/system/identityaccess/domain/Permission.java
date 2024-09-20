@@ -1,9 +1,9 @@
 package com.pnu.system.identityaccess.domain;
 
 import com.pnu.system.common.constant.PermissionName;
+import com.pnu.system.common.constant.RoleType;
 import com.pnu.system.common.domain.BaseEntity;
 import com.pnu.system.identityaccess.constant.PermissionGroup;
-import com.pnu.system.identityaccess.constant.RoleType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

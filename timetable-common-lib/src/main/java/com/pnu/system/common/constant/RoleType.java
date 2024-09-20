@@ -1,4 +1,4 @@
-package com.pnu.system.identityaccess.constant;
+package com.pnu.system.common.constant;
 
 public enum RoleType {
     SUPER_ADMIN,

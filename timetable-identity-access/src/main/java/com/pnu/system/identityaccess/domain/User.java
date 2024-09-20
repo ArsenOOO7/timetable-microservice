@@ -43,6 +43,7 @@ public class User extends VersionEntity {
     private List<Role> roles;
     @ElementCollection
     @CollectionTable(name = "student_group", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "group_id")
     private List<String> groupIds;
     @Column(name = "password")
     private String password;

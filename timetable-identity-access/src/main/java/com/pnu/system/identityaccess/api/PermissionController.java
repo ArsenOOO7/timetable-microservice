@@ -1,6 +1,6 @@
 package com.pnu.system.identityaccess.api;
 
-import com.pnu.system.identityaccess.constant.RoleType;
+import com.pnu.system.common.constant.RoleType;
 import com.pnu.system.identityaccess.domain.Permission;
 import com.pnu.system.identityaccess.service.PermissionService;
 import lombok.RequiredArgsConstructor;

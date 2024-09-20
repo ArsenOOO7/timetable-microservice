@@ -18,6 +18,8 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     Optional<User> findByEmail(String email);
 
+    boolean existsByEmail(String email);
+
     default List<UserPreviewDto> getPreviewUsers() {
         return QueryDslFactory.getQueryFactory()
                 .select(Projections.bean(UserPreviewDto.class,
