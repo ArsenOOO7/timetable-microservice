@@ -9,3 +9,4 @@ create user identity_access_user nosuperuser nocreatedb nocreaterole login encry
 grant identity_access_role to identity_access_user;
 
 grant select, insert, delete, update on all tables in schema identity_access_microservice to identity_access_role;
+alter default privileges in schema identity_access_microservice grant select, insert, update, delete on tables to identity_access_role;

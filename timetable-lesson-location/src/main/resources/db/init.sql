@@ -9,3 +9,4 @@ create user lesson_location_user nosuperuser nocreatedb nocreaterole login encry
 grant lesson_location_role to lesson_location_user;
 
 grant select, insert, delete, update on all tables in schema lesson_location_microservice to lesson_location_role;
+alter default privileges in schema lesson_location_microservice grant select, insert, update, delete on tables to lesson_location_role;

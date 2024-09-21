@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
+
+    <changeSet id="create-schema" author="jjerome-nm" context="local" dbms="postgresql">
+        <sqlFile path="db/init.sql" dbms="postgresql"/>
+    </changeSet>
+
+
     <changeSet id="1" author="JJerome">
-        <createTable tableName="user">
+        <createTable tableName="app_user">
             <column name="id" type="varchar(40)">
                 <constraints nullable="false" primaryKeyName="user_pk" primaryKey="true"/>
             </column>
@@ -16,7 +22,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="email" type="varchar(255)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="password" type="varchar(255)">
                 <constraints nullable="false"/>
@@ -43,10 +49,10 @@
 
         <createTable tableName="role">
             <column name="id" type="varchar(40)">
-                <constraints nullable="false" primaryKeyName="user_role_pk" primaryKey="true"/>
+                <constraints nullable="false" primaryKeyName="role_pk" primaryKey="true"/>
             </column>
             <column name="name" type="varchar(64)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="type" type="varchar(20)">
                 <constraints nullable="false"/>
@@ -103,12 +109,8 @@
                 <constraints nullable="false" primaryKeyName="teacher_profile_pk" primaryKey="true"/>
             </column>
             <column name="personal_link" type="varchar(255)"/>
-            <column name="academic_status_id" type="varchar(40)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="char_id" type="varchar(40)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="academic_status_id" type="varchar(40)"/>
+            <column name="chair_id" type="varchar(40)"/>
             <column name="version" type="integer">
                 <constraints nullable="false"/>
             </column>
@@ -117,7 +119,7 @@
             <column name="academic_status_id"/>
         </createIndex>
         <createIndex tableName="teacher_profile" indexName="teacher_profile_idx2">
-            <column name="char_id"/>
+            <column name="chair_id"/>
         </createIndex>
 
         <createTable tableName="academic_status">
@@ -141,7 +143,7 @@
         <addForeignKeyConstraint baseTableName="user_role"
                                  baseColumnNames="user_id"
                                  constraintName="user_role_fk1"
-                                 referencedTableName="user"
+                                 referencedTableName="app_user"
                                  referencedColumnNames="id"/>
 
         <addForeignKeyConstraint baseTableName="user_role"
@@ -169,7 +171,7 @@
         <addForeignKeyConstraint baseTableName="student_group"
                                  baseColumnNames="user_id"
                                  constraintName="student_group_fk1"
-                                 referencedTableName="user"
+                                 referencedTableName="app_user"
                                  referencedColumnNames="id"/>
 
         <!--    teacher_profile    -->

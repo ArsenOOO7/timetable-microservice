@@ -20,6 +20,10 @@ public abstract class AbstractPersistenceService<T extends BaseEntityProvider> {
                 .orElseThrow(() -> new EntityNotFoundException(id, getEntityType().getSimpleName()));
     }
 
+    public List<T> getAll(Collection<String> ids) {
+        return getRepository().findAllById(ids);
+    }
+
     public T getCloned(String id) {
         return getCloned(getOne(id));
     }

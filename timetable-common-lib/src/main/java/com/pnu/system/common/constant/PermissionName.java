@@ -1,0 +1,28 @@
+package com.pnu.system.common.constant;
+
+public enum PermissionName {
+    ROLE_EDIT,
+    KNOWLEDGE_EDIT,
+    DEPARTMENT_EDIT,
+    CHAIR_EDIT,
+    SPECIALTY_EDIT,
+    EDUCATIONAL_PROGRAM_EDIT,
+    SUBJECT_EDIT,
+    ACADEMIC_STATUS_EDIT,
+    USER_EDIT,
+    TEACHER_PROFILE_EDIT,
+    TEACHER_PROFILE_RESTRICTED_EDIT,
+    GROUP_CATEGORY_EDIT,
+    GROUP_EDIT,
+    LESSON_LOCATION_EDIT,
+    LESSON_EDIT,
+    LESSON_TYPE_EDIT,
+    LESSON_SEARCH,
+    LESSON_ANALYTICS,
+    LESSON_PERSONAL_ANALYTICS;
+
+    @Override
+    public String toString() {
+        return name();
+    }
+}

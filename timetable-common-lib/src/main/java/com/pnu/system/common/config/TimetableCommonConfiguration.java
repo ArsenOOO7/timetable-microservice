@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan({"com.pnu.system.common.service"})
+@ComponentScan({"com.pnu.system.common.service", "com.pnu.system.common.utils", "com.pnu.system.common.security"})
 public class TimetableCommonConfiguration {
 
     /*
