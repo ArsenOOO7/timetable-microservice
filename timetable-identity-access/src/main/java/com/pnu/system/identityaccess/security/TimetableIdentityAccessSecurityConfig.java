@@ -18,7 +18,7 @@ import static com.pnu.system.common.constant.PermissionName.USER_EDIT;
 public class TimetableIdentityAccessSecurityConfig extends TimetableCommonWebSecurityConfig {
 
     @Override
-    protected void configreHttpRequests(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry registry) {
+    protected void configureHttpRequests(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry registry) {
         registry
                 .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .requestMatchers("/role/**", "/permission/**").hasAuthority(ROLE_EDIT.name())
