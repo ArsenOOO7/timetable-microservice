@@ -21,8 +21,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SubjectService extends AbstractPersistenceService<Subject> {
 
-    private final SubjectRepository repository;
     private final SubjectMapper mapper;
+    private final SubjectRepository repository;
     private final EducationalProgramService educationalProgramService;
 
     public List<SubjectPreviewDto> getAll(BaseSearchRequest request) {

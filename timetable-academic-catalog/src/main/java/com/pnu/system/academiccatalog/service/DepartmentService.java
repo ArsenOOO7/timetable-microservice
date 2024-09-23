@@ -19,8 +19,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DepartmentService extends AbstractPersistenceService<Department> {
 
-    private final DepartmentRepository repository;
     private final DepartmentMapper mapper;
+    private final DepartmentRepository repository;
 
     public List<DepartmentResponseDto> getAll(BaseSearchRequest request) {
         return repository.getAll(request);

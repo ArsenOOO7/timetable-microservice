@@ -18,8 +18,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class SpecialtyService extends AbstractPersistenceService<Specialty> {
-    private final SpecialtyRepository repository;
+
     private final SpecialtyMapper mapper;
+    private final SpecialtyRepository repository;
     private final KnowledgeDomainService knowledgeDomainService;
 
     public List<SpecialtyResponseDto> getAll(BaseSearchRequest request) {

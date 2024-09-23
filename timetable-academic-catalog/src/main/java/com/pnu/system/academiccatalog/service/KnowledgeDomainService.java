@@ -19,8 +19,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class KnowledgeDomainService extends AbstractPersistenceService<KnowledgeDomain> {
 
-    private final KnowledgeDomainRepository repository;
     private final KnowledgeDomainMapper mapper;
+    private final KnowledgeDomainRepository repository;
 
     public List<KnowledgeDomainResponseDto> getAll(BaseSearchRequest request) {
         return repository.getAll(request);
