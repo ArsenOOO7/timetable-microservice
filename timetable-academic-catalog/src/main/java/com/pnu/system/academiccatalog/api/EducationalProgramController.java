@@ -1,9 +1,9 @@
 package com.pnu.system.academiccatalog.api;
 
-import com.pnu.system.academiccatalog.api.dto.SpecialtyCreateDto;
-import com.pnu.system.academiccatalog.api.dto.SpecialtyResponseDto;
-import com.pnu.system.academiccatalog.api.dto.SpecialtyUpdateDto;
-import com.pnu.system.academiccatalog.service.SpecialtyService;
+import com.pnu.system.academiccatalog.api.dto.EducationalProgramCreateDto;
+import com.pnu.system.academiccatalog.api.dto.EducationalProgramResponseDto;
+import com.pnu.system.academiccatalog.api.dto.EducationalProgramUpdateDto;
+import com.pnu.system.academiccatalog.service.EducationalProgramService;
 import com.pnu.system.common.dto.BaseSearchRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,29 +19,29 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/specialty")
+@RequestMapping("/educationProgram")
 @RequiredArgsConstructor
-public class SpecialtyController {
+public class EducationalProgramController {
 
-    private final SpecialtyService service;
+    private final EducationalProgramService service;
 
     @PostMapping("/list")
-    private List<SpecialtyResponseDto> getAll(@RequestBody BaseSearchRequest searchRequest) {
+    private List<EducationalProgramResponseDto> getAll(@RequestBody BaseSearchRequest searchRequest) {
         return service.getAll(searchRequest);
     }
 
     @PostMapping
-    private SpecialtyResponseDto create(@Valid @RequestBody SpecialtyCreateDto createDto) {
+    private EducationalProgramResponseDto create(@Valid @RequestBody EducationalProgramCreateDto createDto) {
         return service.create(createDto);
     }
 
     @PutMapping
-    private SpecialtyResponseDto update(@Valid @RequestBody SpecialtyUpdateDto updateDto) {
+    private EducationalProgramResponseDto update(@Valid @RequestBody EducationalProgramUpdateDto updateDto) {
         return service.update(updateDto);
     }
 
     @GetMapping("/{id}")
-    private SpecialtyResponseDto getById(@PathVariable String id) {
+    private EducationalProgramResponseDto getById(@PathVariable String id) {
         return service.getById(id);
     }
 
@@ -49,4 +49,5 @@ public class SpecialtyController {
     private void delete(@PathVariable String id) {
         service.delete(id);
     }
+
 }

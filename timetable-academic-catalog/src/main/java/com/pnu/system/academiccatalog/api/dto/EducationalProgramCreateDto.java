@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class KnowledgeDomainCreateDto {
-    private String code;
+public class EducationalProgramCreateDto {
     private String name;
+    private String specialtyId;
 }

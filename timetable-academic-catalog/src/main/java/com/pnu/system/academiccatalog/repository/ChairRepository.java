@@ -59,8 +59,8 @@ public interface ChairRepository extends JpaRepository<Chair, String> {
                         qChair.version
                 ))
                 .from(qChair)
-                .leftJoin(qChair.specialties, qSpecialty)
                 .leftJoin(qChair.department, qDepartment)
+                .leftJoin(qChair.specialties, qSpecialty)
                 .leftJoin(qSpecialty.knowledgeDomain, qKnowledgeDomain)
                 .limit(searchRequest.getLimit())
                 .offset(searchRequest.getOffset())

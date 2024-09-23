@@ -7,6 +7,7 @@ import com.pnu.system.academiccatalog.service.DepartmentService;
 import com.pnu.system.common.dto.BaseSearchRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,5 +43,10 @@ public class DepartmentController {
     @GetMapping("/{id}")
     private DepartmentResponseDto getById(@PathVariable String id) {
         return service.getById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    private void delete(@PathVariable String id) {
+        service.delete(id);
     }
 }

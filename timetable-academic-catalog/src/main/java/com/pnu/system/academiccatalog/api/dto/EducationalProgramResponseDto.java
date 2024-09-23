@@ -9,7 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class KnowledgeDomainCreateDto {
-    private String code;
+public class EducationalProgramResponseDto {
+    private String id;
     private String name;
+    private SpecialtyResponseDto specialty;
+    private Integer version;
 }
