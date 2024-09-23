@@ -10,6 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class KnowledgeDomainCreateDto {
+
     private String code;
     private String name;
+
 }

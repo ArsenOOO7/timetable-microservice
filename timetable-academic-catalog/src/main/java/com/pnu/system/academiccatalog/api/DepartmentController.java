@@ -49,4 +49,5 @@ public class DepartmentController {
     private void delete(@PathVariable String id) {
         service.delete(id);
     }
+
 }

@@ -10,6 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EducationalProgramCreateDto {
+
     private String name;
     private String specialtyId;
+
 }

@@ -10,8 +10,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DepartmentResponseDto {
+
     private String id;
     private String name;
     private String shortName;
     private Integer version;
+
 }

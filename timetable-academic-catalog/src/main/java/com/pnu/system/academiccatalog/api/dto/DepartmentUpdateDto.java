@@ -6,8 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DepartmentUpdateDto {
+
     private String id;
     private String name;
     private String shortName;
     private Integer version;
+
 }

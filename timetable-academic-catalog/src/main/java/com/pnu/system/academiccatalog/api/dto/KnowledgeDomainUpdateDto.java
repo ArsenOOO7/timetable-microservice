@@ -6,8 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class KnowledgeDomainUpdateDto {
+
     private String id;
     private String code;
     private String name;
     private Integer version;
+
 }

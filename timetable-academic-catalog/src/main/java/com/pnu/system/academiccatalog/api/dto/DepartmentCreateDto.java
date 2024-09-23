@@ -6,6 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DepartmentCreateDto {
+
     private String name;
     private String shortName;
+
 }

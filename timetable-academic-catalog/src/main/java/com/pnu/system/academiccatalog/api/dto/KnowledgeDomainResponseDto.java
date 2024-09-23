@@ -10,8 +10,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class KnowledgeDomainResponseDto {
+
     private String id;
     private String code;
     private String name;
     private Integer version;
+
 }

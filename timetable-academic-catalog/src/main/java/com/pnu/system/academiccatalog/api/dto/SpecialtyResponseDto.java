@@ -10,10 +10,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SpecialtyResponseDto {
+
     private String id;
     private String code;
     private String name;
     private String shortName;
     private KnowledgeDomainResponseDto knowledgeDomain;
     private Integer version;
+
 }

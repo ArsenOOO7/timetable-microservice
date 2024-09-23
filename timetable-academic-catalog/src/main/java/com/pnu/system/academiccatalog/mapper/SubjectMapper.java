@@ -1,18 +1,18 @@
 package com.pnu.system.academiccatalog.mapper;
 
-import com.pnu.system.academiccatalog.api.dto.ChairCreateDto;
-import com.pnu.system.academiccatalog.api.dto.ChairResponseDto;
-import com.pnu.system.academiccatalog.api.dto.ChairUpdateDto;
-import com.pnu.system.academiccatalog.domain.Chair;
+import com.pnu.system.academiccatalog.api.dto.SubjectCreateDto;
+import com.pnu.system.academiccatalog.api.dto.SubjectResponseDto;
+import com.pnu.system.academiccatalog.api.dto.SubjectUpdateDto;
+import com.pnu.system.academiccatalog.domain.Subject;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring", uses = {DepartmentMapper.class, SpecialtyMapper.class})
+@Mapper(componentModel = "spring", uses = {EducationProgramMapper.class})
 public interface SubjectMapper {
 
-    Chair asChair(ChairCreateDto chairCreateDto);
+    Subject asSubject(SubjectCreateDto subjectCreateDto);
 
-    Chair asChair(ChairUpdateDto chairUpdateDto);
+    Subject asSubject(SubjectUpdateDto subjectUpdateDto);
 
-    ChairResponseDto asResponseDto(Chair chair);
+    SubjectResponseDto asResponseDto(Subject subject);
 
 }

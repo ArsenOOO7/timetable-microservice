@@ -10,8 +10,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EducationalProgramUpdateDto {
+
     private String id;
     private String name;
     private String specialtyId;
     private Integer version;
+
 }

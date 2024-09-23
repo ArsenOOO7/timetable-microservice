@@ -9,11 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EducationalProgramResponseDto {
-
+public class SubjectUpdateDto {
     private String id;
     private String name;
-    private SpecialtyResponseDto specialty;
+    private String educationalProgramId;
     private Integer version;
-
 }
