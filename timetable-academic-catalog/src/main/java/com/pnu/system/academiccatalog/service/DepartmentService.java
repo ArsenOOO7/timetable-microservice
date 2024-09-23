@@ -22,8 +22,8 @@ public class DepartmentService extends AbstractPersistenceService<Department> {
     private final DepartmentRepository repository;
     private final DepartmentMapper mapper;
 
-    public List<DepartmentResponseDto> getAll(BaseSearchRequest searchRequest) {
-        return repository.getAll(searchRequest);
+    public List<DepartmentResponseDto> getAll(BaseSearchRequest request) {
+        return repository.getAll(request);
     }
 
     public DepartmentResponseDto create(@Valid DepartmentCreateDto createDto) {
@@ -36,10 +36,6 @@ public class DepartmentService extends AbstractPersistenceService<Department> {
 
     public DepartmentResponseDto getById(String id) {
         return mapper.asResponseDto(super.getOne(id));
-    }
-
-    public void delete(String id) {
-        super.delete(id);
     }
 
     @Override

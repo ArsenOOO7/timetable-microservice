@@ -22,8 +22,8 @@ public class KnowledgeDomainService extends AbstractPersistenceService<Knowledge
     private final KnowledgeDomainRepository repository;
     private final KnowledgeDomainMapper mapper;
 
-    public List<KnowledgeDomainResponseDto> getAll(BaseSearchRequest searchRequest) {
-        return repository.getAll(searchRequest);
+    public List<KnowledgeDomainResponseDto> getAll(BaseSearchRequest request) {
+        return repository.getAll(request);
     }
 
     public KnowledgeDomainResponseDto create(@Valid KnowledgeDomainCreateDto createDto) {
@@ -36,10 +36,6 @@ public class KnowledgeDomainService extends AbstractPersistenceService<Knowledge
 
     public KnowledgeDomainResponseDto getById(String id) {
         return mapper.asResponseDto(super.getOne(id));
-    }
-
-    public void delete(String id) {
-        super.delete(id);
     }
 
     @Override

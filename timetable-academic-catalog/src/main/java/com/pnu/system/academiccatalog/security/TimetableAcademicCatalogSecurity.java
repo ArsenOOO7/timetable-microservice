@@ -15,7 +15,7 @@ import static com.pnu.system.common.constant.PermissionName.SUBJECT_EDIT;
 
 @Slf4j
 @Configuration
-public class AcademicCatalogSecurity extends TimetableCommonWebSecurityConfig {
+public class TimetableAcademicCatalogSecurity extends TimetableCommonWebSecurityConfig {
     @Override
     protected void configureHttpRequests(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry registry) {
         registry

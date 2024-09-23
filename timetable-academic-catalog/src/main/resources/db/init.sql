@@ -9,3 +9,4 @@ create user academic_catalog_user nosuperuser nocreatedb nocreaterole login encr
 grant academic_catalog_role to academic_catalog_user;
 
 grant select, insert, delete, update on all tables in schema academic_catalog_microservice to academic_catalog_role;
+alter default privileges in schema academic_catalog_microservice grant select, insert, update, delete on tables to academic_catalog_role;

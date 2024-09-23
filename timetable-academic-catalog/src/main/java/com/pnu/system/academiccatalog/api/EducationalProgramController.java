@@ -1,6 +1,7 @@
 package com.pnu.system.academiccatalog.api;
 
 import com.pnu.system.academiccatalog.api.dto.EducationalProgramCreateDto;
+import com.pnu.system.academiccatalog.api.dto.EducationalProgramPreviewDto;
 import com.pnu.system.academiccatalog.api.dto.EducationalProgramResponseDto;
 import com.pnu.system.academiccatalog.api.dto.EducationalProgramUpdateDto;
 import com.pnu.system.academiccatalog.service.EducationalProgramService;
@@ -19,15 +20,15 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/educationProgram")
+@RequestMapping("/educationalProgram")
 @RequiredArgsConstructor
 public class EducationalProgramController {
 
     private final EducationalProgramService service;
 
     @PostMapping("/list")
-    private List<EducationalProgramResponseDto> getAll(@RequestBody BaseSearchRequest searchRequest) {
-        return service.getAll(searchRequest);
+    private List<EducationalProgramPreviewDto> getAll(@Valid @RequestBody BaseSearchRequest request) {
+        return service.getAll(request);
     }
 
     @PostMapping

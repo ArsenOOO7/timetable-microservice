@@ -1,6 +1,7 @@
 package com.pnu.system.academiccatalog.service;
 
 import com.pnu.system.academiccatalog.api.dto.EducationalProgramCreateDto;
+import com.pnu.system.academiccatalog.api.dto.EducationalProgramPreviewDto;
 import com.pnu.system.academiccatalog.api.dto.EducationalProgramResponseDto;
 import com.pnu.system.academiccatalog.api.dto.EducationalProgramUpdateDto;
 import com.pnu.system.academiccatalog.domain.EducationalProgram;
@@ -17,12 +18,13 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class EducationalProgramService extends AbstractPersistenceService<EducationalProgram> {
-    private final EducationProgramRepository repository;
+
     private final EducationProgramMapper mapper;
     private final SpecialtyService specialtyService;
+    private final EducationProgramRepository repository;
 
-    public List<EducationalProgramResponseDto> getAll(BaseSearchRequest searchRequest) {
-        return repository.getAll(searchRequest);
+    public List<EducationalProgramPreviewDto> getAll(BaseSearchRequest request) {
+        return repository.getAll(request);
     }
 
     public EducationalProgramResponseDto create(EducationalProgramCreateDto createDto) {
@@ -39,10 +41,6 @@ public class EducationalProgramService extends AbstractPersistenceService<Educat
 
     public EducationalProgramResponseDto getById(String id) {
         return mapper.asResponseDto(super.getOne(id));
-    }
-
-    public void delete(String id) {
-        repository.delete(super.getOne(id));
     }
 
     @Override

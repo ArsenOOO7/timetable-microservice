@@ -1,12 +1,7 @@
 package com.pnu.system.academiccatalog.repository;
 
-import com.pnu.system.academiccatalog.api.dto.EducationalProgramResponseDto;
-import com.pnu.system.academiccatalog.api.dto.KnowledgeDomainResponseDto;
-import com.pnu.system.academiccatalog.api.dto.SpecialtyResponseDto;
-import com.pnu.system.academiccatalog.api.dto.SubjectResponseDto;
-import com.pnu.system.academiccatalog.domain.QEducationalProgram;
-import com.pnu.system.academiccatalog.domain.QKnowledgeDomain;
-import com.pnu.system.academiccatalog.domain.QSpecialty;
+import com.pnu.system.academiccatalog.api.dto.EducationalProgramPreviewDto;
+import com.pnu.system.academiccatalog.api.dto.SubjectPreviewDto;
 import com.pnu.system.academiccatalog.domain.QSubject;
 import com.pnu.system.academiccatalog.domain.Subject;
 import com.pnu.system.common.dto.BaseSearchRequest;
@@ -21,45 +16,23 @@ import java.util.List;
 public interface SubjectRepository extends JpaRepository<Subject, String> {
 
     QSubject qSubject = QSubject.subject;
-    QEducationalProgram qEducationalProgram = QEducationalProgram.educationalProgram;
-    QSpecialty qSpecialty = QSpecialty.specialty;
-    QKnowledgeDomain qKnowledgeDomain = QKnowledgeDomain.knowledgeDomain;
 
-    default List<SubjectResponseDto> getAll(BaseSearchRequest searchRequest) {
+    default List<SubjectPreviewDto> getAll(BaseSearchRequest request) {
         return QueryDslFactory.getQueryFactory()
                 .select(Projections.constructor(
-                        SubjectResponseDto.class,
+                        SubjectPreviewDto.class,
                         qSubject.id,
                         qSubject.name,
                         Projections.constructor(
-                                EducationalProgramResponseDto.class,
-                                qEducationalProgram.id,
-                                qEducationalProgram.name,
-                                Projections.constructor(
-                                        SpecialtyResponseDto.class,
-                                        qSpecialty.id,
-                                        qSpecialty.code,
-                                        qSpecialty.name,
-                                        qSpecialty.shortName,
-                                        Projections.constructor(
-                                                KnowledgeDomainResponseDto.class,
-                                                qKnowledgeDomain.id,
-                                                qKnowledgeDomain.code,
-                                                qKnowledgeDomain.name,
-                                                qKnowledgeDomain.version
-                                        ),
-                                        qSpecialty.version
-                                ),
-                                qEducationalProgram.version
-                        ),
-                        qSubject.version
+                                EducationalProgramPreviewDto.class,
+                                qSubject.educationalProgram.id,
+                                qSubject.educationalProgram.name
+                        )
                 ))
                 .from(qSubject)
-                .leftJoin(qSubject.educationalProgram, qEducationalProgram)
-                .leftJoin(qEducationalProgram.specialty, qSpecialty)
-                .leftJoin(qSpecialty.knowledgeDomain, qKnowledgeDomain)
-                .limit(searchRequest.getLimit())
-                .offset(searchRequest.getOffset())
+                .innerJoin(qSubject.educationalProgram)
+                .limit(request.getLimit())
+                .offset(request.getOffset())
                 .fetch();
     }
 }

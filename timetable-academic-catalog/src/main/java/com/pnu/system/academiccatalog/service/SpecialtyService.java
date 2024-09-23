@@ -22,8 +22,8 @@ public class SpecialtyService extends AbstractPersistenceService<Specialty> {
     private final SpecialtyMapper mapper;
     private final KnowledgeDomainService knowledgeDomainService;
 
-    public List<SpecialtyResponseDto> getAll(BaseSearchRequest searchRequest) {
-        return repository.getAll(searchRequest);
+    public List<SpecialtyResponseDto> getAll(BaseSearchRequest request) {
+        return repository.getAll(request);
     }
 
     public SpecialtyResponseDto create(@Valid SpecialtyCreateDto createDto) {
@@ -40,10 +40,6 @@ public class SpecialtyService extends AbstractPersistenceService<Specialty> {
 
     public SpecialtyResponseDto getById(String id) {
         return mapper.asResponseDto(super.getOne(id));
-    }
-
-    public void delete(String id) {
-        super.delete(id);
     }
 
     @Override

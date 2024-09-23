@@ -26,8 +26,8 @@ public class DepartmentController {
     private final DepartmentService service;
 
     @PostMapping("/list")
-    private List<DepartmentResponseDto> getAll(@RequestBody BaseSearchRequest searchRequest) {
-        return service.getAll(searchRequest);
+    private List<DepartmentResponseDto> getAll(@Valid @RequestBody BaseSearchRequest request) {
+        return service.getAll(request);
     }
 
     @PostMapping

@@ -1,6 +1,5 @@
 package com.pnu.system.academiccatalog.api.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,11 +9,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EducationalProgramCreateDto {
+public class ChairPreviewDto {
 
-    @NotBlank
+    private String id;
     private String name;
-    @NotBlank
-    private String specialtyId;
+    private String shortName;
+    private DepartmentResponseDto department;
 
 }

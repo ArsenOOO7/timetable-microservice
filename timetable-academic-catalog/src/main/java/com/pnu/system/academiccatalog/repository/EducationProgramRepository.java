@@ -1,11 +1,9 @@
 package com.pnu.system.academiccatalog.repository;
 
-import com.pnu.system.academiccatalog.api.dto.EducationalProgramResponseDto;
-import com.pnu.system.academiccatalog.api.dto.KnowledgeDomainResponseDto;
-import com.pnu.system.academiccatalog.api.dto.SpecialtyResponseDto;
+import com.pnu.system.academiccatalog.api.dto.EducationalProgramPreviewDto;
+import com.pnu.system.academiccatalog.api.dto.SpecialtyPreviewDto;
 import com.pnu.system.academiccatalog.domain.EducationalProgram;
 import com.pnu.system.academiccatalog.domain.QEducationalProgram;
-import com.pnu.system.academiccatalog.domain.QKnowledgeDomain;
 import com.pnu.system.academiccatalog.domain.QSpecialty;
 import com.pnu.system.common.dto.BaseSearchRequest;
 import com.pnu.system.common.utils.QueryDslFactory;
@@ -20,36 +18,23 @@ public interface EducationProgramRepository extends JpaRepository<EducationalPro
 
     QEducationalProgram qEducationalProgram = QEducationalProgram.educationalProgram;
     QSpecialty qSpecialty = QSpecialty.specialty;
-    QKnowledgeDomain qKnowledgeDomain = QKnowledgeDomain.knowledgeDomain;
 
-    default List<EducationalProgramResponseDto> getAll(BaseSearchRequest searchRequest) {
+    default List<EducationalProgramPreviewDto> getAll(BaseSearchRequest request) {
         return QueryDslFactory.getQueryFactory()
                 .select(Projections.constructor(
-                        EducationalProgramResponseDto.class,
+                        EducationalProgramPreviewDto.class,
                         qEducationalProgram.id,
                         qEducationalProgram.name,
                         Projections.constructor(
-                                SpecialtyResponseDto.class,
+                                SpecialtyPreviewDto.class,
                                 qSpecialty.id,
-                                qSpecialty.code,
-                                qSpecialty.name,
-                                qSpecialty.shortName,
-                                Projections.constructor(
-                                        KnowledgeDomainResponseDto.class,
-                                        qKnowledgeDomain.id,
-                                        qKnowledgeDomain.code,
-                                        qKnowledgeDomain.name,
-                                        qKnowledgeDomain.version
-                                ),
-                                qSpecialty.version
-                        ),
-                        qEducationalProgram.version
+                                qSpecialty.shortName
+                        )
                 ))
                 .from(qEducationalProgram)
-                .leftJoin(qEducationalProgram.specialty, qSpecialty)
-                .leftJoin(qSpecialty.knowledgeDomain, qKnowledgeDomain)
-                .limit(searchRequest.getLimit())
-                .offset(searchRequest.getOffset())
+                .innerJoin(qEducationalProgram.specialty, qSpecialty)
+                .limit(request.getLimit())
+                .offset(request.getOffset())
                 .fetch();
     }
 }

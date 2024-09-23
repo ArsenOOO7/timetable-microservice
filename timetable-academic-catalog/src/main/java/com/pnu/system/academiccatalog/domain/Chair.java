@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -24,6 +25,7 @@ public class Chair extends VersionEntity {
     @Column(name = "short_name")
     private String shortName;
     @ManyToOne
+    @JoinColumn(name = "department_id")
     private Department department;
 
     @ManyToMany
@@ -33,4 +35,11 @@ public class Chair extends VersionEntity {
             inverseJoinColumns = @JoinColumn(name = "specialty_id")
     )
     private List<Specialty> specialties;
+
+    public List<Specialty> getSpecialties() {
+        if (specialties == null) {
+            specialties = new ArrayList<>();
+        }
+        return specialties;
+    }
 }

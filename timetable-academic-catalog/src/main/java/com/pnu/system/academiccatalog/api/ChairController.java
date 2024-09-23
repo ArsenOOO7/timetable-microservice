@@ -1,6 +1,7 @@
 package com.pnu.system.academiccatalog.api;
 
 import com.pnu.system.academiccatalog.api.dto.ChairCreateDto;
+import com.pnu.system.academiccatalog.api.dto.ChairPreviewDto;
 import com.pnu.system.academiccatalog.api.dto.ChairResponseDto;
 import com.pnu.system.academiccatalog.api.dto.ChairUpdateDto;
 import com.pnu.system.academiccatalog.service.ChairService;
@@ -26,8 +27,8 @@ public class ChairController {
     private final ChairService service;
 
     @PostMapping("/list")
-    private List<ChairResponseDto> getAll(@RequestBody BaseSearchRequest searchRequest) {
-        return service.getAll(searchRequest);
+    private List<ChairPreviewDto> getAll(@Valid @RequestBody BaseSearchRequest request) {
+        return service.getAll(request);
     }
 
     @PostMapping

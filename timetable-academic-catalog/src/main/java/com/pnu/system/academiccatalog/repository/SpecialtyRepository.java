@@ -19,7 +19,7 @@ public interface SpecialtyRepository extends JpaRepository<Specialty, String> {
     QSpecialty qSpecialty = QSpecialty.specialty;
     QKnowledgeDomain qKnowledgeDomain = QKnowledgeDomain.knowledgeDomain;
 
-    default List<SpecialtyResponseDto> getAll(BaseSearchRequest searchRequest) {
+    default List<SpecialtyResponseDto> getAll(BaseSearchRequest request) {
         return QueryDslFactory.getQueryFactory()
                 .select(Projections.constructor(
                         SpecialtyResponseDto.class,
@@ -37,9 +37,9 @@ public interface SpecialtyRepository extends JpaRepository<Specialty, String> {
                         qSpecialty.version
                 ))
                 .from(qSpecialty)
-                .leftJoin(qSpecialty.knowledgeDomain, qKnowledgeDomain)
-                .limit(searchRequest.getLimit())
-                .offset(searchRequest.getOffset())
+                .innerJoin(qSpecialty.knowledgeDomain, qKnowledgeDomain)
+                .limit(request.getLimit())
+                .offset(request.getOffset())
                 .fetch();
     }
 }

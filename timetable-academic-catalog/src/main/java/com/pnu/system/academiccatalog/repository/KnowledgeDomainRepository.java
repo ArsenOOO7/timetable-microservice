@@ -16,7 +16,7 @@ public interface KnowledgeDomainRepository extends JpaRepository<KnowledgeDomain
 
     QKnowledgeDomain qKnowledgeDomain = QKnowledgeDomain.knowledgeDomain;
 
-    default List<KnowledgeDomainResponseDto> getAll(BaseSearchRequest searchRequest) {
+    default List<KnowledgeDomainResponseDto> getAll(BaseSearchRequest request) {
         return QueryDslFactory.getQueryFactory()
                 .select(Projections.constructor(
                         KnowledgeDomainResponseDto.class,
@@ -26,8 +26,8 @@ public interface KnowledgeDomainRepository extends JpaRepository<KnowledgeDomain
                         qKnowledgeDomain.version
                 ))
                 .from(qKnowledgeDomain)
-                .limit(searchRequest.getLimit())
-                .offset(searchRequest.getOffset())
+                .limit(request.getLimit())
+                .offset(request.getOffset())
                 .fetch();
     }
 

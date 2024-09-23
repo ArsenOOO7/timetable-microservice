@@ -16,7 +16,7 @@ public interface DepartmentRepository extends JpaRepository<Department, String> 
 
     QDepartment qDepartment = QDepartment.department;
 
-    default List<DepartmentResponseDto> getAll(BaseSearchRequest searchRequest) {
+    default List<DepartmentResponseDto> getAll(BaseSearchRequest request) {
         return QueryDslFactory.getQueryFactory()
                 .select(Projections.constructor(
                         DepartmentResponseDto.class,
@@ -26,8 +26,8 @@ public interface DepartmentRepository extends JpaRepository<Department, String> 
                         qDepartment.version
                 ))
                 .from(qDepartment)
-                .limit(searchRequest.getLimit())
-                .offset(searchRequest.getOffset())
+                .limit(request.getLimit())
+                .offset(request.getOffset())
                 .fetch();
     }
 

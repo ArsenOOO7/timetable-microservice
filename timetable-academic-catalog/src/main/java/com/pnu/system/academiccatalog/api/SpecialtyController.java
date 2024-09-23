@@ -26,8 +26,8 @@ public class SpecialtyController {
     private final SpecialtyService service;
 
     @PostMapping("/list")
-    private List<SpecialtyResponseDto> getAll(@RequestBody BaseSearchRequest searchRequest) {
-        return service.getAll(searchRequest);
+    private List<SpecialtyResponseDto> getAll(@Valid @RequestBody BaseSearchRequest request) {
+        return service.getAll(request);
     }
 
     @PostMapping

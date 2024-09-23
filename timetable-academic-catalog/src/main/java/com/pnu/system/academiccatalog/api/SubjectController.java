@@ -1,6 +1,7 @@
 package com.pnu.system.academiccatalog.api;
 
 import com.pnu.system.academiccatalog.api.dto.SubjectCreateDto;
+import com.pnu.system.academiccatalog.api.dto.SubjectPreviewDto;
 import com.pnu.system.academiccatalog.api.dto.SubjectResponseDto;
 import com.pnu.system.academiccatalog.api.dto.SubjectUpdateDto;
 import com.pnu.system.academiccatalog.service.SubjectService;
@@ -26,8 +27,8 @@ public class SubjectController {
     private final SubjectService service;
 
     @PostMapping("/list")
-    private List<SubjectResponseDto> getAll(@RequestBody BaseSearchRequest searchRequest) {
-        return service.getAll(searchRequest);
+    private List<SubjectPreviewDto> getAll(@Valid @RequestBody BaseSearchRequest request) {
+        return service.getAll(request);
     }
 
     @PostMapping

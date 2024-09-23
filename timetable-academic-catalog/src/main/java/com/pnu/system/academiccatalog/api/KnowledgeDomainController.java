@@ -25,8 +25,8 @@ public class KnowledgeDomainController {
     private final KnowledgeDomainService service;
 
     @PostMapping("/list")
-    private List<KnowledgeDomainResponseDto> getAll(@RequestBody BaseSearchRequest searchRequest) {
-        return service.getAll(searchRequest);
+    private List<KnowledgeDomainResponseDto> getAll(@RequestBody BaseSearchRequest request) {
+        return service.getAll(request);
     }
 
     @PostMapping
