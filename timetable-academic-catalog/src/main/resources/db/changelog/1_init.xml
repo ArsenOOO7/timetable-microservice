@@ -113,6 +113,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <createIndex tableName="educational_program" indexName="educational_program_idx1">
+            <column name="specialty_id"/>
+        </createIndex>
 
         <createTable tableName="subject">
             <column name="id" type="varchar(40)">
@@ -128,6 +131,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <createIndex tableName="subject" indexName="subject_idx1">
+            <column name="educational_program_id"/>
+        </createIndex>
 
         <!--    chair    -->
 

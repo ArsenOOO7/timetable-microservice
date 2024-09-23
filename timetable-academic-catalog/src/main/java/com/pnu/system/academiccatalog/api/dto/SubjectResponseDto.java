@@ -1,0 +1,19 @@
+package com.pnu.system.academiccatalog.api.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class SubjectResponseDto {
+
+    private String id;
+    private String name;
+    private EducationalProgramPreviewDto educationalProgram;
+    private Integer version;
+
+}

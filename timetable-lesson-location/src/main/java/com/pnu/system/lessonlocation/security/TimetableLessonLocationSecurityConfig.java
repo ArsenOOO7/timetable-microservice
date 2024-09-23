@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.web.configurers.AuthorizeH
 public class TimetableLessonLocationSecurityConfig extends TimetableCommonWebSecurityConfig {
 
     @Override
-    protected void configreHttpRequests(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry registry) {
+    protected void configureHttpRequests(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry registry) {
         registry
                 .requestMatchers("/location/**").hasAnyAuthority(PermissionName.LESSON_LOCATION_EDIT.name())
                 .anyRequest().authenticated();
