@@ -1,4 +1,4 @@
-package com.pnu.system;
+package com.pnu.group;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
