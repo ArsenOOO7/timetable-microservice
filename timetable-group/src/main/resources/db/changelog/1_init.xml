@@ -13,15 +13,9 @@
             <column name="id" type="varchar(40)">
                 <constraints nullable="false" primaryKeyName="group_pk" primaryKey="true"/>
             </column>
-            <column name="parent_id" type="varchar(40)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="specialty_id" type="varchar(40)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="academic_year" type="smallint">
-                <constraints nullable="false"/>
-            </column>
+            <column name="parent_id" type="varchar(40)"/>
+            <column name="specialty_id" type="varchar(40)"/>
+            <column name="academic_year" type="smallint"/>
             <column name="number" type="integer">
                 <constraints nullable="false"/>
             </column>
