@@ -9,3 +9,4 @@ create user group_user nosuperuser nocreatedb nocreaterole login encrypted passw
 grant group_role to group_user;
 
 grant select, insert, delete, update on all tables in schema group_microservice to group_role;
+alter default privileges in schema group_microservice grant select, insert, update, delete on tables to group_role;

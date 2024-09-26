@@ -2,11 +2,15 @@ package com.pnu.system.common.service;
 
 import com.pnu.system.common.domain.BaseEntityProvider;
 import com.pnu.system.common.exception.EntityNotFoundException;
+import com.pnu.system.common.exception.InvalidParameterException;
+import com.pnu.system.common.utils.BeanUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Transactional
@@ -21,7 +25,16 @@ public abstract class AbstractPersistenceService<T extends BaseEntityProvider> {
     }
 
     public List<T> getAll(Collection<String> ids) {
-        return getRepository().findAllById(ids);
+        if (CollectionUtils.isEmpty(ids)) {
+            return Collections.emptyList();
+        }
+        List<T> entities = getRepository().findAllById(ids);
+        List<String> actualIds = BeanUtils.getIds(entities);
+        Collection<String> notFoundIds = CollectionUtils.removeAll(ids, actualIds);
+        if (CollectionUtils.isNotEmpty(notFoundIds)) {
+            throw new InvalidParameterException("Not found by ids: %s".formatted(String.join(",", notFoundIds)));
+        }
+        return entities;
     }
 
     public T getCloned(String id) {
