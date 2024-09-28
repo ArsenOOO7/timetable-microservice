@@ -2,6 +2,7 @@ package com.pnu.system.common.constant;
 
 public enum PermissionName {
     ROLE_EDIT,
+    INTERNAL_USE,
     KNOWLEDGE_EDIT,
     DEPARTMENT_EDIT,
     CHAIR_EDIT,

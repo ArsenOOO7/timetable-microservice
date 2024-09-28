@@ -1,5 +1,6 @@
 package com.pnu.system.identityaccess.api;
 
+import com.pnu.system.common.dto.BaseSearchRequest;
 import com.pnu.system.identityaccess.api.dto.UserCreateRequest;
 import com.pnu.system.identityaccess.api.dto.UserPreviewDto;
 import com.pnu.system.identityaccess.api.dto.UserResponseDto;
@@ -61,8 +62,8 @@ public class UserController {
         userService.delete(id);
     }
 
-    @GetMapping("/list")
-    public List<UserPreviewDto> getUsers() {
-        return userService.getPreviewUsers();
+    @PostMapping("/list")
+    public List<UserPreviewDto> getUsers(@Valid @RequestBody BaseSearchRequest request) {
+        return userService.getPreviewUsers(request);
     }
 }

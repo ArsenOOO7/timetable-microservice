@@ -4,26 +4,32 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet id="load_data" author="arsen">
+    <changeSet id="load_data_permissions" author="arsen" runOnChange="true">
         <loadUpdateData tableName="permission" file="db/data/permissions_data.csv" primaryKey="id">
             <column name="id" type="varchar(40)" header="id"/>
             <column name="name" type="varchar(64)" header="name"/>
             <column name="group" type="varchar(20)" header="group"/>
             <column name="type" type="varchar(20)" header="type"/>
         </loadUpdateData>
+    </changeSet>
 
+    <changeSet id="load_data_roles" author="arsen" runOnChange="true">
         <loadUpdateData tableName="role" file="db/data/roles_data.csv" primaryKey="id">
             <column name="id" type="varchar(40)" header="id"/>
             <column name="name" type="varchar(64)" header="name"/>
             <column name="type" type="varchar(20)" header="type"/>
             <column name="version" type="integer" header="version"/>
         </loadUpdateData>
+    </changeSet>
 
+    <changeSet id="load_data_role_permissions" author="arsen">
         <loadData tableName="role_permission" file="db/data/role_permissions_data.csv">
             <column name="role_id" type="varchar(40)" header="role_id"/>
             <column name="permission_id" type="varchar(40)" header="permission_id"/>
         </loadData>
+    </changeSet>
 
+    <changeSet id="load_data_users" author="arsen" runOnChange="true">
         <loadUpdateData tableName="app_user" file="db/data/users_data.csv" primaryKey="id">
             <column name="id" type="varchar(40)" header="id"/>
             <column name="first_name" type="varchar(64)" header="first_name"/>
@@ -33,7 +39,9 @@
             <column name="type" type="varchar(20)" header="type"/>
             <column name="version" type="integer" header="version"/>
         </loadUpdateData>
+    </changeSet>
 
+    <changeSet id="load_data_user_roles" author="arsen">
         <loadData tableName="user_role" file="db/data/user_roles_data.csv">
             <column name="user_id" type="varchar(40)" header="user_id"/>
             <column name="role_id" type="varchar(40)" header="role_id"/>

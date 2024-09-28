@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 public enum UserType {
 
     SUPER_ADMIN(RoleType.SUPER_ADMIN),
+    INTERNAL_ADMIN(RoleType.INTERNAL_ADMIN),
     ADMIN(RoleType.ADMIN),
     TEACHER(RoleType.TEACHER),
     USER(RoleType.USER);
