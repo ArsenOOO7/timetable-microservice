@@ -1,6 +1,7 @@
 package com.pnu.system.identityaccess.repository;
 
 import com.pnu.system.common.constant.PermissionName;
+import com.pnu.system.common.constant.RoleType;
 import com.pnu.system.common.dto.BaseSearchRequest;
 import com.pnu.system.common.utils.QueryDslFactory;
 import com.pnu.system.identityaccess.domain.QPermission;
@@ -30,6 +31,7 @@ public interface RoleRepository extends JpaRepository<Role, String> {
     default List<Role> getList(BaseSearchRequest request) {
         return QueryDslFactory.getQueryFactory()
                 .selectFrom(qRole)
+                .where(qRole.type.ne(RoleType.INTERNAL_ADMIN))
                 .limit(request.getLimit())
                 .offset(request.getOffset())
                 .fetch();

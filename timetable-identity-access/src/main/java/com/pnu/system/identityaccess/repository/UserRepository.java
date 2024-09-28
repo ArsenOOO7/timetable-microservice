@@ -1,5 +1,7 @@
 package com.pnu.system.identityaccess.repository;
 
+import com.pnu.system.common.constant.UserType;
+import com.pnu.system.common.dto.BaseSearchRequest;
 import com.pnu.system.common.utils.QueryDslFactory;
 import com.pnu.system.identityaccess.api.dto.UserPreviewDto;
 import com.pnu.system.identityaccess.domain.QUser;
@@ -20,7 +22,7 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     boolean existsByEmail(String email);
 
-    default List<UserPreviewDto> getPreviewUsers() {
+    default List<UserPreviewDto> getPreviewUsers(BaseSearchRequest request) {
         return QueryDslFactory.getQueryFactory()
                 .select(Projections.bean(UserPreviewDto.class,
                         qUser.id,
@@ -29,6 +31,9 @@ public interface UserRepository extends JpaRepository<User, String> {
                         qUser.email,
                         qUser.type
                 ))
+                .where(qUser.type.ne(UserType.INTERNAL_ADMIN))
+                .limit(request.getLimit())
+                .offset(request.getOffset())
                 .from(qUser)
                 .fetch();
     }

@@ -5,6 +5,7 @@ public enum PermissionGroup {
     ACADEMIC_CATALOG,
     USER,
     GROUP,
-    TIMETABLE
+    TIMETABLE,
+    INTERNAL
 
 }

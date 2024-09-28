@@ -12,6 +12,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static com.pnu.system.common.constant.PermissionName.INTERNAL_USE;
+
 @Slf4j
 @EnableWebSecurity
 public abstract class TimetableCommonWebSecurityConfig {
@@ -26,9 +28,14 @@ public abstract class TimetableCommonWebSecurityConfig {
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(this::configureHttpRequests);
+                .authorizeHttpRequests(this::configureAllHttpRequests);
 
         return http.build();
+    }
+
+    private void configureAllHttpRequests(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry registry) {
+        registry.requestMatchers("/**/internal/**").hasAuthority(INTERNAL_USE.name());
+        configureHttpRequests(registry);
     }
 
     protected void configureHttpRequests(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry registry) {

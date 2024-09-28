@@ -1,6 +1,7 @@
 package com.pnu.system.identityaccess.service;
 
 import com.pnu.system.common.constant.UserType;
+import com.pnu.system.common.dto.BaseSearchRequest;
 import com.pnu.system.common.service.AbstractPersistenceService;
 import com.pnu.system.identityaccess.api.dto.UserCreateRequest;
 import com.pnu.system.identityaccess.api.dto.UserPreviewDto;
@@ -51,8 +52,8 @@ public class UserService extends AbstractPersistenceService<User> {
         return mapper.asUserResponseDto(getOne(id));
     }
 
-    public List<UserPreviewDto> getPreviewUsers() {
-        return repository.getPreviewUsers();
+    public List<UserPreviewDto> getPreviewUsers(BaseSearchRequest request) {
+        return repository.getPreviewUsers(request);
     }
 
     public Optional<User> getByEmail(String email) {
