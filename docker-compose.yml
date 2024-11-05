@@ -22,3 +22,14 @@ services:
       - "9300:9300"
     environment:
       - discovery=single-node
+
+  rabbitmq:
+    image: "rabbitmq:latest"
+    container_name: "timetable-rabbitmq"
+    restart: unless-stopped
+    environment:
+      - RABBITMQ_DEFAULT_USER=rabbit
+      - RABBITMQ_DEFAULT_PASS=password
+    ports:
+      - "5672:5672"
+      - "15672:15672"

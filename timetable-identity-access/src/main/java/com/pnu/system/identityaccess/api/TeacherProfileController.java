@@ -1,5 +1,6 @@
 package com.pnu.system.identityaccess.api;
 
+import com.pnu.system.identityaccess.api.dto.TeacherProfileUpdateRequest;
 import com.pnu.system.identityaccess.domain.TeacherProfile;
 import com.pnu.system.identityaccess.service.TeacherProfileService;
 import jakarta.validation.Valid;
@@ -19,8 +20,8 @@ public class TeacherProfileController {
     private final TeacherProfileService service;
 
     @PutMapping
-    public TeacherProfile update(@Valid @RequestBody TeacherProfile profile) {
-        return service.update(profile);
+    public TeacherProfile update(@Valid @RequestBody TeacherProfileUpdateRequest request) {
+        return service.update(request);
     }
 
     @GetMapping("/{id}")

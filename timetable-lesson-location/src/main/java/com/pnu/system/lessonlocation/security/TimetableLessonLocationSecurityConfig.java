@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
 
+import static com.pnu.system.common.constant.PermissionName.INTERNAL_USE;
+
 @Slf4j
 @Configuration
 public class TimetableLessonLocationSecurityConfig extends TimetableCommonWebSecurityConfig {
@@ -14,6 +16,7 @@ public class TimetableLessonLocationSecurityConfig extends TimetableCommonWebSec
     @Override
     protected void configureHttpRequests(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry registry) {
         registry
+                .requestMatchers("/**/internal/**").hasAuthority(INTERNAL_USE.name())
                 .requestMatchers("/location/**").hasAnyAuthority(PermissionName.LESSON_LOCATION_EDIT.name())
                 .anyRequest().authenticated();
     }

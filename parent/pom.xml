@@ -56,6 +56,10 @@
             <groupId>com.pnu.system</groupId>
             <artifactId>timetable-common-lib</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

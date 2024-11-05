@@ -1,5 +1,9 @@
 package com.pnu.system.common.security;
 
+import com.pnu.system.common.security.provider.InternalUserProvider;
+import com.pnu.system.common.security.provider.RestInternalUserProvider;
+import com.pnu.system.common.utils.JwtUtils;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -23,5 +27,11 @@ public class TimetableWebConfig {
                         .allowCredentials(true);
             }
         };
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(InternalUserProvider.class)
+    public InternalUserProvider restInternalUserProvider(JwtUtils jwtUtils) {
+        return new RestInternalUserProvider(jwtUtils);
     }
 }

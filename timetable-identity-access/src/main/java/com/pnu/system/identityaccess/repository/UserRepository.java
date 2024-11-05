@@ -8,6 +8,7 @@ import com.pnu.system.identityaccess.domain.QUser;
 import com.pnu.system.identityaccess.domain.User;
 import com.querydsl.core.types.Projections;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,6 +22,9 @@ public interface UserRepository extends JpaRepository<User, String> {
     Optional<User> findByEmail(String email);
 
     boolean existsByEmail(String email);
+
+    @Query("select user.groupIds from User user where user.id = ?1")
+    List<String> getUserGroupIds(String id);
 
     default List<UserPreviewDto> getPreviewUsers(BaseSearchRequest request) {
         return QueryDslFactory.getQueryFactory()

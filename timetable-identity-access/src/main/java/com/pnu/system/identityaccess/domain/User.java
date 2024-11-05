@@ -15,6 +15,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,7 @@ public class User extends VersionEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<Role> roles;
+    @BatchSize(size = 100)
     @ElementCollection
     @CollectionTable(name = "student_group", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "group_id")
