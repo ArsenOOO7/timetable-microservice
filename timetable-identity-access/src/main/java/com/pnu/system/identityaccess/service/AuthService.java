@@ -30,6 +30,7 @@ public class AuthService {
 
         UserDetails userDetails = new UserDetails();
         userDetails.setId(user.getId());
+        userDetails.setEmail(user.getEmail());
         userDetails.setPermissions(authMapper.asStringPermissionNames(getUserPermissions(user)));
 
         return authMapper.asUserTokenResponse(jwtUtils.generateToken(userDetails));
