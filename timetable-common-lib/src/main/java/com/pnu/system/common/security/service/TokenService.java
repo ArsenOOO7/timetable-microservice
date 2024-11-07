@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static com.pnu.system.common.security.constant.TokenClaims.CLAIM_KEY_EMAIL;
 import static com.pnu.system.common.security.constant.TokenClaims.CLAIM_KEY_PERMISSIONS;
 
 
@@ -29,6 +30,7 @@ public class TokenService {
 
                     UserDetails userDetails = new UserDetails();
                     userDetails.setId(userId);
+                    userDetails.setEmail(decodedJwt.getClaim(CLAIM_KEY_EMAIL).asString());
 
                     List<SimpleGrantedAuthority> authorities = permissions.stream()
                             .map(SimpleGrantedAuthority::new)

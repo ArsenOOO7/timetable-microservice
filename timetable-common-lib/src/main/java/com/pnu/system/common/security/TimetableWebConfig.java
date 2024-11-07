@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 @Configuration
-public class TimetableWebConfig implements WebMvcConfigurer {
+public class TimetableWebConfig {
 
     //TODO: Ice-cream for fixing default credential problem ;)
 
@@ -24,9 +24,4 @@ public class TimetableWebConfig implements WebMvcConfigurer {
             }
         };
     }
-
-//    @Override
-//    public void addFormatters(FormatterRegistry registry) {
-//        WebMvcConfigurer.super.addFormatters(registry);
-//    }
 }

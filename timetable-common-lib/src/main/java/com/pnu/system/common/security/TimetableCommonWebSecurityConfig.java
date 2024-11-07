@@ -1,6 +1,7 @@
 package com.pnu.system.common.security;
 
 import com.pnu.system.common.security.audit.TimetableAuditorAware;
+import com.pnu.system.common.security.audit.ZonedDateTimeAuditProvider;
 import com.pnu.system.common.security.filter.TimetableSecurityFilter;
 import com.pnu.system.common.security.provider.InternalUserProvider;
 import com.pnu.system.common.security.provider.RestInternalUserProvider;
@@ -9,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.auditing.DateTimeProvider;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -27,9 +29,14 @@ public abstract class TimetableCommonWebSecurityConfig {
     @Autowired
     private TimetableSecurityFilter securityFilter;
 
-    @Bean
+    @Bean("timetableAuditorAware")
     public AuditorAware<String> timetableAuditorAware() {
         return new TimetableAuditorAware();
+    }
+
+    @Bean("zonedDateTimeProvider")
+    public DateTimeProvider zonedDateTimeProvider() {
+        return new ZonedDateTimeAuditProvider();
     }
 
     @Bean
