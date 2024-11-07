@@ -13,6 +13,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <spring-cloud.version>2023.0.0</spring-cloud.version>
+        <mapstruct.version>1.5.3.Final</mapstruct.version>
     </properties>
 
     <parent>
@@ -24,6 +25,12 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+                <scope>provided</scope>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>

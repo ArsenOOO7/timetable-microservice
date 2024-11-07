@@ -66,4 +66,9 @@ public class UserController {
     public List<UserPreviewDto> getUsers(@Valid @RequestBody BaseSearchRequest request) {
         return userService.getPreviewUsers(request);
     }
+
+    @GetMapping("/{id}/internal/group/list")
+    public List<String> getUserGroupIds(@PathVariable String id) {
+        return userService.getUserGroupIds(id);
+    }
 }

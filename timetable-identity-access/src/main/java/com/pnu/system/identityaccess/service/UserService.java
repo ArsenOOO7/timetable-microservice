@@ -10,9 +10,13 @@ import com.pnu.system.identityaccess.api.dto.UserUpdateRequest;
 import com.pnu.system.identityaccess.domain.Role;
 import com.pnu.system.identityaccess.domain.TeacherProfile;
 import com.pnu.system.identityaccess.domain.User;
+import com.pnu.system.identityaccess.event.model.UserCreateEvent;
+import com.pnu.system.identityaccess.event.model.UserDeleteEvent;
+import com.pnu.system.identityaccess.event.model.UserUpdateEvent;
 import com.pnu.system.identityaccess.mapper.UserMapper;
 import com.pnu.system.identityaccess.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +30,7 @@ public class UserService extends AbstractPersistenceService<User> {
     private final UserMapper mapper;
     private final RoleService roleService;
     private final UserRepository repository;
+    private final ApplicationEventPublisher eventPublisher;
     private final TeacherProfileService teacherProfileService;
 
     public UserResponseDto create(UserCreateRequest userCreateRequest) {
@@ -33,6 +38,7 @@ public class UserService extends AbstractPersistenceService<User> {
         assignRoles2User(user, userCreateRequest.getRoleIds());
         User created = super.create(user);
         createTeacherProfile(created);
+        eventPublisher.publishEvent(new UserCreateEvent(user));
         return mapper.asUserResponseDto(created);
     }
 
@@ -45,6 +51,7 @@ public class UserService extends AbstractPersistenceService<User> {
         assignRoles2User(user, userUpdateRequest.getRoleIds());
         User updated = super.update(user);
         createTeacherProfile(updated);
+        eventPublisher.publishEvent(new UserUpdateEvent(user));
         return mapper.asUserResponseDto(updated);
     }
 
@@ -64,6 +71,10 @@ public class UserService extends AbstractPersistenceService<User> {
         return repository.existsByEmail(email);
     }
 
+    public List<String> getUserGroupIds(String id) {
+        return repository.getUserGroupIds(id);
+    }
+
     private void assignRoles2User(User user, List<String> roleIds) {
         List<Role> roles = roleService.getAll(roleIds);
         user.setRoles(roles);
@@ -73,7 +84,6 @@ public class UserService extends AbstractPersistenceService<User> {
         if (!UserType.TEACHER.equals(user.getType())) {
             return;
         }
-
         if (teacherProfileService.existsById(user.getId())) {
             return;
         }
@@ -86,6 +96,7 @@ public class UserService extends AbstractPersistenceService<User> {
     @Override
     public void delete(String id) {
         teacherProfileService.delete(id);
+        eventPublisher.publishEvent(new UserDeleteEvent(id));
         super.delete(id);
     }
 

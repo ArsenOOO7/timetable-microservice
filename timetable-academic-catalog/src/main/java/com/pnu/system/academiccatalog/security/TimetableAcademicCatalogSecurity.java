@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configurers.AuthorizeH
 import static com.pnu.system.common.constant.PermissionName.CHAIR_EDIT;
 import static com.pnu.system.common.constant.PermissionName.DEPARTMENT_EDIT;
 import static com.pnu.system.common.constant.PermissionName.EDUCATIONAL_PROGRAM_EDIT;
+import static com.pnu.system.common.constant.PermissionName.INTERNAL_USE;
 import static com.pnu.system.common.constant.PermissionName.KNOWLEDGE_EDIT;
 import static com.pnu.system.common.constant.PermissionName.SPECIALTY_EDIT;
 import static com.pnu.system.common.constant.PermissionName.SUBJECT_EDIT;
@@ -19,6 +20,7 @@ public class TimetableAcademicCatalogSecurity extends TimetableCommonWebSecurity
     @Override
     protected void configureHttpRequests(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry registry) {
         registry
+                .requestMatchers("/**/internal/**").hasAuthority(INTERNAL_USE.name())
                 .requestMatchers("/chair/**").hasAuthority(CHAIR_EDIT.name())
                 .requestMatchers("/department/**").hasAuthority(DEPARTMENT_EDIT.name())
                 .requestMatchers("/educationProgram/**").hasAuthority(EDUCATIONAL_PROGRAM_EDIT.name())

@@ -9,3 +9,4 @@ create user timetable_user nosuperuser nocreatedb nocreaterole login encrypted p
 grant timetable_role to timetable_user;
 
 grant select, insert, delete, update on all tables in schema timetable_microservice to timetable_role;
+alter default privileges in schema timetable_microservice grant select, insert, update, delete on tables to timetable_role;
