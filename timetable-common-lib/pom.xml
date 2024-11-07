@@ -62,6 +62,10 @@
             <version>${querydsl.version}</version>
             <classifier>jakarta</classifier>
         </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+        </dependency>
         <!--        TODO: Think about it-->
         <dependency>
             <groupId>org.hibernate.search</groupId>

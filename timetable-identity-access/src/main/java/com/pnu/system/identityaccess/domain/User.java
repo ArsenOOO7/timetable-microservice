@@ -35,6 +35,7 @@ public class User extends VersionEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private UserType type;
+    @BatchSize(size = 100)
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",

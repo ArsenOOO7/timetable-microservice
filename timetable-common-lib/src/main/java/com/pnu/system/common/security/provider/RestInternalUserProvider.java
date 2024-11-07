@@ -14,7 +14,7 @@ public class RestInternalUserProvider implements InternalUserProvider {
     private final WebClient webClient;
     private final JwtUtils jwtUtils;
 
-    @Value("${baseUrl.identity_access}/auth")
+    @Value("${baseUrl.identity_access}/auth/login")
     private String authUrl;
 
     @Value("${timetable.security.starts:Bearer}")
