@@ -1,7 +1,7 @@
 package com.pnu.system.lessonlocation.domain;
 
 
-import com.pnu.system.common.domain.VersionEntity;
+import com.pnu.system.common.domain.AuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "location_type")
-public class LocationType extends VersionEntity {
+public class LocationType extends AuditableEntity {
 
     @Column(name = "name")
     private String name;

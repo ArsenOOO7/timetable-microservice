@@ -1,6 +1,6 @@
-id,first_name,last_name,email,password,type,version
-59d78ec4-3a3d-4de5-89bb-211364b22bad,Oleh,Kozych,olek@pnu.edu.ua,1234,SUPER_ADMIN,0
-92a7429a-c38f-4c22-a7dc-a7287f115068,Internal,User,internal.user@timetable.com,1234,INTERNAL_ADMIN,0
-3aa5695c-e12c-471c-8426-bfa2ff39a149,Andrii,Solomko,andrii.solomko@pnu.edu.ua,1234,ADMIN,0
-d322c58d-e746-4b99-9bf1-d49c6da6c5cf,Mariia,Dutchak,mariia.dutchak@pnu.edu.ua,1234,TEACHER,0
-9a362dbc-ae28-40a4-ae62-fa3048a2942e,Andrii,Yakubovskyi,andrii.yakubovskyi@pnu.edu.ua,1234,USER,0
+id,first_name,last_name,email,password,type,version,created_by,created_at,last_modified_by,last_modified_at
+59d78ec4-3a3d-4de5-89bb-211364b22bad,Oleh,Kozych,olek@pnu.edu.ua,1234,SUPER_ADMIN,0,'olek@pnu.edu.ua','2024-11-07-T00:00:00','olek@pnu.edu.ua','2024-11-07-T00:00:00'
+92a7429a-c38f-4c22-a7dc-a7287f115068,Internal,User,internal.user@timetable.com,1234,INTERNAL_ADMIN,0,'olek@pnu.edu.ua','2024-11-07-T00:00:00','olek@pnu.edu.ua','2024-11-07-T00:00:00'
+3aa5695c-e12c-471c-8426-bfa2ff39a149,Andrii,Solomko,andrii.solomko@pnu.edu.ua,1234,ADMIN,0,'olek@pnu.edu.ua','2024-11-07-T00:00:00','olek@pnu.edu.ua','2024-11-07-T00:00:00'
+d322c58d-e746-4b99-9bf1-d49c6da6c5cf,Mariia,Dutchak,mariia.dutchak@pnu.edu.ua,1234,TEACHER,0,'olek@pnu.edu.ua','2024-11-07-T00:00:00','olek@pnu.edu.ua','2024-11-07-T00:00:00'
+9a362dbc-ae28-40a4-ae62-fa3048a2942e,Andrii,Yakubovskyi,andrii.yakubovskyi@pnu.edu.ua,1234,USER,0,'olek@pnu.edu.ua','2024-11-07-T00:00:00','olek@pnu.edu.ua','2024-11-07-T00:00:00'

@@ -23,4 +23,8 @@ public class LessonLocationSnapshotService implements LessonLocationSnapshotProv
     public List<LessonLocationSnapshotDto> getByIds(List<String> ids) {
         return repository.getByIds(ids);
     }
+
+    public List<LessonLocationSnapshotDto> getByLocationTypeId(String locationTypeId) {
+        return repository.getByLocationTypeId(locationTypeId);
+    }
 }

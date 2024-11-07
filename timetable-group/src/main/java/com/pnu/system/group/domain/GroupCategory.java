@@ -1,6 +1,6 @@
 package com.pnu.system.group.domain;
 
-import com.pnu.system.common.domain.VersionEntity;
+import com.pnu.system.common.domain.AuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "group_category")
-public class GroupCategory extends VersionEntity {
+public class GroupCategory extends AuditableEntity {
 
     @Column(name = "name")
     private String name;

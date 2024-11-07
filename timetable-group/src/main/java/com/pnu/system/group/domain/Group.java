@@ -1,7 +1,7 @@
 package com.pnu.system.group.domain;
 
 
-import com.pnu.system.common.domain.VersionEntity;
+import com.pnu.system.common.domain.AuditableEntity;
 import com.pnu.system.group.constant.GroupType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -24,7 +24,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "group")
-public class Group extends VersionEntity {
+public class Group extends AuditableEntity {
 
     @Column(name = "parent_id")
     private String parentId;

@@ -24,7 +24,7 @@ public class AuditableEntity extends VersionEntity {
     private ZonedDateTime createdAt;
 
     @LastModifiedBy
-    @Column(name = "last_modified_by", updatable = false)
+    @Column(name = "last_modified_by")
     private String lastModifiedBy;
     @LastModifiedDate
     @Column(name = "last_modified_at")

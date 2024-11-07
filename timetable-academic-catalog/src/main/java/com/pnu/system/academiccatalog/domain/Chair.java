@@ -1,6 +1,6 @@
 package com.pnu.system.academiccatalog.domain;
 
-import com.pnu.system.common.domain.VersionEntity;
+import com.pnu.system.common.domain.AuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -18,7 +18,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "chair")
-public class Chair extends VersionEntity {
+public class Chair extends AuditableEntity {
 
     @Column(name = "name")
     private String name;

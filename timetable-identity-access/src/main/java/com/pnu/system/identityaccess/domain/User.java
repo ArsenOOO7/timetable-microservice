@@ -1,7 +1,7 @@
 package com.pnu.system.identityaccess.domain;
 
 import com.pnu.system.common.constant.UserType;
-import com.pnu.system.common.domain.VersionEntity;
+import com.pnu.system.common.domain.AuditableEntity;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -24,7 +24,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "app_user")
-public class User extends VersionEntity {
+public class User extends AuditableEntity {
 
     @Column(name = "first_name")
     private String firstName;

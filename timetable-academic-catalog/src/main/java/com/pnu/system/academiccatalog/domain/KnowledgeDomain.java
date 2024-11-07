@@ -1,6 +1,6 @@
 package com.pnu.system.academiccatalog.domain;
 
-import com.pnu.system.common.domain.VersionEntity;
+import com.pnu.system.common.domain.AuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "knowledge_domain")
-public class KnowledgeDomain extends VersionEntity {
+public class KnowledgeDomain extends AuditableEntity {
 
     @Column(name = "code")
     private String code;

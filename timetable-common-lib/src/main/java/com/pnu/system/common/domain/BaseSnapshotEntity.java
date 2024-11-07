@@ -17,6 +17,9 @@ public class BaseSnapshotEntity {
     @Column(name = "id")
     private String id;
 
+    @Column(name = "last_modified_by")
+    private String lastModifiedBy;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
