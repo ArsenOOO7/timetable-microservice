@@ -6,6 +6,7 @@ import com.pnu.system.lessonlocation.repository.LessonLocationSnapshotRepository
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -13,6 +14,10 @@ import java.util.List;
 public class LessonLocationSnapshotService implements LessonLocationSnapshotProvider {
 
     private final LessonLocationSnapshotRepository repository;
+
+    public List<LessonLocationSnapshotDto> getModifiedAfterDate(ZonedDateTime lastModifiedAt) {
+        return repository.getModifiedAfterDate(lastModifiedAt);
+    }
 
     @Override
     public LessonLocationSnapshotDto getById(String id) {

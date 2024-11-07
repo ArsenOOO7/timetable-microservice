@@ -6,6 +6,7 @@ import com.pnu.system.common.snapshot.provider.SubjectSnapshotProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -13,6 +14,10 @@ import java.util.List;
 public class SubjectSnapshotService implements SubjectSnapshotProvider {
 
     private final SubjectSnapshotRepository repository;
+
+    public List<SubjectSnapshotDto> getModifiedAfterDate(ZonedDateTime lastModifiedAt) {
+        return repository.getModifiedAfterDate(lastModifiedAt);
+    }
 
     @Override
     public SubjectSnapshotDto getById(String id) {

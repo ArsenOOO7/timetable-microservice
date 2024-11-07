@@ -9,12 +9,21 @@ import com.querydsl.core.types.Projections;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Repository
 public interface LessonLocationSnapshotRepository extends JpaRepository<LessonLocation, String> {
 
     QLessonLocation qLessonLocation = QLessonLocation.lessonLocation;
+
+    default List<LessonLocationSnapshotDto> getModifiedAfterDate(ZonedDateTime lastModifiedAt) {
+        return QueryDslFactory.getQueryFactory()
+                .select(getLessonLocationSnapshotProjection())
+                .from(qLessonLocation)
+                .where(qLessonLocation.lastModifiedAt.after(lastModifiedAt))
+                .fetch();
+    }
 
     default LessonLocationSnapshotDto getSnapshotById(String id) {
         return QueryDslFactory.getQueryFactory()
@@ -45,6 +54,6 @@ public interface LessonLocationSnapshotRepository extends JpaRepository<LessonLo
 
     default ConstructorExpression<LessonLocationSnapshotDto> getLessonLocationSnapshotProjection() {
         return Projections.constructor(LessonLocationSnapshotDto.class, qLessonLocation.id, qLessonLocation.locationType.shortName,
-                qLessonLocation.name, qLessonLocation.address);
+                qLessonLocation.name, qLessonLocation.address, qLessonLocation.lastModifiedAt);
     }
 }

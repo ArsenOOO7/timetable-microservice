@@ -9,12 +9,21 @@ import com.querydsl.core.types.Projections;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Repository
 public interface UserSnapshotRepository extends JpaRepository<UserWithTeacherProfile, String> {
 
     QUserWithTeacherProfile qUserWithTeacherProfile = QUserWithTeacherProfile.userWithTeacherProfile;
+
+    default List<UserSnapshotDto> getModifiedAfter(ZonedDateTime lastModifiedAt) {
+        return QueryDslFactory.getQueryFactory()
+                .select(getUserSnapshotProjection())
+                .from(qUserWithTeacherProfile)
+                .where(qUserWithTeacherProfile.lastModifiedAt.after(lastModifiedAt))
+                .fetch();
+    }
 
     default UserSnapshotDto getSnapshotById(String id) {
         return QueryDslFactory.getQueryFactory()
@@ -35,6 +44,6 @@ public interface UserSnapshotRepository extends JpaRepository<UserWithTeacherPro
 
     default ConstructorExpression<UserSnapshotDto> getUserSnapshotProjection() {
         return Projections.constructor(UserSnapshotDto.class, qUserWithTeacherProfile.id, qUserWithTeacherProfile.firstName, qUserWithTeacherProfile.lastName,
-                qUserWithTeacherProfile.personalLink, qUserWithTeacherProfile.type);
+                qUserWithTeacherProfile.personalLink, qUserWithTeacherProfile.type, qUserWithTeacherProfile.lastModifiedAt);
     }
 }

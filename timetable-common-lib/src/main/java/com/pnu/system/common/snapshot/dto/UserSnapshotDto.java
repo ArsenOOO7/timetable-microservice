@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.ZonedDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,5 +19,6 @@ public class UserSnapshotDto {
     private String lastName;
     private String personalLink;
     private UserType type;
+    private ZonedDateTime lastModifiedAt;
 
 }

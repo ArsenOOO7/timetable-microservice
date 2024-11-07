@@ -6,6 +6,7 @@ import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 @Getter
@@ -17,8 +18,8 @@ public class BaseSnapshotEntity {
     @Column(name = "id")
     private String id;
 
-    @Column(name = "last_modified_by")
-    private String lastModifiedBy;
+    @Column(name = "last_modified_at")
+    private ZonedDateTime lastModifiedAt;
 
     @Override
     public boolean equals(Object o) {

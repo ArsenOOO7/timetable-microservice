@@ -6,6 +6,7 @@ import com.pnu.system.identityaccess.repository.UserSnapshotRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -13,6 +14,10 @@ import java.util.List;
 public class UserSnapshotService implements UserSnapshotProvider {
 
     private final UserSnapshotRepository repository;
+
+    public List<UserSnapshotDto> getModifiedAfter(ZonedDateTime lastModifiedAt) {
+        return repository.getModifiedAfter(lastModifiedAt);
+    }
 
     @Override
     public UserSnapshotDto getById(String id) {
