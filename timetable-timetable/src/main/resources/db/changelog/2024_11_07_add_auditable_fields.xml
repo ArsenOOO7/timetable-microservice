@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="add_auditable_fields" author="Arsen">
+        <addColumn tableName="lesson">
+            <column name="created_by" type="nvarchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp(3) with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="nvarchar(255)"/>
+            <column name="last_modified_at" type="timestamp(3) with time zone"/>
+        </addColumn>
+
+        <addColumn tableName="lesson_type">
+            <column name="created_by" type="nvarchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp(3) with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="nvarchar(255)"/>
+            <column name="last_modified_at" type="timestamp(3) with time zone"/>
+        </addColumn>
+
+        <addColumn tableName="user_snapshot">
+            <column name="last_modified_at" type="timestamp(3) with time zone"/>
+        </addColumn>
+
+        <addColumn tableName="group_snapshot">
+            <column name="last_modified_at" type="timestamp(3) with time zone"/>
+        </addColumn>
+
+        <addColumn tableName="lesson_location_snapshot">
+            <column name="last_modified_at" type="timestamp(3) with time zone"/>
+        </addColumn>
+
+        <addColumn tableName="subject_snapshot">
+            <column name="last_modified_at" type="timestamp(3) with time zone"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

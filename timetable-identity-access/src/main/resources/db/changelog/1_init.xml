@@ -184,4 +184,28 @@
 
     </changeSet>
 
+    <changeSet id="add_auditable_fields" author="Arsen">
+        <addColumn tableName="app_user">
+            <column name="created_by" type="nvarchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp(3) with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="nvarchar(255)"/>
+            <column name="last_modified_at" type="timestamp(3) with time zone"/>
+        </addColumn>
+
+        <addColumn tableName="role">
+            <column name="created_by" type="nvarchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp(3) with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="nvarchar(255)"/>
+            <column name="last_modified_at" type="timestamp(3) with time zone"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

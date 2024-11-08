@@ -1,6 +1,6 @@
 package com.pnu.system.timetable.domain;
 
-import com.pnu.system.common.domain.VersionEntity;
+import com.pnu.system.common.domain.AuditableEntity;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -16,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @MappedSuperclass
-public class AbstractLesson extends VersionEntity {
+public class AbstractLesson extends AuditableEntity {
 
     @Column(name = "date")
     private LocalDate date;

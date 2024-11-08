@@ -6,6 +6,7 @@ import com.pnu.system.group.repository.GroupSnapshotRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -13,6 +14,10 @@ import java.util.List;
 public class GroupSnapshotService implements GroupSnapshotProvider {
 
     private final GroupSnapshotRepository repository;
+
+    public List<GroupSnapshotDto> getModifiedAfterDate(ZonedDateTime lastModifiedAt) {
+        return repository.getModifiedAfterDate(lastModifiedAt);
+    }
 
     @Override
     public GroupSnapshotDto getById(String id) {

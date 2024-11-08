@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 
+import static com.pnu.system.common.security.constant.TokenClaims.CLAIM_KEY_EMAIL;
 import static com.pnu.system.common.security.constant.TokenClaims.CLAIM_KEY_PERMISSIONS;
 
 @Component
@@ -36,6 +37,7 @@ public class JwtUtils {
         return JWT.create()
                 .withSubject(user.getId())
                 .withClaim(CLAIM_KEY_PERMISSIONS, user.getPermissions())
+                .withClaim(CLAIM_KEY_EMAIL, user.getEmail())
                 .withExpiresAt(Instant.now().plusSeconds(lifetime))
                 .sign(getSignKey());
     }

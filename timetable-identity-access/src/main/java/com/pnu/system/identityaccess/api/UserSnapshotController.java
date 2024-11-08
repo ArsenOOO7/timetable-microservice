@@ -1,6 +1,7 @@
 package com.pnu.system.identityaccess.api;
 
 import com.pnu.system.common.snapshot.dto.UserSnapshotDto;
+import com.pnu.system.common.utils.DateUtils;
 import com.pnu.system.identityaccess.service.UserSnapshotService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -18,6 +20,11 @@ import java.util.List;
 public class UserSnapshotController {
 
     private final UserSnapshotService service;
+
+    @GetMapping("/modifiedAfter")
+    public List<UserSnapshotDto> getModifiedAfter(@RequestParam String lastModifiedAt) {
+        return service.getModifiedAfter(DateUtils.asZonedDateTime(lastModifiedAt));
+    }
 
     @GetMapping("/{id}")
     public UserSnapshotDto getById(@PathVariable String id) {

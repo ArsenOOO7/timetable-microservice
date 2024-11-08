@@ -1,6 +1,6 @@
 package com.pnu.system.academiccatalog.domain;
 
-import com.pnu.system.common.domain.VersionEntity;
+import com.pnu.system.common.domain.AuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "educational_program")
-public class EducationalProgram extends VersionEntity {
+public class EducationalProgram extends AuditableEntity {
 
     @Column(name = "name")
     private String name;

@@ -1,7 +1,7 @@
 package com.pnu.system.identityaccess.domain;
 
 import com.pnu.system.common.constant.RoleType;
-import com.pnu.system.common.domain.VersionEntity;
+import com.pnu.system.common.domain.AuditableEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,7 +22,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "role")
-public class Role extends VersionEntity {
+public class Role extends AuditableEntity {
 
     @Column(name = "name")
     private String name;

@@ -6,10 +6,12 @@ import com.pnu.system.lessonlocation.api.dto.LessonLocationTypeCreateRequest;
 import com.pnu.system.lessonlocation.api.dto.LessonLocationTypeResponseDto;
 import com.pnu.system.lessonlocation.api.dto.LessonLocationTypeUpdateDto;
 import com.pnu.system.lessonlocation.domain.LocationType;
+import com.pnu.system.lessonlocation.event.model.LessonLocationTypeUpdateEvent;
 import com.pnu.system.lessonlocation.mapper.LocationTypeMapper;
 import com.pnu.system.lessonlocation.repository.LessonLocationRepository;
 import com.pnu.system.lessonlocation.repository.LocationTypeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,7 @@ public class LocationTypeService extends AbstractPersistenceService<LocationType
 
     private final LocationTypeMapper mapper;
     private final LocationTypeRepository repository;
+    private final ApplicationEventPublisher eventPublisher;
     private final LessonLocationRepository lessonLocationRepository;
 
     public List<LessonLocationTypeResponseDto> getAll() {
@@ -32,7 +35,9 @@ public class LocationTypeService extends AbstractPersistenceService<LocationType
     }
 
     public LessonLocationTypeResponseDto update(LessonLocationTypeUpdateDto updateDto) {
-        return mapper.asLessonLocationTypeDto(super.update(mapper.asLocationType(updateDto)));
+        LocationType locationType = mapper.asLocationType(updateDto);
+        eventPublisher.publishEvent(new LessonLocationTypeUpdateEvent(locationType));
+        return mapper.asLessonLocationTypeDto(super.update(locationType));
     }
 
     public LessonLocationTypeResponseDto getById(String id) {

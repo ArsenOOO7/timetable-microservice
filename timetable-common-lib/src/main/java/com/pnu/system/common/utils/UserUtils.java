@@ -8,4 +8,8 @@ public class UserUtils {
     public static String getId() {
         return ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
     }
+
+    public static String getEmail() {
+        return ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmail();
+    }
 }

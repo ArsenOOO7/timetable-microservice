@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.ZonedDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -13,5 +15,6 @@ public class GroupSnapshotDto {
 
     private String id;
     private String name;
+    private ZonedDateTime lastModifiedAt;
 
 }

@@ -8,6 +8,7 @@ import com.querydsl.core.types.Projections;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Repository
@@ -15,9 +16,17 @@ public interface GroupSnapshotRepository extends JpaRepository<Group, String> {
 
     QGroup qGroup = QGroup.group;
 
+    default List<GroupSnapshotDto> getModifiedAfterDate(ZonedDateTime lastModifiedAt) {
+        return QueryDslFactory.getQueryFactory()
+                .select(Projections.constructor(GroupSnapshotDto.class, qGroup.id, qGroup.name, qGroup.lastModifiedAt))
+                .from(qGroup)
+                .where(qGroup.lastModifiedAt.after(lastModifiedAt))
+                .fetch();
+    }
+
     default GroupSnapshotDto getSnapshotById(String id) {
         return QueryDslFactory.getQueryFactory()
-                .select(Projections.constructor(GroupSnapshotDto.class, qGroup.id, qGroup.name))
+                .select(Projections.constructor(GroupSnapshotDto.class, qGroup.id, qGroup.name, qGroup.lastModifiedAt))
                 .from(qGroup)
                 .where(qGroup.id.eq(id))
                 .fetchOne();
@@ -25,10 +34,9 @@ public interface GroupSnapshotRepository extends JpaRepository<Group, String> {
 
     default List<GroupSnapshotDto> getByIds(List<String> ids) {
         return QueryDslFactory.getQueryFactory()
-                .select(Projections.constructor(GroupSnapshotDto.class, qGroup.id, qGroup.name))
+                .select(Projections.constructor(GroupSnapshotDto.class, qGroup.id, qGroup.name, qGroup.lastModifiedAt))
                 .from(qGroup)
                 .where(qGroup.id.in(ids))
                 .fetch();
     }
-
 }

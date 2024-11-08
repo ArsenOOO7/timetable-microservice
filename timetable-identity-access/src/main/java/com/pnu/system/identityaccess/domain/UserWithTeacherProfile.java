@@ -1,7 +1,7 @@
 package com.pnu.system.identityaccess.domain;
 
 import com.pnu.system.common.constant.UserType;
-import com.pnu.system.common.domain.BaseEntity;
+import com.pnu.system.common.domain.AuditableEntity;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -24,7 +24,7 @@ import java.util.List;
 @Table(name = "app_user")
 @SecondaryTable(name = "teacher_profile",
         pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
-public class UserWithTeacherProfile extends BaseEntity {
+public class UserWithTeacherProfile extends AuditableEntity {
 
     @Column(name = "first_name")
     private String firstName;

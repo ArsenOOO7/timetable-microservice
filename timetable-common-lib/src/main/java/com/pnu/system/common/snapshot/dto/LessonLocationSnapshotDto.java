@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.ZonedDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -15,5 +17,6 @@ public class LessonLocationSnapshotDto {
     private String typeShortName;
     private String name;
     private String address;
+    private ZonedDateTime lastModifiedAt;
 
 }

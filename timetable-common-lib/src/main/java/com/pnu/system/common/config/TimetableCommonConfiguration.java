@@ -5,6 +5,7 @@ import org.elasticsearch.client.sniff.Sniffer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @Configuration
 @ComponentScan({"com.pnu.system.common.service",
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
         "com.pnu.system.common.rest",
         "com.pnu.system.common.snapshot",
         "com.pnu.system.common.messaging"})
+@EnableJpaAuditing(auditorAwareRef = "timetableAuditorAware", dateTimeProviderRef = "zonedDateTimeProvider")
 public class TimetableCommonConfiguration {
 
     /*

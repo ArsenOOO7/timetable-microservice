@@ -8,13 +8,19 @@ import com.pnu.system.common.snapshot.dto.UserSnapshotDto;
 import com.pnu.system.timetable.domain.TimetableUserSnapshot;
 import com.pnu.system.timetable.mapper.TimetableUserSnapshotMapper;
 import com.pnu.system.timetable.repository.TimetableUserSnapshotRepository;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriTemplate;
 
+import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.TimeZone;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -27,6 +33,22 @@ public class TimetableUserSnapshotService implements MessagingSnapshotService<Us
 
     @Value("${baseUrl.identity_access}/user/{id}/internal/group/list")
     private String userGroupIdsUrl;
+    @Value("${baseUrl.identity_access}/user/internal/snapshot/modifiedAfter")
+    private String usersModifiedAfterUrl;
+
+    @PostConstruct
+    public void init() {
+        try {
+            ZonedDateTime latestModifiedDate = repository.getLatestModifiedDate()
+                    .orElse(ZonedDateTime.ofInstant(Instant.EPOCH, TimeZone.getDefault().toZoneId()));
+            Map<String, Object> queryParams = Map.of("lastModifiedAt", latestModifiedDate);
+            List<UserSnapshotDto> received = restClient.getList(usersModifiedAfterUrl, queryParams, UserSnapshotDto[].class);
+            repository.saveAll(received.stream().map(mapper::asTimetableUserSnapshot).toList());
+            log.info("Received Group Snapshots with ids: {}", received.stream().map(UserSnapshotDto::getId).collect(Collectors.joining(", ")));
+        } catch (Exception e) {
+            log.error("Error while synchronizing Group Snapshots.", e);
+        }
+    }
 
     public TimetableUserSnapshot getById(String id) {
         return repository.findById(id)

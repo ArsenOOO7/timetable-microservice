@@ -10,6 +10,7 @@ import java.util.List;
 public class UserDetails {
 
     private String id;
+    private String email;
     private List<String> permissions;
 
 }
