@@ -20,6 +20,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -44,6 +45,8 @@ public abstract class AbstractSearchRepository<T extends BaseEntity> {
                 .select(getJpaFields(fields));
 
         query.from(getPath());
+        dynamicFieldBuilder.getReferences().forEach(query::leftJoin);
+        query.limit(request.getLimit()).offset(request.getOffset());
         List<Map<String, Object>> result = transform(fields, query.fetch());
         getCollectionValues(fields, result);
         return result;
@@ -67,8 +70,11 @@ public abstract class AbstractSearchRepository<T extends BaseEntity> {
         tuples.forEach(tuple -> {
             String id = tuple.get(dynamicFieldBuilder.getIdField()).toString();
             Map<String, List<Object>> row = collectionValuesMap.computeIfAbsent(id, k -> new HashMap<>());
-            collectionFields.forEach(field ->
-                    row.computeIfAbsent(field.getName(), k -> new ArrayList<>()).add(tuple.get(dynamicFieldBuilder.getField(field.getName()))));
+            collectionFields.forEach(field -> {
+                List<Object> list = row.computeIfAbsent(field.getName(), k -> new ArrayList<>());
+                Optional.ofNullable(tuple.get(dynamicFieldBuilder.getField(field.getName())))
+                        .ifPresent(list::add);
+            });
         });
 
         groupedById.forEach((id, values) -> values.putAll(collectionValuesMap.get(id)));

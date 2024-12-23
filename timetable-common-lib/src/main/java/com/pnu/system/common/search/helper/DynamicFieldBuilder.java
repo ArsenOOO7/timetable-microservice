@@ -5,6 +5,7 @@ import com.pnu.system.common.domain.QAuditableEntity;
 import com.pnu.system.common.domain.QBaseEntity;
 import com.pnu.system.common.domain.QVersionEntity;
 import com.querydsl.core.types.CollectionExpression;
+import com.querydsl.core.types.EntityPath;
 import com.querydsl.core.types.Path;
 import com.querydsl.core.types.dsl.CollectionPathBase;
 import com.querydsl.core.types.dsl.DateTimePath;
@@ -20,8 +21,11 @@ import org.apache.commons.collections4.SetUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import static com.pnu.system.common.constant.CommonFieldName.ID;
@@ -39,6 +43,7 @@ public class DynamicFieldBuilder<T extends BaseEntity> {
 
     private final int deep;
     private final EntityPathBase<T> basePath;
+    private final List<EntityPath<?>> references = new ArrayList<>();
     private final Map<String, Path<?>> fields = new HashMap<>();
     private final Map<CollectionExpression<?, BaseEntity>, Path<BaseEntity>> collectionJoins = new HashMap<>();
 
@@ -90,7 +95,11 @@ public class DynamicFieldBuilder<T extends BaseEntity> {
             return;
         }
         EntityPathBase<? extends BaseEntity> path = (EntityPathBase<? extends BaseEntity>) field.get(basePath);
+        if (Objects.isNull(path)) {
+            return;
+        }
 
+        references.add(path);
         DynamicFieldBuilder<?> builder = new DynamicFieldBuilder<>(path, deep + 1);
         builder.getFields().forEach((fieldName, value) -> fields.put(String.join(".", field.getName(), fieldName), value));
     }
@@ -129,6 +138,10 @@ public class DynamicFieldBuilder<T extends BaseEntity> {
 
     public Map<CollectionExpression<?, BaseEntity>, Path<BaseEntity>> getCollectionJoins() {
         return collectionJoins;
+    }
+
+    public List<EntityPath<?>> getReferences() {
+        return references;
     }
 
     protected Map<String, Path<?>> getFields() {
