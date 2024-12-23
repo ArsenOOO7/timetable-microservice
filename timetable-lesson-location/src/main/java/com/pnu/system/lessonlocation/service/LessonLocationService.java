@@ -1,6 +1,5 @@
 package com.pnu.system.lessonlocation.service;
 
-import com.pnu.system.common.dto.BaseSearchRequest;
 import com.pnu.system.common.service.AbstractPersistenceService;
 import com.pnu.system.lessonlocation.api.dto.LessonLocationCreateRequest;
 import com.pnu.system.lessonlocation.api.dto.LessonLocationResponseDto;
@@ -16,8 +15,6 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class LessonLocationService extends AbstractPersistenceService<LessonLocation> {
@@ -26,10 +23,6 @@ public class LessonLocationService extends AbstractPersistenceService<LessonLoca
     private final LessonLocationRepository repository;
     private final LocationTypeService locationTypeService;
     private final ApplicationEventPublisher eventPublisher;
-
-    public List<LessonLocationResponseDto> getAll(BaseSearchRequest request) {
-        return repository.getAll(request);
-    }
 
     public LessonLocationResponseDto create(LessonLocationCreateRequest createRequest) {
         LessonLocation lessonLocation = mapper.asLessonLocation(createRequest);

@@ -1,4 +1,4 @@
-package com.pnu.system.academiccatalog.api.dto;
+package com.pnu.system.common.search.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,11 +9,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChairPreviewDto {
+public class SearchField {
 
-    private String id;
     private String name;
-    private String shortName;
-    private DepartmentResponseDto department;
+    private boolean collection;
 
+    public SearchField(String name) {
+        this(name, false);
+    }
 }

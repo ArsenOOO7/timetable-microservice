@@ -1,11 +1,11 @@
 package com.pnu.system.academiccatalog.api;
 
 import com.pnu.system.academiccatalog.api.dto.SubjectCreateDto;
-import com.pnu.system.academiccatalog.api.dto.SubjectPreviewDto;
 import com.pnu.system.academiccatalog.api.dto.SubjectResponseDto;
 import com.pnu.system.academiccatalog.api.dto.SubjectUpdateDto;
+import com.pnu.system.academiccatalog.service.SubjectSearchService;
 import com.pnu.system.academiccatalog.service.SubjectService;
-import com.pnu.system.common.dto.BaseSearchRequest;
+import com.pnu.system.common.search.dto.ReportSearchRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/subject")
@@ -25,30 +26,29 @@ import java.util.List;
 public class SubjectController {
 
     private final SubjectService service;
-
-    @PostMapping("/list")
-    private List<SubjectPreviewDto> getAll(@Valid @RequestBody BaseSearchRequest request) {
-        return service.getAll(request);
-    }
+    private final SubjectSearchService searchService;
 
     @PostMapping
-    private SubjectResponseDto create(@Valid @RequestBody SubjectCreateDto createDto) {
+    public SubjectResponseDto create(@Valid @RequestBody SubjectCreateDto createDto) {
         return service.create(createDto);
     }
 
     @PutMapping
-    private SubjectResponseDto update(@Valid @RequestBody SubjectUpdateDto updateDto) {
+    public SubjectResponseDto update(@Valid @RequestBody SubjectUpdateDto updateDto) {
         return service.update(updateDto);
     }
 
     @GetMapping("/{id}")
-    private SubjectResponseDto getById(@PathVariable String id) {
+    public SubjectResponseDto getById(@PathVariable String id) {
         return service.getById(id);
     }
 
     @DeleteMapping("/{id}")
-    private void delete(@PathVariable String id) {
+    public void delete(@PathVariable String id) {
         service.delete(id);
     }
 
+    public List<Map<String, Object>> search(@Valid @RequestBody ReportSearchRequest request) {
+        return searchService.search(request);
+    }
 }

@@ -13,7 +13,7 @@ public class EducationalProgramResponseDto {
 
     private String id;
     private String name;
-    private SpecialtyResponseDto specialty;
+    private String specialtyId;
     private Integer version;
 
 }

@@ -3,8 +3,9 @@ package com.pnu.system.academiccatalog.api;
 import com.pnu.system.academiccatalog.api.dto.DepartmentCreateDto;
 import com.pnu.system.academiccatalog.api.dto.DepartmentResponseDto;
 import com.pnu.system.academiccatalog.api.dto.DepartmentUpdateDto;
+import com.pnu.system.academiccatalog.service.DepartmentSearchService;
 import com.pnu.system.academiccatalog.service.DepartmentService;
-import com.pnu.system.common.dto.BaseSearchRequest;
+import com.pnu.system.common.search.dto.ReportSearchRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/department")
@@ -24,30 +26,30 @@ import java.util.List;
 public class DepartmentController {
 
     private final DepartmentService service;
-
-    @PostMapping("/list")
-    private List<DepartmentResponseDto> getAll(@Valid @RequestBody BaseSearchRequest request) {
-        return service.getAll(request);
-    }
+    private final DepartmentSearchService searchService;
 
     @PostMapping
-    private DepartmentResponseDto create(@Valid @RequestBody DepartmentCreateDto createDto) {
+    public DepartmentResponseDto create(@Valid @RequestBody DepartmentCreateDto createDto) {
         return service.create(createDto);
     }
 
     @PutMapping
-    private DepartmentResponseDto update(@Valid @RequestBody DepartmentUpdateDto updateDto) {
+    public DepartmentResponseDto update(@Valid @RequestBody DepartmentUpdateDto updateDto) {
         return service.update(updateDto);
     }
 
     @GetMapping("/{id}")
-    private DepartmentResponseDto getById(@PathVariable String id) {
+    public DepartmentResponseDto getById(@PathVariable String id) {
         return service.getById(id);
     }
 
     @DeleteMapping("/{id}")
-    private void delete(@PathVariable String id) {
+    public void delete(@PathVariable String id) {
         service.delete(id);
     }
 
+    @PostMapping("/list")
+    public List<Map<String, Object>> search(@Valid @RequestBody ReportSearchRequest request) {
+        return searchService.search(request);
+    }
 }

@@ -16,8 +16,8 @@ public class ChairResponseDto {
     private String id;
     private String name;
     private String shortName;
-    private DepartmentResponseDto department;
-    private List<SpecialtyResponseDto> specialties;
+    private String departmentId;
+    private List<String> specialtyIds;
     private Integer version;
 
 }

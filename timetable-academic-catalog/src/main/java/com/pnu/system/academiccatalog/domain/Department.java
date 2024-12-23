@@ -1,7 +1,5 @@
 package com.pnu.system.academiccatalog.domain;
 
-import com.pnu.system.common.domain.AuditableEntity;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -11,11 +9,6 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "department")
-public class Department extends AuditableEntity {
-
-    @Column(name = "name")
-    private String name;
-    @Column(name = "short_name")
-    private String shortName;
+public class Department extends AbstractDepartment {
 
 }

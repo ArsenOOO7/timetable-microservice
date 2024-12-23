@@ -21,7 +21,7 @@ services:
       - "9200:9200"
       - "9300:9300"
     environment:
-      - discovery=single-node
+      - discovery.type=single-node
 
   rabbitmq:
     image: "rabbitmq:latest"

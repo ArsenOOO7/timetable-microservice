@@ -1,11 +1,11 @@
 package com.pnu.system.academiccatalog.api;
 
 import com.pnu.system.academiccatalog.api.dto.EducationalProgramCreateDto;
-import com.pnu.system.academiccatalog.api.dto.EducationalProgramPreviewDto;
 import com.pnu.system.academiccatalog.api.dto.EducationalProgramResponseDto;
 import com.pnu.system.academiccatalog.api.dto.EducationalProgramUpdateDto;
+import com.pnu.system.academiccatalog.service.EducationalProgramSearchService;
 import com.pnu.system.academiccatalog.service.EducationalProgramService;
-import com.pnu.system.common.dto.BaseSearchRequest;
+import com.pnu.system.common.search.dto.ReportSearchRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/educationalProgram")
@@ -25,30 +26,30 @@ import java.util.List;
 public class EducationalProgramController {
 
     private final EducationalProgramService service;
-
-    @PostMapping("/list")
-    private List<EducationalProgramPreviewDto> getAll(@Valid @RequestBody BaseSearchRequest request) {
-        return service.getAll(request);
-    }
+    private final EducationalProgramSearchService searchService;
 
     @PostMapping
-    private EducationalProgramResponseDto create(@Valid @RequestBody EducationalProgramCreateDto createDto) {
+    public EducationalProgramResponseDto create(@Valid @RequestBody EducationalProgramCreateDto createDto) {
         return service.create(createDto);
     }
 
     @PutMapping
-    private EducationalProgramResponseDto update(@Valid @RequestBody EducationalProgramUpdateDto updateDto) {
+    public EducationalProgramResponseDto update(@Valid @RequestBody EducationalProgramUpdateDto updateDto) {
         return service.update(updateDto);
     }
 
     @GetMapping("/{id}")
-    private EducationalProgramResponseDto getById(@PathVariable String id) {
+    public EducationalProgramResponseDto getById(@PathVariable String id) {
         return service.getById(id);
     }
 
     @DeleteMapping("/{id}")
-    private void delete(@PathVariable String id) {
+    public void delete(@PathVariable String id) {
         service.delete(id);
     }
 
+    @PostMapping("/list")
+    public List<Map<String, Object>> search(@Valid @RequestBody ReportSearchRequest request) {
+        return searchService.search(request);
+    }
 }
