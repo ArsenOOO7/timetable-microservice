@@ -2,9 +2,11 @@ package com.pnu.system.common.search;
 
 import com.pnu.system.common.domain.BaseEntity;
 import com.pnu.system.common.exception.InvalidParameterException;
+import com.pnu.system.common.search.dto.Condition;
 import com.pnu.system.common.search.dto.ReportSearchRequest;
 import com.pnu.system.common.search.dto.SearchField;
 import com.pnu.system.common.search.helper.DynamicFieldBuilder;
+import com.pnu.system.common.search.helper.SearchHelper;
 import com.pnu.system.common.utils.QueryDslFactory;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Path;
@@ -12,6 +14,7 @@ import com.querydsl.core.types.dsl.EntityPathBase;
 import com.querydsl.jpa.impl.JPAQuery;
 import jakarta.annotation.PostConstruct;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -32,6 +35,9 @@ public abstract class AbstractSearchRepository<T extends BaseEntity> {
 
     private static final Set<String> KEEP_ALWAYS = Set.of(ID);
 
+    @Autowired
+    private SearchHelper searchHelper;
+
     private DynamicFieldBuilder<T> dynamicFieldBuilder;
 
     @PostConstruct
@@ -46,10 +52,27 @@ public abstract class AbstractSearchRepository<T extends BaseEntity> {
 
         query.from(getPath());
         dynamicFieldBuilder.getReferences().forEach(query::leftJoin);
+        populateWhereCondition(request, query);
         query.limit(request.getLimit()).offset(request.getOffset());
         List<Map<String, Object>> result = transform(fields, query.fetch());
         getCollectionValues(fields, result);
         return result;
+    }
+
+    private void populateWhereCondition(ReportSearchRequest request, JPAQuery<Tuple> query) {
+        List<Condition> conditions = request.getConditions();
+        if (CollectionUtils.isEmpty(conditions)) {
+            return;
+        }
+
+        if (conditions.stream().anyMatch(Condition::isCollectionField)) {
+            dynamicFieldBuilder.getCollectionJoins().forEach(query::leftJoin);
+            query.distinct(); //TODO 12/24/24: <--- Bad idea !!!!
+        }
+
+        Map<String, Path<?>> jpaFields = getAllJpaFields(conditions.stream().map(Condition::getFieldName).toList());
+        conditions.stream().map(condition -> searchHelper.buildWhereCondition(condition, jpaFields.get(condition.getFieldName())))
+                .forEach(query::where);
     }
 
     private void getCollectionValues(List<SearchField> fields, List<Map<String, Object>> result) {
@@ -107,6 +130,18 @@ public abstract class AbstractSearchRepository<T extends BaseEntity> {
             pathList.add(fieldPath);
         }
         return pathList.toArray(Path<?>[]::new);
+    }
+
+    private Map<String, Path<?>> getAllJpaFields(List<String> fieldNames) {
+        Map<String, Path<?>> pathMap = new HashMap<>();
+        for (String field : fieldNames) {
+            Path<?> fieldPath = dynamicFieldBuilder.getField(field);
+            if (Objects.isNull(fieldPath)) {
+                throw new InvalidParameterException("Invalid path: " + field);
+            }
+            pathMap.put(field, fieldPath);
+        }
+        return pathMap;
     }
 
     protected abstract EntityPathBase<T> getPath();

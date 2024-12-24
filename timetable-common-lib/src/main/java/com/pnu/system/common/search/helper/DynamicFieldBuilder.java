@@ -43,8 +43,8 @@ public class DynamicFieldBuilder<T extends BaseEntity> {
 
     private final int deep;
     private final EntityPathBase<T> basePath;
-    private final List<EntityPath<?>> references = new ArrayList<>();
     private final Map<String, Path<?>> fields = new HashMap<>();
+    private final List<EntityPath<?>> references = new ArrayList<>();
     private final Map<CollectionExpression<?, BaseEntity>, Path<BaseEntity>> collectionJoins = new HashMap<>();
 
     public DynamicFieldBuilder(EntityPathBase<T> basePath, int deep) {

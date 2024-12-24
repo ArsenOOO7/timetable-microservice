@@ -11,5 +11,6 @@ import java.util.List;
 public class ReportSearchRequest extends BaseSearchRequest {
 
     private List<SearchField> fields;
+    private List<Condition> conditions;
 
 }
