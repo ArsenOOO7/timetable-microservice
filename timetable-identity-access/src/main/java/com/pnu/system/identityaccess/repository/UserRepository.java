@@ -1,7 +1,7 @@
 package com.pnu.system.identityaccess.repository;
 
 import com.pnu.system.common.constant.UserType;
-import com.pnu.system.common.dto.BaseSearchRequest;
+import com.pnu.system.common.search.dto.BaseSearchRequest;
 import com.pnu.system.common.utils.QueryDslFactory;
 import com.pnu.system.identityaccess.api.dto.UserPreviewDto;
 import com.pnu.system.identityaccess.domain.QUser;

@@ -1,6 +1,7 @@
 package com.pnu.system.common.search.dto;
 
-import com.pnu.system.common.dto.BaseSearchRequest;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +11,10 @@ import java.util.List;
 @Setter
 public class ReportSearchRequest extends BaseSearchRequest {
 
+    @Valid
+    @NotEmpty
     private List<SearchField> fields;
-    private List<Condition> conditions;
+    private List<SearchCondition> conditions;
+    private List<SearchOrderByField> orderByFields;
 
 }

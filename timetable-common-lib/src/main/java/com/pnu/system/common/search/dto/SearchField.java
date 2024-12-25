@@ -1,5 +1,6 @@
 package com.pnu.system.common.search.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SearchField {
 
+    @NotBlank
     private String name;
     private boolean collection;
 

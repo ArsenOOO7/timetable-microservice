@@ -1,7 +1,7 @@
 package com.pnu.system.identityaccess.service;
 
 import com.pnu.system.common.constant.UserType;
-import com.pnu.system.common.dto.BaseSearchRequest;
+import com.pnu.system.common.search.dto.BaseSearchRequest;
 import com.pnu.system.common.service.AbstractPersistenceService;
 import com.pnu.system.identityaccess.api.dto.UserCreateRequest;
 import com.pnu.system.identityaccess.api.dto.UserPreviewDto;

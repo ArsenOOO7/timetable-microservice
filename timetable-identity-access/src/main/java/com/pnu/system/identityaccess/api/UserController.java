@@ -1,6 +1,6 @@
 package com.pnu.system.identityaccess.api;
 
-import com.pnu.system.common.dto.BaseSearchRequest;
+import com.pnu.system.common.search.dto.BaseSearchRequest;
 import com.pnu.system.identityaccess.api.dto.UserCreateRequest;
 import com.pnu.system.identityaccess.api.dto.UserPreviewDto;
 import com.pnu.system.identityaccess.api.dto.UserResponseDto;

@@ -6,5 +6,6 @@ public enum ConditionOperation {
     NOT_EQUAL,
     CONTAIN,
     IN,
+    NOT_IN,
 
 }

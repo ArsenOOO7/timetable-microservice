@@ -2,14 +2,16 @@ package com.pnu.system.common.search;
 
 import com.pnu.system.common.domain.BaseEntity;
 import com.pnu.system.common.exception.InvalidParameterException;
-import com.pnu.system.common.search.dto.Condition;
 import com.pnu.system.common.search.dto.ReportSearchRequest;
+import com.pnu.system.common.search.dto.SearchCondition;
 import com.pnu.system.common.search.dto.SearchField;
+import com.pnu.system.common.search.dto.SearchOrderByField;
 import com.pnu.system.common.search.helper.DynamicFieldBuilder;
 import com.pnu.system.common.search.helper.SearchHelper;
 import com.pnu.system.common.utils.QueryDslFactory;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import com.querydsl.core.types.dsl.EntityPathBase;
 import com.querydsl.jpa.impl.JPAQuery;
 import jakarta.annotation.PostConstruct;
@@ -53,29 +55,41 @@ public abstract class AbstractSearchRepository<T extends BaseEntity> {
         query.from(getPath());
         dynamicFieldBuilder.getReferences().forEach(query::leftJoin);
         populateWhereCondition(request, query);
+        populateOrderByConstraints(request, query);
         query.limit(request.getLimit()).offset(request.getOffset());
         List<Map<String, Object>> result = transform(fields, query.fetch());
-        getCollectionValues(fields, result);
+        populateCollectionValues(fields, result);
         return result;
     }
 
     private void populateWhereCondition(ReportSearchRequest request, JPAQuery<Tuple> query) {
-        List<Condition> conditions = request.getConditions();
+        List<SearchCondition> conditions = request.getConditions();
         if (CollectionUtils.isEmpty(conditions)) {
             return;
         }
 
-        if (conditions.stream().anyMatch(Condition::isCollectionField)) {
+        if (conditions.stream().anyMatch(SearchCondition::isCollectionField)) {
             dynamicFieldBuilder.getCollectionJoins().forEach(query::leftJoin);
             query.distinct(); //TODO 12/24/24: <--- Bad idea !!!!
         }
 
-        Map<String, Path<?>> jpaFields = getAllJpaFields(conditions.stream().map(Condition::getFieldName).toList());
+        Map<String, Path<?>> jpaFields = getAllJpaFields(conditions.stream().map(SearchCondition::getFieldName).toList());
         conditions.stream().map(condition -> searchHelper.buildWhereCondition(condition, jpaFields.get(condition.getFieldName())))
                 .forEach(query::where);
     }
 
-    private void getCollectionValues(List<SearchField> fields, List<Map<String, Object>> result) {
+    private void populateOrderByConstraints(ReportSearchRequest request, JPAQuery<Tuple> query) {
+        List<SearchOrderByField> orderByFields = request.getOrderByFields();
+        if (CollectionUtils.isEmpty(orderByFields)) {
+            return;
+        }
+
+        Map<String, Path<?>> jpaFields = getAllJpaFields(orderByFields.stream().map(SearchOrderByField::getFieldName).toList());
+        orderByFields.stream().map(orderByField -> searchHelper.buildOrderSpecifier(orderByField, (ComparableExpressionBase<?>) jpaFields.get(orderByField.getFieldName())))
+                .forEach(query::orderBy);
+    }
+
+    private void populateCollectionValues(List<SearchField> fields, List<Map<String, Object>> result) {
         List<SearchField> collectionFields = fields.stream().filter(SearchField::isCollection).toList();
         if (CollectionUtils.isEmpty(collectionFields)) {
             return;
