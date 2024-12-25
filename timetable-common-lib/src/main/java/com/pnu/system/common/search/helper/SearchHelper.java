@@ -23,57 +23,39 @@ import java.util.List;
 public class SearchHelper {
 
     public Predicate buildWhereCondition(SearchCondition condition, Path<?> path) {
-        switch (condition.getDataType()) {
-            case STRING -> {
-                return buildPredicate((StringPath) path, (String) condition.getValue(), condition.getOperation());
-            }
-            case INTEGER -> {
-                return buildPredicate((NumberPath<Integer>) path, (Integer) condition.getValue(), condition.getOperation());
-            }
-            case LIST_STRING -> {
-                return buildPredicateForCollection((StringPath) path, (List<String>) condition.getValue(), condition.getOperation());
-            }
+        return switch (condition.getDataType()) {
+            case STRING -> buildPredicate((StringPath) path, (String) condition.getValue(), condition.getOperation());
+            case INTEGER ->
+                    buildPredicate((NumberPath<Integer>) path, (Integer) condition.getValue(), condition.getOperation());
+            case LIST_STRING ->
+                    buildPredicateForCollection((StringPath) path, (List<String>) condition.getValue(), condition.getOperation());
             default -> throw new InvalidParameterException("Invalid data type: " + condition.getDataType());
-        }
+        };
     }
 
     private <E> Predicate buildPredicate(SimpleExpression<E> expression, E value, ConditionOperation operation) {
-        switch (operation) {
-            case EQUAL -> {
-                return expression.eq(value);
-            }
-            case NOT_EQUAL -> {
-                return expression.ne(value);
-            }
-            case CONTAIN -> {
-                return Expressions.booleanOperation(Ops.STRING_CONTAINS, expression, ConstantImpl.create(value));
-            }
+        return switch (operation) {
+            case EQUAL -> expression.eq(value);
+            case NOT_EQUAL -> expression.ne(value);
+            case CONTAIN -> Expressions.booleanOperation(Ops.STRING_CONTAINS, expression, ConstantImpl.create(value));
             default -> throw new InvalidParameterException("Invalid Operation: " + operation);
-        }
+        };
     }
 
     private <E> Predicate buildPredicateForCollection(SimpleExpression<E> expression, Collection<E> values, ConditionOperation operation) {
-        switch (operation) {
-            case IN -> {
-                return expression.in(values);
-            }
-            case NOT_IN -> {
-                return expression.notIn(values);
-            }
+        return switch (operation) {
+            case IN -> expression.in(values);
+            case NOT_IN -> expression.notIn(values);
             default -> throw new InvalidParameterException("Invalid Operation: " + operation);
-        }
+        };
     }
 
     public OrderSpecifier<?> buildOrderSpecifier(SearchOrderByField orderByField, ComparableExpressionBase<?> path) {
-        switch (orderByField.getOrderBy()) {
-            case ASC -> {
-                return path.asc();
-            }
-            case DESC -> {
-                return path.desc();
-            }
+        return switch (orderByField.getOrderBy()) {
+            case ASC -> path.asc();
+            case DESC -> path.desc();
             default -> throw new InvalidParameterException("Invalid order by: " + orderByField.getOrderBy());
-        }
+        };
     }
 
 }
