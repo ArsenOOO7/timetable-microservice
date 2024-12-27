@@ -14,9 +14,7 @@ import com.querydsl.core.types.Path;
 import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import com.querydsl.core.types.dsl.EntityPathBase;
 import com.querydsl.jpa.impl.JPAQuery;
-import jakarta.annotation.PostConstruct;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -37,13 +35,11 @@ public abstract class AbstractSearchRepository<T extends BaseEntity> {
 
     private static final Set<String> KEEP_ALWAYS = Set.of(ID);
 
-    @Autowired
-    private SearchHelper searchHelper;
+    private final SearchHelper searchHelper;
+    private final DynamicFieldBuilder<T> dynamicFieldBuilder;
 
-    private DynamicFieldBuilder<T> dynamicFieldBuilder;
-
-    @PostConstruct
-    public void init() {
+    protected AbstractSearchRepository() {
+        this.searchHelper = new SearchHelper();
         this.dynamicFieldBuilder = new DynamicFieldBuilder<>(getPath());
     }
 

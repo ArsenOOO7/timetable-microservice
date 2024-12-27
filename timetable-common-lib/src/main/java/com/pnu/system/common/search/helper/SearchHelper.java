@@ -15,12 +15,10 @@ import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.core.types.dsl.SimpleExpression;
 import com.querydsl.core.types.dsl.StringPath;
-import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;
 
-@Component
 public class SearchHelper {
 
     public Predicate buildWhereCondition(SearchCondition condition, Path<?> path) {
