@@ -1,10 +1,7 @@
 package com.pnu.system.identityaccess.service;
 
-import com.pnu.system.common.constant.PermissionName;
-import com.pnu.system.common.search.dto.BaseSearchRequest;
 import com.pnu.system.common.service.AbstractPersistenceService;
 import com.pnu.system.identityaccess.api.dto.RoleCreateRequest;
-import com.pnu.system.identityaccess.api.dto.RolePreviewDto;
 import com.pnu.system.identityaccess.api.dto.RoleResponseDto;
 import com.pnu.system.identityaccess.api.dto.RoleUpdateRequest;
 import com.pnu.system.identityaccess.domain.Permission;
@@ -39,14 +36,6 @@ public class RoleService extends AbstractPersistenceService<Role> {
 
     public RoleResponseDto getById(String id) {
         return mapper.asRoleResponseDto(repository.getRoleById(id));
-    }
-
-    public List<RolePreviewDto> getList(BaseSearchRequest request) {
-        return mapper.asRolePreviewDtos(repository.getList(request));
-    }
-
-    public List<PermissionName> getPermissionNamesByRoleIds(List<String> roleIds) {
-        return repository.getPermissionNamesByRoleIds(roleIds);
     }
 
     public boolean existsByName(String name) {

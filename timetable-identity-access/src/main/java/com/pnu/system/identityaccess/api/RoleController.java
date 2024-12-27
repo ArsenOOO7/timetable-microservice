@@ -1,11 +1,11 @@
 package com.pnu.system.identityaccess.api;
 
-import com.pnu.system.common.search.dto.BaseSearchRequest;
+import com.pnu.system.common.search.dto.ReportSearchRequest;
 import com.pnu.system.identityaccess.api.dto.RoleCreateRequest;
-import com.pnu.system.identityaccess.api.dto.RolePreviewDto;
 import com.pnu.system.identityaccess.api.dto.RoleResponseDto;
 import com.pnu.system.identityaccess.api.dto.RoleUpdateRequest;
 import com.pnu.system.identityaccess.api.validator.RoleCreateValidator;
+import com.pnu.system.identityaccess.service.RoleSearchService;
 import com.pnu.system.identityaccess.service.RoleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -27,6 +28,7 @@ import java.util.List;
 public class RoleController {
 
     private final RoleService roleService;
+    private final RoleSearchService searchService;
     private final RoleCreateValidator roleCreateValidator;
 
     @InitBinder("roleCreateRequest")
@@ -50,7 +52,7 @@ public class RoleController {
     }
 
     @PostMapping("/list")
-    public List<RolePreviewDto> getList(@Valid @RequestBody BaseSearchRequest request) {
-        return roleService.getList(request);
+    public List<Map<String, Object>> getList(@Valid @RequestBody ReportSearchRequest request) {
+        return searchService.search(request);
     }
 }
