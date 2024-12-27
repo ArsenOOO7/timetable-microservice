@@ -10,6 +10,7 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Path;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.ComparableExpressionBase;
+import com.querydsl.core.types.dsl.EnumPath;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.core.types.dsl.SimpleExpression;
@@ -27,6 +28,8 @@ public class SearchHelper {
             case STRING -> buildPredicate((StringPath) path, (String) condition.getValue(), condition.getOperation());
             case INTEGER ->
                     buildPredicate((NumberPath<Integer>) path, (Integer) condition.getValue(), condition.getOperation());
+            case ENUM ->
+                    buildPredicateForEnum((EnumPath) path, (String) condition.getValue(), condition.getOperation());
             case LIST_STRING ->
                     buildPredicateForCollection((StringPath) path, (List<String>) condition.getValue(), condition.getOperation());
             default -> throw new InvalidParameterException("Invalid data type: " + condition.getDataType());
@@ -46,6 +49,14 @@ public class SearchHelper {
         return switch (operation) {
             case IN -> expression.in(values);
             case NOT_IN -> expression.notIn(values);
+            default -> throw new InvalidParameterException("Invalid Operation: " + operation);
+        };
+    }
+
+    private Predicate buildPredicateForEnum(EnumPath enumPath, String enumStringValue, ConditionOperation operation) {
+        Enum<?> value = Enum.valueOf((Class<Enum>) enumPath.getType(), enumStringValue);
+        return switch (operation) {
+            case EQUAL -> enumPath.eq(value);
             default -> throw new InvalidParameterException("Invalid Operation: " + operation);
         };
     }

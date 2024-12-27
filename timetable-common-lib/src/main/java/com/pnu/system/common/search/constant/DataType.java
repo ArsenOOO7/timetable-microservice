@@ -4,6 +4,7 @@ public enum DataType {
 
     STRING,
     INTEGER,
+    ENUM,
     LIST_STRING
 
 }

@@ -1,17 +1,17 @@
 package com.pnu.system.identityaccess.repository;
 
 import com.pnu.system.common.search.AbstractSearchRepository;
-import com.pnu.system.identityaccess.domain.QUser;
-import com.pnu.system.identityaccess.domain.User;
+import com.pnu.system.identityaccess.domain.QUserSearch;
+import com.pnu.system.identityaccess.domain.UserSearch;
 import com.querydsl.core.types.dsl.EntityPathBase;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserSearchRepository extends AbstractSearchRepository<User> {
+public class UserSearchRepository extends AbstractSearchRepository<UserSearch> {
 
 
     @Override
-    protected EntityPathBase<User> getPath() {
-        return QUser.user;
+    protected EntityPathBase<UserSearch> getPath() {
+        return QUserSearch.userSearch;
     }
 }
