@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(BindException.class)
-    @ResponseStatus(HttpStatus.BAD_GATEWAY)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse validationException(BindException e) {
         log.error(e.getMessage());
         List<String> errors = e.getGlobalErrors().stream()
