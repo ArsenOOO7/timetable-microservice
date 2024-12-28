@@ -22,14 +22,15 @@ public abstract class AbstractRoleValidator implements Validator {
                     if (permission.getType().equals(type)) {
                         return;
                     }
-                    //TODO: Add error code
-                    errors.reject("", "Insufficient permission %s (%s) type.".formatted(permission.getId(), permission.getType()));
+                    errors.reject("validation.permission.insufficient",
+                            new Object[]{permission.getId(), permission.getType()},
+                            "Insufficient permission %s (%s) type.".formatted(permission.getId(), permission.getType()));
                 });
     }
 
     protected void validateName(String name, Errors errors) {
         if (roleService.existsByName(name)) {
-            errors.reject("", "Role with such name already exists.");
+            errors.reject("validation.role.duplicateName", "Role with such a name already exists.");
         }
     }
 }

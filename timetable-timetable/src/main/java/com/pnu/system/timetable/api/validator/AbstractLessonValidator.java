@@ -14,14 +14,14 @@ public abstract class AbstractLessonValidator implements Validator {
 
     protected void validateOnline(String lessonLocationId, boolean online, Errors errors) {
         if (online == StringUtils.isNotBlank(lessonLocationId)) {
-            errors.reject("", "Lesson Location should be specified if it's not online.");
+            errors.reject("validation.lesson.locationRequired", "Lesson location must be specified if it's not online.");
         }
     }
 
     protected void validateTeacherPersonalLink(String teacherId, Errors errors) {
         TimetableUserSnapshot teacher = userSnapshotService.getById(teacherId);
         if (StringUtils.isBlank(teacher.getPersonalLink())) {
-            errors.reject("", "Teacher's personal link is required if it's online.");
+            errors.reject("validation.teacher.personalLinkRequired", "Teacher's personal link is required if the lesson is online.");
         }
     }
 }

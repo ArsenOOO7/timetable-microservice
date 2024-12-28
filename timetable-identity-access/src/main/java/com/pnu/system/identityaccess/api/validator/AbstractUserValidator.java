@@ -21,14 +21,15 @@ public abstract class AbstractUserValidator implements Validator {
         roleService.getAll(roleIds)
                 .forEach(role -> {
                     if (ObjectUtils.notEqual(userType.roleType(), role.getType())) {
-                        errors.reject("", "Insufficient role (%s) with this user type.".formatted(role.getType()));
+                        errors.reject("validation.role.insufficient", new Object[]{role.getType()},
+                                "Insufficient role (%s) with this user type.".formatted(role.getType()));
                     }
                 });
     }
 
     protected void validateEmail(String email, Errors errors) {
         if (userService.existsByEmail(email)) {
-            errors.reject("", "Email is used by another user.");
+            errors.reject("validation.email.duplicate", "Email is already used by another user.");
         }
     }
 }

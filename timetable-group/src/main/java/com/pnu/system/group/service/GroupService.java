@@ -52,7 +52,7 @@ public class GroupService extends AbstractPersistenceService<Group> {
     private void validateBeforeDelete(Group entity) {
         if (GroupType.FULL.equals(entity.getType())) {
             if (repository.existsByParentId(entity.getId())) {
-                throw new ValidationException("There are subgroups related to this full group.");
+                throw new ValidationException("validation.group.delete.relatedExists", "There are subgroups related to this full group.");
             }
         }
     }

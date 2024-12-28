@@ -47,7 +47,7 @@ public class LocationTypeService extends AbstractPersistenceService<LocationType
     @Override
     public void delete(LocationType entity) {
         if (lessonLocationRepository.existsByLocationTypeId(entity.getId())) {
-            throw new ValidationException("Lesson Location Type is used in Lesson Location.");
+            throw new ValidationException("validation.locationType.delete.used", "Lesson Location Type is used in Lesson Location.");
         }
         super.delete(entity);
     }

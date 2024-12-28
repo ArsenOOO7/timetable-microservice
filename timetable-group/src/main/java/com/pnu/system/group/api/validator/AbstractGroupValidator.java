@@ -22,35 +22,35 @@ public abstract class AbstractGroupValidator implements Validator {
 
     protected void validateRelatedGroups(GroupType type, List<String> relatedGroupIds, Errors errors) {
         if (!GroupType.COLLECTIVE.equals(type) && CollectionUtils.isNotEmpty(relatedGroupIds)) {
-            errors.reject("", "Non-collective group cannot contain related groups.");
+            errors.reject("validation.group.nonCollectiveGroup.relatedGroups", "Non-collective groups cannot contain related groups.");
             return;
         }
         List<Group> relatedGroups = groupService.getAll(relatedGroupIds);
         if (relatedGroups.stream().anyMatch(relatedGroup -> !GroupType.FULL.equals(relatedGroup.getType()))) {
-            errors.reject("", "In collective groups all related groups must be FULL type.");
+            errors.reject("validation.group.collectiveGroup.allRelatedGroupsMustBeFull", "In collective groups, all related groups must be FULL type.");
         }
     }
 
     protected void validateParentGroup(GroupType type, String parentId, Errors errors) {
         if (!GroupType.SUB_GROUP.equals(type)) {
             if (StringUtils.isNotBlank(parentId)) {
-                errors.reject("", "Non-subgroup cannot have parent group.");
+                errors.reject("validation.group.nonSubgroup.cannotHaveParentGroup", "Non-subgroup cannot have a parent group.");
             }
             return;
         }
         if (StringUtils.isBlank(parentId)) {
-            errors.reject("", "Subgroup must have parent group.");
+            errors.reject("validation.group.subgroup.mustHaveParentGroup", "Subgroup must have a parent group.");
             return;
         }
         Group parentGroup = groupService.getOne(parentId);
         if (!GroupType.FULL.equals(parentGroup.getType())) {
-            errors.reject("", "Parent group type should be FULL.");
+            errors.reject("validation.group.parentGroup.mustBeFullType", "Parent group must be of FULL type.");
         }
     }
 
     protected void validateSpecialtyId(GroupType type, String specialtyId, Errors errors) {
         if (!GroupType.COLLECTIVE.equals(type) && StringUtils.isBlank(specialtyId)) {
-            errors.reject("", "Specialty is required for non-collective groups.");
+            errors.reject("validation.group.nonCollectiveGroup.specialtyRequired", "Specialty is required for non-collective groups.");
         }
     }
 
@@ -60,12 +60,12 @@ public abstract class AbstractGroupValidator implements Validator {
         }
 
         if (Objects.isNull(academicYear)) {
-            errors.reject("", "Academic Year should be filled on FULL type.");
+            errors.reject("validation.group.fullType.academicYearRequired", "Academic Year must be filled for FULL type.");
             return;
         }
 
         if (academicYear < 0 || academicYear > 4) {
-            errors.reject("", "Academic Year should be between 1 and 4.");
+            errors.reject("validation.group.academicYear.range", "Academic Year must be between 1 and 4.");
         }
     }
 }
