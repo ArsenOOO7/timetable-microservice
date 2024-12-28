@@ -2,9 +2,7 @@ package com.pnu.system.identityaccess.domain;
 
 import com.pnu.system.common.constant.UserType;
 import com.pnu.system.common.domain.AuditableEntity;
-import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
@@ -41,11 +39,6 @@ public class AbstractUser extends AuditableEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<Role> roles;
-    @BatchSize(size = 100)
-    @ElementCollection
-    @CollectionTable(name = "student_group", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "group_id")
-    private List<String> groupIds;
 
     public List<Role> getRoles() {
         if (roles == null) {
