@@ -1,6 +1,5 @@
 package com.pnu.system.group.service;
 
-import com.pnu.system.common.dto.BaseSearchRequest;
 import com.pnu.system.common.exception.ValidationException;
 import com.pnu.system.common.service.AbstractPersistenceService;
 import com.pnu.system.group.api.dto.GroupCreateRequest;
@@ -17,8 +16,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -43,10 +40,6 @@ public class GroupService extends AbstractPersistenceService<Group> {
         group.setRelatedGroups(getAll(request.getRelatedGroupIds()));
         eventPublisher.publishEvent(new GroupUpdateEvent(group));
         return mapper.asGroupResponseDto(super.update(group));
-    }
-
-    public List<GroupResponseDto> getList(BaseSearchRequest request) {
-        return mapper.asGroupResponseDtos(repository.getList(request));
     }
 
     @Override

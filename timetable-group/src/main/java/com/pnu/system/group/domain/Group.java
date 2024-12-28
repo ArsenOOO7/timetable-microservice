@@ -1,14 +1,10 @@
 package com.pnu.system.group.domain;
 
 
-import com.pnu.system.common.domain.AuditableEntity;
-import com.pnu.system.group.constant.GroupType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -24,21 +20,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "group")
-public class Group extends AuditableEntity {
-
-    @Column(name = "parent_id")
-    private String parentId;
-    @Column(name = "specialty_id")
-    private String specialtyId;
-    @Column(name = "academic_year")
-    private int academicYear;
-    @Column(name = "number")
-    private int number;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "type")
-    private GroupType type;
-    @Column(name = "name")
-    private String name;
+public class Group extends AbstractGroup {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "collective_group", joinColumns = @JoinColumn(name = "collective_group_id"))
@@ -49,6 +31,7 @@ public class Group extends AuditableEntity {
     @Column(name = "group_category_id", insertable = false, updatable = false)
     private List<String> groupCategoryIds;
 
+    //TODO 12/24/24: Think about it daily, at 7:10, 7:20, ... 23:59
     @ManyToMany
     @JoinTable(name = "collective_group",
             joinColumns = @JoinColumn(name = "collective_group_id"),

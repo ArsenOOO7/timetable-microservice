@@ -15,7 +15,8 @@ public class SpecialtyResponseDto {
     private String code;
     private String name;
     private String shortName;
-    private KnowledgeDomainResponseDto knowledgeDomain;
+    private String knowledgeDomainId;
+    ;
     private Integer version;
 
 }

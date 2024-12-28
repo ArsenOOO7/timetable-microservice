@@ -1,11 +1,13 @@
 package com.pnu.system.common.utils;
 
 import com.pnu.system.common.domain.BaseEntityProvider;
+import lombok.experimental.UtilityClass;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@UtilityClass
 public class BeanUtils {
 
     public static List<String> getIds(Collection<? extends BaseEntityProvider> entities) {

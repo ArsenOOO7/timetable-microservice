@@ -2,7 +2,7 @@ package com.pnu.system.identityaccess.repository;
 
 import com.pnu.system.common.constant.PermissionName;
 import com.pnu.system.common.constant.RoleType;
-import com.pnu.system.common.dto.BaseSearchRequest;
+import com.pnu.system.common.search.dto.BaseSearchRequest;
 import com.pnu.system.common.utils.QueryDslFactory;
 import com.pnu.system.identityaccess.domain.QPermission;
 import com.pnu.system.identityaccess.domain.QRole;

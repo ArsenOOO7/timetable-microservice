@@ -1,12 +1,12 @@
 package com.pnu.system.identityaccess.api;
 
-import com.pnu.system.common.dto.BaseSearchRequest;
+import com.pnu.system.common.search.dto.ReportSearchRequest;
 import com.pnu.system.identityaccess.api.dto.UserCreateRequest;
-import com.pnu.system.identityaccess.api.dto.UserPreviewDto;
 import com.pnu.system.identityaccess.api.dto.UserResponseDto;
 import com.pnu.system.identityaccess.api.dto.UserUpdateRequest;
 import com.pnu.system.identityaccess.api.validator.UserCreateValidator;
 import com.pnu.system.identityaccess.api.validator.UserUpdateValidator;
+import com.pnu.system.identityaccess.service.UserSearchService;
 import com.pnu.system.identityaccess.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -29,6 +30,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final UserSearchService searchService;
     private final UserCreateValidator userCreateValidator;
     private final UserUpdateValidator userUpdateValidator;
 
@@ -63,8 +65,8 @@ public class UserController {
     }
 
     @PostMapping("/list")
-    public List<UserPreviewDto> getUsers(@Valid @RequestBody BaseSearchRequest request) {
-        return userService.getPreviewUsers(request);
+    public List<Map<String, Object>> getUsers(@Valid @RequestBody ReportSearchRequest request) {
+        return searchService.search(request);
     }
 
     @GetMapping("/{id}/internal/group/list")

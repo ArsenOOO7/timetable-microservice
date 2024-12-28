@@ -12,8 +12,8 @@
             <column name="created_at" type="timestamp(3) with time zone">
                 <constraints nullable="false"/>
             </column>
-            <column name="last_modified_by" type="timestamp(3) with time zone"/>
-            <column name="last_modified_at" type="nvarchar(255)"/>
+            <column name="last_modified_by" type="nvarchar(255)"/>
+            <column name="last_modified_at" type="timestamp(3) with time zone"/>
         </addColumn>
 
         <addColumn tableName="department">

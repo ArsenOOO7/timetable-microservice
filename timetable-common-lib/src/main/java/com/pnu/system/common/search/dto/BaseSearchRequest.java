@@ -1,4 +1,4 @@
-package com.pnu.system.common.dto;
+package com.pnu.system.common.search.dto;
 
 import lombok.Getter;
 import lombok.Setter;
