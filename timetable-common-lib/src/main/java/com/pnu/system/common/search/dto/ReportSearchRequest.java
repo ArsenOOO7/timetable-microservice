@@ -14,7 +14,9 @@ public class ReportSearchRequest extends BaseSearchRequest {
     @Valid
     @NotEmpty
     private List<SearchField> fields;
+    @Valid
     private List<SearchCondition> conditions;
+    @Valid
     private List<SearchOrderByField> orderByFields;
 
 }
