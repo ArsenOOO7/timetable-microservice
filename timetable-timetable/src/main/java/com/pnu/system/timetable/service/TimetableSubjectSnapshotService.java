@@ -8,10 +8,10 @@ import com.pnu.system.common.snapshot.dto.SubjectSnapshotDto;
 import com.pnu.system.timetable.domain.TimetableSubjectSnapshot;
 import com.pnu.system.timetable.mapper.TimetableSubjectSnapshotMapper;
 import com.pnu.system.timetable.repository.TimetableSubjectSnapshotRepository;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -33,8 +33,9 @@ public class TimetableSubjectSnapshotService implements MessagingSnapshotService
     @Value("${baseUrl.academic_catalog}/subject/internal/snapshot/modifiedAfter")
     private String subjectsModifiedAfterUrl;
 
-    @PostConstruct
-    public void init() {
+    @Scheduled(initialDelay = 1000 * 30, fixedDelay = Long.MAX_VALUE)
+    public void synchronize() {
+        //TODO 2/1/25: Need to implement Lock here
         try {
             ZonedDateTime latestModifiedDate = repository.getLatestModifiedDate()
                     .orElse(ZonedDateTime.ofInstant(Instant.EPOCH, TimeZone.getDefault().toZoneId()));
