@@ -8,10 +8,10 @@ import com.pnu.system.common.snapshot.dto.UserSnapshotDto;
 import com.pnu.system.timetable.domain.TimetableUserSnapshot;
 import com.pnu.system.timetable.mapper.TimetableUserSnapshotMapper;
 import com.pnu.system.timetable.repository.TimetableUserSnapshotRepository;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriTemplate;
 
@@ -36,8 +36,9 @@ public class TimetableUserSnapshotService implements MessagingSnapshotService<Us
     @Value("${baseUrl.identity_access}/user/internal/snapshot/modifiedAfter")
     private String usersModifiedAfterUrl;
 
-    @PostConstruct
-    public void init() {
+    @Scheduled(initialDelay = 1000 * 30, fixedDelay = Long.MAX_VALUE)
+    public void synchronize() {
+        //TODO 2/1/25: Need to implement Lock here
         try {
             ZonedDateTime latestModifiedDate = repository.getLatestModifiedDate()
                     .orElse(ZonedDateTime.ofInstant(Instant.EPOCH, TimeZone.getDefault().toZoneId()));
