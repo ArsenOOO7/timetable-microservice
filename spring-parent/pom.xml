@@ -26,6 +26,11 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-queryparser</artifactId>
+                <version>10.1.0</version>
+            </dependency>
+            <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
@@ -41,6 +46,11 @@
             <dependency>
                 <groupId>com.pnu.system</groupId>
                 <artifactId>timetable-common-lib</artifactId>
+                <version>0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.pnu.system</groupId>
+                <artifactId>timetable-elasticsearch-lib</artifactId>
                 <version>0.1</version>
             </dependency>
             <dependency>

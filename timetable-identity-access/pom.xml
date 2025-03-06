@@ -13,4 +13,12 @@
 
     <artifactId>timetable-identity-access</artifactId>
     <version>0.1</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.pnu.system</groupId>
+            <artifactId>timetable-elasticsearch-lib</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

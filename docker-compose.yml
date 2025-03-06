@@ -22,6 +22,15 @@ services:
       - "9300:9300"
     environment:
       - discovery.type=single-node
+      - xpack.security.enabled=false
+    volumes:
+      - timetable-esdata:/usr/share/timetable-elasticsearch/data
+    deploy:
+      resources:
+        limits:
+          memory: 3GB
+        reservations:
+          memory: 1GB
 
   rabbitmq:
     image: "rabbitmq:latest"
@@ -33,3 +42,7 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+
+volumes:
+  timetable-esdata:
+    driver: local

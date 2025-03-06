@@ -21,6 +21,7 @@
         <module>timetable-academic-catalog</module>
         <module>timetable-group</module>
         <module>timetable-timetable</module>
+        <module>timetable-elasticsearch-lib</module>
     </modules>
 
 </project>
