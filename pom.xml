@@ -22,6 +22,7 @@
         <module>timetable-group</module>
         <module>timetable-timetable</module>
         <module>timetable-elasticsearch-lib</module>
+        <module>timetable-file-storage-lib</module>
     </modules>
 
 </project>

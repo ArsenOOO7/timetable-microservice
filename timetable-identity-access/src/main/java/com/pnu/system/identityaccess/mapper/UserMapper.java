@@ -7,6 +7,8 @@ import com.pnu.system.identityaccess.api.dto.UserUpdateRequest;
 import com.pnu.system.identityaccess.domain.User;
 import com.pnu.system.identityaccess.domain.document.UserDocument;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
@@ -15,7 +17,9 @@ public interface UserMapper {
 
     User asUser(UserCreateRequest userCreateRequest);
 
-    User asUser(UserUpdateRequest userUpdateRequest);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    void applyUserUpdateRequest(@MappingTarget User user, UserUpdateRequest request);
 
     UserResponseDto asUserResponseDto(User user);
 
