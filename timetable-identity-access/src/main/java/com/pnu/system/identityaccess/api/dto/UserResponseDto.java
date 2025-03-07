@@ -18,5 +18,6 @@ public class UserResponseDto {
     private List<String> groupIds;
     private List<UserRoleDto> roles;
     private Integer version;
+    private String profilePhotoUrl;
 
 }

@@ -2,6 +2,10 @@ package com.pnu.system.identityaccess.service;
 
 import com.pnu.system.common.constant.UserType;
 import com.pnu.system.common.service.AbstractPersistenceService;
+import com.pnu.system.file.storage.constant.Folders;
+import com.pnu.system.file.storage.service.FileStorageService;
+import com.pnu.system.file.storage.utils.StorageResourcePathUtil;
+import com.pnu.system.file.storage.utils.StorageResourceValidator;
 import com.pnu.system.identityaccess.api.dto.UserCreateRequest;
 import com.pnu.system.identityaccess.api.dto.UserResponseDto;
 import com.pnu.system.identityaccess.api.dto.UserUpdateRequest;
@@ -14,9 +18,11 @@ import com.pnu.system.identityaccess.event.model.UserUpdateEvent;
 import com.pnu.system.identityaccess.mapper.UserMapper;
 import com.pnu.system.identityaccess.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,26 +36,27 @@ public class UserService extends AbstractPersistenceService<User> {
     private final UserRepository repository;
     private final ApplicationEventPublisher eventPublisher;
     private final TeacherProfileService teacherProfileService;
+    private final FileStorageService storageService;
 
-    public UserResponseDto create(UserCreateRequest userCreateRequest) {
-        User user = mapper.asUser(userCreateRequest);
-        assignRoles2User(user, userCreateRequest.getRoleIds());
+    public UserResponseDto create(UserCreateRequest request) {
+        User user = mapper.asUser(request);
+        assignRoles2User(user, request.getRoleIds());
         User created = super.create(user);
         createTeacherProfile(created);
         eventPublisher.publishEvent(new UserCreateEvent(user));
         return mapper.asUserResponseDto(created);
     }
 
-    public UserResponseDto update(UserUpdateRequest userUpdateRequest) {
-        User existent = getOne(userUpdateRequest.getId());
-        User user = mapper.asUser(userUpdateRequest);
+    public UserResponseDto update(UserUpdateRequest request) {
+        User existent = getOne(request.getId());
+        mapper.applyUserUpdateRequest(existent, request);
 
-        user.setPassword(existent.getPassword());
+        assignRoles2User(existent, request.getRoleIds());
+        User updated = super.update(existent);
 
-        assignRoles2User(user, userUpdateRequest.getRoleIds());
-        User updated = super.update(user);
         createTeacherProfile(updated);
-        eventPublisher.publishEvent(new UserUpdateEvent(user));
+
+        eventPublisher.publishEvent(new UserUpdateEvent(existent));
         return mapper.asUserResponseDto(updated);
     }
 
@@ -67,6 +74,29 @@ public class UserService extends AbstractPersistenceService<User> {
 
     public List<String> getUserGroupIds(String id) {
         return repository.getUserGroupIds(id);
+    }
+
+    public String saveProfilePhoto(String id, MultipartFile file) {
+        StorageResourceValidator.validateImageFile(file);
+        User user = getOne(id);
+        if (StringUtils.isNotBlank(user.getProfilePhotoUrl())) {
+            storageService.deleteFile(user.getProfilePhotoUrl());
+        }
+
+        String uri = StorageResourcePathUtil.buildUuidUri(file.getOriginalFilename(), user.getId(), Folders.PROFILE_PHOTOS_FOLDER);
+        storageService.upload(file, uri, true);
+        String url = storageService.getUrl(uri);
+        repository.updateProfilePhoto(id, url);
+        return url;
+    }
+
+    public void deleteProfilePhoto(String id) {
+        User user = getOne(id);
+        if (StringUtils.isBlank(user.getProfilePhotoUrl())) {
+            return;
+        }
+        storageService.deleteFile(user.getProfilePhotoUrl());
+        repository.updateProfilePhoto(id, null);
     }
 
     private void assignRoles2User(User user, List<String> roleIds) {

@@ -33,6 +33,9 @@ public class User extends AbstractUser {
     @Column(name = "group_id")
     private List<String> groupIds;
 
+    @Column(name = "profile_photo_url")
+    private String profilePhotoUrl;
+
     @KeywordField(searchable = Searchable.YES)
     @Override
     public String getId() {

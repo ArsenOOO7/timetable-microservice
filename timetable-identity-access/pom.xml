@@ -19,6 +19,10 @@
             <groupId>com.pnu.system</groupId>
             <artifactId>timetable-elasticsearch-lib</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.pnu.system</groupId>
+            <artifactId>timetable-file-storage-lib</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
