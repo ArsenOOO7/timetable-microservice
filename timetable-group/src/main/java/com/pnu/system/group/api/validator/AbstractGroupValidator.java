@@ -26,7 +26,7 @@ public abstract class AbstractGroupValidator implements Validator {
             return;
         }
         List<Group> relatedGroups = groupService.getAll(relatedGroupIds);
-        if (relatedGroups.stream().anyMatch(relatedGroup -> !GroupType.FULL.equals(relatedGroup.getType()))) {
+        if (relatedGroups.stream().noneMatch(relatedGroup -> GroupType.FULL.equals(relatedGroup.getType()))) {
             errors.reject("validation.group.collectiveGroup.allRelatedGroupsMustBeFull", "In collective groups, all related groups must be FULL type.");
         }
     }

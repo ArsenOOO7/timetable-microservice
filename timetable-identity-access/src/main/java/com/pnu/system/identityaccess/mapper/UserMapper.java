@@ -18,7 +18,6 @@ public interface UserMapper {
     User asUser(UserCreateRequest userCreateRequest);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "id", ignore = true)
     void applyUserUpdateRequest(@MappingTarget User user, UserUpdateRequest request);
 
     UserResponseDto asUserResponseDto(User user);
