@@ -83,7 +83,7 @@ public class UserService extends AbstractPersistenceService<User> {
             storageService.deleteFile(user.getProfilePhotoUrl());
         }
 
-        String uri = StorageResourcePathUtil.buildUuidUri(file.getOriginalFilename(), user.getId(), Folders.PROFILE_PHOTOS_FOLDER);
+        String uri = StorageResourcePathUtil.buildUuidUri(file.getOriginalFilename(), Folders.PROFILE_PHOTOS_FOLDER);
         storageService.upload(file, uri, true);
         String url = storageService.getUrl(uri);
         repository.updateProfilePhoto(id, url);

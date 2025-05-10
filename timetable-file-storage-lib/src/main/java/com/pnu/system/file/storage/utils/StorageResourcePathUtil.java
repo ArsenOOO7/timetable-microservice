@@ -15,7 +15,7 @@ public class StorageResourcePathUtil {
     }
 
     public static String buildUuidUri(String filename, String folder) {
-        return buildUri(filename, UUID.randomUUID().toString(), folder);
+        return buildUuidUri(filename, UUID.randomUUID().toString(), folder);
     }
 
     public static String buildUri(String... args) {
