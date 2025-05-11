@@ -21,8 +21,10 @@ public abstract class AbstractGroupValidator implements Validator {
     protected GroupCategoryService groupCategoryService;
 
     protected void validateRelatedGroups(GroupType type, List<String> relatedGroupIds, Errors errors) {
-        if (!GroupType.COLLECTIVE.equals(type) && CollectionUtils.isNotEmpty(relatedGroupIds)) {
-            errors.reject("validation.group.nonCollectiveGroup.relatedGroups", "Non-collective groups cannot contain related groups.");
+        if (!GroupType.COLLECTIVE.equals(type)) {
+            if (CollectionUtils.isNotEmpty(relatedGroupIds)) {
+                errors.reject("validation.group.nonCollectiveGroup.relatedGroups", "Non-collective groups cannot contain related groups.");
+            }
             return;
         }
         List<Group> relatedGroups = groupService.getAll(relatedGroupIds);
