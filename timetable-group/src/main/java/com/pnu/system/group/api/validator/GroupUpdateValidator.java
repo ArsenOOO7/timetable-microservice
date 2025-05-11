@@ -18,6 +18,7 @@ public class GroupUpdateValidator extends AbstractGroupValidator {
         GroupUpdateRequest request = (GroupUpdateRequest) target;
 
         GroupType type = request.getType();
+        validateName(request.getName(), request.getId(), errors);
         validateAcademicYear(type, request.getAcademicYear(), errors);
         validateSpecialtyId(type, request.getSpecialtyId(), errors);
         validateParentGroup(type, request.getParentId(), errors);

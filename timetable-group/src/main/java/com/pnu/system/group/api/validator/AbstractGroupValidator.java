@@ -70,4 +70,10 @@ public abstract class AbstractGroupValidator implements Validator {
             errors.reject("validation.group.academicYear.range", "Academic Year must be between 1 and 4.");
         }
     }
+
+    protected void validateName(String name, String id, Errors errors) {
+        if (groupService.existsByName(name, id)) {
+            errors.reject("validation.group.name.exists", "A group with this name already exists.");
+        }
+    }
 }

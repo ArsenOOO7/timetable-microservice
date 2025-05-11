@@ -18,6 +18,7 @@ public class GroupCreateValidator extends AbstractGroupValidator {
         GroupCreateRequest request = (GroupCreateRequest) target;
 
         GroupType type = request.getType();
+        validateName(request.getName(), null, errors);
         validateAcademicYear(type, request.getAcademicYear(), errors);
         validateSpecialtyId(type, request.getSpecialtyId(), errors);
         validateParentGroup(type, request.getParentId(), errors);

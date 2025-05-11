@@ -49,6 +49,10 @@ public class GroupService extends AbstractPersistenceService<Group> {
         super.delete(entity);
     }
 
+    public boolean existsByName(String name, String id) {
+        return repository.existsByName(name, id);
+    }
+
     private void validateBeforeDelete(Group entity) {
         if (GroupType.FULL.equals(entity.getType())) {
             if (repository.existsByParentId(entity.getId())) {
