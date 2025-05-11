@@ -6,9 +6,12 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import org.hibernate.annotations.BatchSize;
 
 import java.util.List;
 
+@Getter
 @Entity
 @Table(name = "lesson")
 public class LessonSearch extends AbstractLesson {
@@ -26,6 +29,7 @@ public class LessonSearch extends AbstractLesson {
     @JoinColumn(name = "lesson_location_id", insertable = false, updatable = false)
     private TimetableLessonLocationSnapshot location;
     @ManyToMany
+    @BatchSize(size = 100)
     @JoinTable(name = "lesson_group",
             joinColumns = @JoinColumn(name = "lesson_id"),
             inverseJoinColumns = @JoinColumn(name = "group_id"))
