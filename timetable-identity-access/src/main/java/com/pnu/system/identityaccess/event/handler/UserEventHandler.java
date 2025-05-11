@@ -2,18 +2,17 @@ package com.pnu.system.identityaccess.event.handler;
 
 import com.pnu.system.common.messaging.constant.EntityMessageType;
 import com.pnu.system.common.messaging.constant.RabbitRoutingKey;
-import com.pnu.system.common.messaging.model.EntityDeleteMessage;
-import com.pnu.system.common.messaging.model.EntityUpdateMessage;
 import com.pnu.system.common.messaging.service.Publisher;
-import com.pnu.system.common.snapshot.dto.UserSnapshotDto;
 import com.pnu.system.identityaccess.event.model.TeacherProfileUpdateEvent;
 import com.pnu.system.identityaccess.event.model.UserCreateEvent;
 import com.pnu.system.identityaccess.event.model.UserDeleteEvent;
 import com.pnu.system.identityaccess.event.model.UserUpdateEvent;
-import com.pnu.system.identityaccess.mapper.UserMessagingMapper;
 import com.pnu.system.identityaccess.service.UserSnapshotService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 @Component
@@ -21,30 +20,32 @@ import org.springframework.transaction.event.TransactionalEventListener;
 public class UserEventHandler {
 
     private final Publisher publisher;
-    private final UserMessagingMapper mapper;
     private final UserSnapshotService service;
 
+    @Async
+    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = true)
     @TransactionalEventListener
     public void onUserCreate(UserCreateEvent event) {
-        EntityUpdateMessage<UserSnapshotDto> message = mapper.asEntityUpdateMessage(service.getById(event.getUser().getId()), EntityMessageType.USER);
-        publisher.send(RabbitRoutingKey.USER_UPDATE_ROUTING_KEY, message);
+        publisher.send(RabbitRoutingKey.USER_UPDATE_ROUTING_KEY, EntityMessageType.USER_UPDATE, service.getById(event.getUser().getId()));
     }
 
+    @Async
+    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = true)
     @TransactionalEventListener
     public void onUserUpdate(UserUpdateEvent event) {
-        EntityUpdateMessage<UserSnapshotDto> message = mapper.asEntityUpdateMessage(service.getById(event.getUser().getId()), EntityMessageType.USER);
-        publisher.send(RabbitRoutingKey.USER_UPDATE_ROUTING_KEY, message);
+        publisher.send(RabbitRoutingKey.USER_UPDATE_ROUTING_KEY, EntityMessageType.USER_UPDATE, service.getById(event.getUser().getId()));
     }
 
+    @Async
+    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = true)
     @TransactionalEventListener
     public void onUserUpdate(TeacherProfileUpdateEvent event) {
-        EntityUpdateMessage<UserSnapshotDto> message = mapper.asEntityUpdateMessage(service.getById(event.getProfile().getId()), EntityMessageType.USER);
-        publisher.send(RabbitRoutingKey.USER_UPDATE_ROUTING_KEY, message);
+        publisher.send(RabbitRoutingKey.USER_UPDATE_ROUTING_KEY, EntityMessageType.USER_UPDATE, service.getById(event.getProfile().getId()));
     }
 
+    @Async
     @TransactionalEventListener
     public void onUserDelete(UserDeleteEvent event) {
-        EntityDeleteMessage message = mapper.asEntityDeleteMessage(event.getId(), EntityMessageType.USER);
-        publisher.send(RabbitRoutingKey.USER_DELETE_ROUTING_KEY, message);
+        publisher.send(RabbitRoutingKey.USER_DELETE_ROUTING_KEY, EntityMessageType.USER_DELETE, event.getId());
     }
 }

@@ -21,7 +21,9 @@ public interface LessonLocationSnapshotRepository extends JpaRepository<LessonLo
         return QueryDslFactory.getQueryFactory()
                 .select(getLessonLocationSnapshotProjection())
                 .from(qLessonLocation)
-                .where(qLessonLocation.lastModifiedAt.after(lastModifiedAt))
+                .leftJoin(qLessonLocation.locationType)
+                .where(qLessonLocation.lastModifiedAt.after(lastModifiedAt)
+                        .or(qLessonLocation.locationType.lastModifiedAt.after(lastModifiedAt)))
                 .fetch();
     }
 

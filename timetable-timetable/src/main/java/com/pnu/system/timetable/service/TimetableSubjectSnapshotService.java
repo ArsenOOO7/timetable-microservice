@@ -1,7 +1,6 @@
 package com.pnu.system.timetable.service;
 
 import com.pnu.system.common.exception.EntityNotFoundException;
-import com.pnu.system.common.messaging.constant.EntityMessageType;
 import com.pnu.system.common.messaging.service.MessagingSnapshotService;
 import com.pnu.system.common.rest.TimetableRestClient;
 import com.pnu.system.common.snapshot.dto.SubjectSnapshotDto;
@@ -68,10 +67,5 @@ public class TimetableSubjectSnapshotService implements MessagingSnapshotService
                     repository.save(subject);
                     log.trace("Subject {} marked as delete.", subject.getId());
                 }, () -> log.trace("Cannot find subject with id {}.", id));
-    }
-
-    @Override
-    public boolean supports(EntityMessageType type) {
-        return EntityMessageType.SUBJECT.equals(type);
     }
 }
