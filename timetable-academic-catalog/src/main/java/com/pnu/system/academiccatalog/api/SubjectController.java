@@ -48,6 +48,7 @@ public class SubjectController {
         service.delete(id);
     }
 
+    @PostMapping("/list")
     public List<Map<String, Object>> search(@Valid @RequestBody ReportSearchRequest request) {
         return searchService.search(request);
     }
