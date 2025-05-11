@@ -1,8 +1,6 @@
 package com.pnu.system.timetable.messaging;
 
 import com.pnu.system.common.messaging.constant.RabbitRoutingKey;
-import com.pnu.system.common.messaging.model.EntityDeleteMessage;
-import com.pnu.system.common.messaging.model.EntityUpdateMessage;
 import com.pnu.system.common.snapshot.dto.GroupSnapshotDto;
 import com.pnu.system.common.snapshot.dto.LessonLocationSnapshotDto;
 import com.pnu.system.common.snapshot.dto.SubjectSnapshotDto;
@@ -38,8 +36,8 @@ public class TimetableRabbitMessagingListener {
             exchange = @Exchange(value = "${messaging.rabbit.topic}", type = ExchangeTypes.TOPIC),
             key = RabbitRoutingKey.USER_UPDATE_ROUTING_KEY
     ))
-    public void receiveUserUpdate(@Payload EntityUpdateMessage<UserSnapshotDto> userUpdateMessage) {
-        userSnapshotService.receiveSnapshot(userUpdateMessage.getBody());
+    public void receiveUserUpdate(@Payload UserSnapshotDto body) {
+        userSnapshotService.receiveSnapshot(body);
     }
 
     @RabbitListener(bindings = @QueueBinding(
@@ -47,8 +45,8 @@ public class TimetableRabbitMessagingListener {
             exchange = @Exchange(value = "${messaging.rabbit.topic}", type = ExchangeTypes.TOPIC),
             key = RabbitRoutingKey.USER_DELETE_ROUTING_KEY
     ))
-    public void markUserAsDeleted(@Payload EntityDeleteMessage userDeleteMessage) {
-        userSnapshotService.markAsDeleted(userDeleteMessage.getId());
+    public void markUserAsDeleted(@Payload String id) {
+        userSnapshotService.markAsDeleted(id);
     }
 
     @RabbitListener(bindings = @QueueBinding(
@@ -56,8 +54,8 @@ public class TimetableRabbitMessagingListener {
             exchange = @Exchange(value = "${messaging.rabbit.topic}", type = ExchangeTypes.TOPIC),
             key = RabbitRoutingKey.SUBJECT_UPDATE_ROUTING_KEY
     ))
-    public void receiveSubjectUpdate(@Payload EntityUpdateMessage<SubjectSnapshotDto> subjectUpdateMessage) {
-        subjectSnapshotService.receiveSnapshot(subjectUpdateMessage.getBody());
+    public void receiveSubjectUpdate(@Payload SubjectSnapshotDto body) {
+        subjectSnapshotService.receiveSnapshot(body);
     }
 
     @RabbitListener(bindings = @QueueBinding(
@@ -65,8 +63,8 @@ public class TimetableRabbitMessagingListener {
             exchange = @Exchange(value = "${messaging.rabbit.topic}", type = ExchangeTypes.TOPIC),
             key = RabbitRoutingKey.SUBJECT_DELETE_ROUTING_KEY
     ))
-    public void markSubjectAsDeleted(@Payload EntityDeleteMessage userDeleteMessage) {
-        subjectSnapshotService.markAsDeleted(userDeleteMessage.getId());
+    public void markSubjectAsDeleted(@Payload String id) {
+        subjectSnapshotService.markAsDeleted(id);
     }
 
     @RabbitListener(bindings = @QueueBinding(
@@ -74,8 +72,8 @@ public class TimetableRabbitMessagingListener {
             exchange = @Exchange(value = "${messaging.rabbit.topic}", type = ExchangeTypes.TOPIC),
             key = RabbitRoutingKey.GROUP_UPDATE_ROUTING_KEY
     ))
-    public void receiveGroupUpdate(@Payload EntityUpdateMessage<GroupSnapshotDto> groupUpdateMessage) {
-        groupSnapshotService.receiveSnapshot(groupUpdateMessage.getBody());
+    public void receiveGroupUpdate(@Payload GroupSnapshotDto body) {
+        groupSnapshotService.receiveSnapshot(body);
     }
 
     @RabbitListener(bindings = @QueueBinding(
@@ -83,8 +81,8 @@ public class TimetableRabbitMessagingListener {
             exchange = @Exchange(value = "${messaging.rabbit.topic}", type = ExchangeTypes.TOPIC),
             key = RabbitRoutingKey.GROUP_DELETE_ROUTING_KEY
     ))
-    public void markGroupAsDeleted(@Payload EntityDeleteMessage userDeleteMessage) {
-        groupSnapshotService.markAsDeleted(userDeleteMessage.getId());
+    public void markGroupAsDeleted(@Payload String id) {
+        groupSnapshotService.markAsDeleted(id);
     }
 
     @RabbitListener(bindings = @QueueBinding(
@@ -92,8 +90,8 @@ public class TimetableRabbitMessagingListener {
             exchange = @Exchange(value = "${messaging.rabbit.topic}", type = ExchangeTypes.TOPIC),
             key = RabbitRoutingKey.LESSON_LOCATION_UPDATE_ROUTING_KEY
     ))
-    public void receiveLocationUpdate(@Payload EntityUpdateMessage<LessonLocationSnapshotDto> locationUpdateMessage) {
-        lessonLocationSnapshotService.receiveSnapshot(locationUpdateMessage.getBody());
+    public void receiveLocationUpdate(@Payload LessonLocationSnapshotDto body) {
+        lessonLocationSnapshotService.receiveSnapshot(body);
     }
 
     @RabbitListener(bindings = @QueueBinding(
@@ -101,7 +99,7 @@ public class TimetableRabbitMessagingListener {
             exchange = @Exchange(value = "${messaging.rabbit.topic}", type = ExchangeTypes.TOPIC),
             key = RabbitRoutingKey.LESSON_LOCATION_DELETE_ROUTING_KEY
     ))
-    public void markLocationAsDeleted(@Payload EntityDeleteMessage userDeleteMessage) {
-        lessonLocationSnapshotService.markAsDeleted(userDeleteMessage.getId());
+    public void markLocationAsDeleted(@Payload String id) {
+        lessonLocationSnapshotService.markAsDeleted(id);
     }
 }

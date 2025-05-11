@@ -1,7 +1,6 @@
 package com.pnu.system.timetable.service;
 
 import com.pnu.system.common.exception.EntityNotFoundException;
-import com.pnu.system.common.messaging.constant.EntityMessageType;
 import com.pnu.system.common.messaging.service.MessagingSnapshotService;
 import com.pnu.system.common.rest.TimetableRestClient;
 import com.pnu.system.common.snapshot.dto.LessonLocationSnapshotDto;
@@ -42,9 +41,9 @@ public class TimetableLessonLocationSnapshotService implements MessagingSnapshot
             Map<String, Object> queryParams = Map.of("lastModifiedAt", latestModifiedDate);
             List<LessonLocationSnapshotDto> received = restClient.getList(locationsModifiedAfterUrl, queryParams, LessonLocationSnapshotDto[].class);
             repository.saveAll(received.stream().map(mapper::asTimetableLessonLocationSnapshot).toList());
-            log.info("Received Group Snapshots with ids: {}", received.stream().map(LessonLocationSnapshotDto::getId).collect(Collectors.joining(", ")));
+            log.info("Received Lesson Location Snapshots with ids: {}", received.stream().map(LessonLocationSnapshotDto::getId).collect(Collectors.joining(", ")));
         } catch (Exception e) {
-            log.error("Error while synchronizing Group Snapshots.", e);
+            log.error("Error while synchronizing Lesson Location Snapshots.", e);
         }
     }
 
@@ -68,10 +67,5 @@ public class TimetableLessonLocationSnapshotService implements MessagingSnapshot
                     repository.save(subject);
                     log.trace("Lesson Location {} marked as delete.", subject.getId());
                 }, () -> log.trace("Cannot find lesson location with id {}.", id));
-    }
-
-    @Override
-    public boolean supports(EntityMessageType type) {
-        return EntityMessageType.LESSON_LOCATION.equals(type);
     }
 }

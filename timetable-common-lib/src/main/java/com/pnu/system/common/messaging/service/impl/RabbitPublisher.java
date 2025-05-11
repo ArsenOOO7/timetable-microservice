@@ -1,5 +1,6 @@
 package com.pnu.system.common.messaging.service.impl;
 
+import com.pnu.system.common.messaging.constant.EntityMessageType;
 import com.pnu.system.common.messaging.service.Publisher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.Exchange;
@@ -14,5 +15,10 @@ public class RabbitPublisher implements Publisher {
     @Override
     public void send(String routingKey, Object message) {
         template.convertAndSend(exchange.getName(), routingKey, message);
+    }
+
+    @Override
+    public void send(String routingKey, EntityMessageType messageType, Object message) {
+        send(routingKey, message);
     }
 }

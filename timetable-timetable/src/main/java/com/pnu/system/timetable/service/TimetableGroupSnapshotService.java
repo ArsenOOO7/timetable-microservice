@@ -1,6 +1,5 @@
 package com.pnu.system.timetable.service;
 
-import com.pnu.system.common.messaging.constant.EntityMessageType;
 import com.pnu.system.common.messaging.service.MessagingSnapshotService;
 import com.pnu.system.common.rest.TimetableRestClient;
 import com.pnu.system.common.snapshot.dto.GroupSnapshotDto;
@@ -67,10 +66,5 @@ public class TimetableGroupSnapshotService implements MessagingSnapshotService<G
                     repository.save(group);
                     log.trace("Group {} marked as delete.", group.getId());
                 }, () -> log.trace("Cannot find group with id {}.", id));
-    }
-
-    @Override
-    public boolean supports(EntityMessageType type) {
-        return EntityMessageType.GROUP.equals(type);
     }
 }

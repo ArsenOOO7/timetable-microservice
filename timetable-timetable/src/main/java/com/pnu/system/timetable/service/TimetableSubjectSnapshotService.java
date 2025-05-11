@@ -1,7 +1,6 @@
 package com.pnu.system.timetable.service;
 
 import com.pnu.system.common.exception.EntityNotFoundException;
-import com.pnu.system.common.messaging.constant.EntityMessageType;
 import com.pnu.system.common.messaging.service.MessagingSnapshotService;
 import com.pnu.system.common.rest.TimetableRestClient;
 import com.pnu.system.common.snapshot.dto.SubjectSnapshotDto;
@@ -42,9 +41,9 @@ public class TimetableSubjectSnapshotService implements MessagingSnapshotService
             Map<String, Object> queryParams = Map.of("lastModifiedAt", latestModifiedDate);
             List<SubjectSnapshotDto> received = restClient.getList(subjectsModifiedAfterUrl, queryParams, SubjectSnapshotDto[].class);
             repository.saveAll(received.stream().map(mapper::asTimetableSubjectSnapshot).toList());
-            log.info("Received Group Snapshots with ids: {}", received.stream().map(SubjectSnapshotDto::getId).collect(Collectors.joining(", ")));
+            log.info("Received Subject Snapshots with ids: {}", received.stream().map(SubjectSnapshotDto::getId).collect(Collectors.joining(", ")));
         } catch (Exception e) {
-            log.error("Error while synchronizing Group Snapshots.", e);
+            log.error("Error while synchronizing Subject Snapshots.", e);
         }
     }
 
@@ -68,10 +67,5 @@ public class TimetableSubjectSnapshotService implements MessagingSnapshotService
                     repository.save(subject);
                     log.trace("Subject {} marked as delete.", subject.getId());
                 }, () -> log.trace("Cannot find subject with id {}.", id));
-    }
-
-    @Override
-    public boolean supports(EntityMessageType type) {
-        return EntityMessageType.SUBJECT.equals(type);
     }
 }
