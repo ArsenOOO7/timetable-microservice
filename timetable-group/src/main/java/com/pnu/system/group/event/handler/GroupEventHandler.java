@@ -22,21 +22,21 @@ public class GroupEventHandler {
     private final GroupSnapshotService service;
 
     @Async
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = true)
     @TransactionalEventListener
     public void onGroupCreate(GroupCreateEvent event) {
         publisher.send(RabbitRoutingKey.GROUP_UPDATE_ROUTING_KEY, EntityMessageType.GROUP_UPDATE, service.getById(event.getGroup().getId()));
     }
 
     @Async
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = true)
     @TransactionalEventListener
     public void onGroupUpdate(GroupUpdateEvent event) {
         publisher.send(RabbitRoutingKey.GROUP_UPDATE_ROUTING_KEY, EntityMessageType.GROUP_UPDATE, service.getById(event.getGroup().getId()));
     }
 
     @Async
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = true)
     @TransactionalEventListener
     public void onGroupDelete(GroupDeleteEvent event) {
         publisher.send(RabbitRoutingKey.GROUP_DELETE_ROUTING_KEY, EntityMessageType.GROUP_DELETE, event.getId());

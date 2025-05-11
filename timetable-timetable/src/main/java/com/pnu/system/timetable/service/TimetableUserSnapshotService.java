@@ -44,9 +44,9 @@ public class TimetableUserSnapshotService implements MessagingSnapshotService<Us
             Map<String, Object> queryParams = Map.of("lastModifiedAt", latestModifiedDate);
             List<UserSnapshotDto> received = restClient.getList(usersModifiedAfterUrl, queryParams, UserSnapshotDto[].class);
             repository.saveAll(received.stream().map(mapper::asTimetableUserSnapshot).toList());
-            log.info("Received Group Snapshots with ids: {}", received.stream().map(UserSnapshotDto::getId).collect(Collectors.joining(", ")));
+            log.info("Received User Snapshots with ids: {}", received.stream().map(UserSnapshotDto::getId).collect(Collectors.joining(", ")));
         } catch (Exception e) {
-            log.error("Error while synchronizing Group Snapshots.", e);
+            log.error("Error while synchronizing User Snapshots.", e);
         }
     }
 

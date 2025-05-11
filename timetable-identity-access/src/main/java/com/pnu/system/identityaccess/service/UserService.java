@@ -118,10 +118,12 @@ public class UserService extends AbstractPersistenceService<User> {
     }
 
     @Override
-    public void delete(String id) {
-        teacherProfileService.delete(id);
-        eventPublisher.publishEvent(new UserDeleteEvent(id));
-        super.delete(id);
+    public void delete(User entity) {
+        if (UserType.TEACHER.equals(entity.getType())) {
+            teacherProfileService.delete(entity.getId());
+        }
+        eventPublisher.publishEvent(new UserDeleteEvent(entity.getId()));
+        super.delete(entity);
     }
 
     @Override
