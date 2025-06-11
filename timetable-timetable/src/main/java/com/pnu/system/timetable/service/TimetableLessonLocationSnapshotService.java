@@ -32,6 +32,7 @@ public class TimetableLessonLocationSnapshotService implements MessagingSnapshot
     @Value("${baseUrl.lesson_location}/location/internal/snapshot/modifiedAfter")
     private String locationsModifiedAfterUrl;
 
+    @Override
     @Scheduled(initialDelay = 1000 * 30, fixedDelay = Long.MAX_VALUE)
     public void synchronize() {
         //TODO 2/1/25: Need to implement Lock here

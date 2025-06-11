@@ -6,6 +6,7 @@ public enum PermissionGroup {
     USER,
     GROUP,
     TIMETABLE,
+    LABORATORY_CONTROL,
     INTERNAL
 
 }

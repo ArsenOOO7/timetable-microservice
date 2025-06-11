@@ -20,7 +20,9 @@ public enum PermissionName {
     LESSON_TYPE_EDIT,
     LESSON_SEARCH,
     LESSON_ANALYTICS,
-    LESSON_PERSONAL_ANALYTICS;
+    LESSON_PERSONAL_ANALYTICS,
+    COURSE_FULL_ACCESS,
+    COURSE_EDIT;
 
     @Override
     public String toString() {

@@ -1,9 +1,9 @@
 package com.pnu.system.identityaccess.api;
 
 import com.pnu.system.common.constant.UserType;
+import com.pnu.system.common.dto.UserDto;
 import com.pnu.system.common.search.dto.ReportSearchRequest;
 import com.pnu.system.identityaccess.api.dto.UserCreateRequest;
-import com.pnu.system.identityaccess.api.dto.UserDto;
 import com.pnu.system.identityaccess.api.dto.UserResponseDto;
 import com.pnu.system.identityaccess.api.dto.UserUpdateRequest;
 import com.pnu.system.identityaccess.api.validator.UserCreateValidator;
