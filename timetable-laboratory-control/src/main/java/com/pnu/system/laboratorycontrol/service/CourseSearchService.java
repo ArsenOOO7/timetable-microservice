@@ -20,8 +20,8 @@ import java.util.Map;
 @Service
 public class CourseSearchService extends AbstractSearchService<CourseSearch> {
 
-    private static final String COURSE_AUTHORS_FIELD = "course.authors.id";
-    private static final String COURSE_GROUPS_FIELD = "course.groups.id";
+    private static final String COURSE_AUTHORS_FIELD = "authors.id";
+    private static final String COURSE_GROUPS_FIELD = "groups.id";
 
     private final CourseSearchRepository repository;
     private final LaboratoryControlUserSnapshotService userSnapshotService;
@@ -47,7 +47,7 @@ public class CourseSearchService extends AbstractSearchService<CourseSearch> {
             case TEACHER -> {
                 SearchCondition condition = SearchCondition.builder()
                         .fieldName(COURSE_AUTHORS_FIELD)
-                        .value(user)
+                        .value(user.getId())
                         .dataType(DataType.STRING)
                         .operation(ConditionOperation.EQUAL)
                         .collectionField(true)
