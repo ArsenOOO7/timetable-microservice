@@ -2,6 +2,7 @@ package com.pnu.system.common.utils;
 
 import com.pnu.system.common.exception.EntityNotFoundException;
 import lombok.experimental.UtilityClass;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -14,7 +15,7 @@ public class JpaUtils {
     }
 
     public static <T> T nullSafeRetrieve(String id, Function<String, Optional<T>> methodGet, String entityName) {
-        if (id == null) {
+        if (StringUtils.isBlank(id)) {
             throw new EntityNotFoundException(null, entityName);
         }
         return methodGet.apply(id).orElseThrow(() -> new EntityNotFoundException(id, entityName));
