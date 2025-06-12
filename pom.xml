@@ -14,6 +14,7 @@
         <module>spring-parent</module>
         <module>parent</module>
         <module>parent-jpa</module>
+        <module>parent-jpa-lib</module>
         <module>timetable-common-lib</module>
         <module>timetable-config</module>
         <module>timetable-identity-access</module>
@@ -23,6 +24,7 @@
         <module>timetable-timetable</module>
         <module>timetable-elasticsearch-lib</module>
         <module>timetable-file-storage-lib</module>
+        <module>timetable-laboratory-control</module>
     </modules>
 
 </project>

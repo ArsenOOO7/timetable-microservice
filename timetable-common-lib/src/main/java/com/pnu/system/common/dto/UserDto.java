@@ -1,15 +1,16 @@
-package com.pnu.system.identityaccess.api.dto;
+package com.pnu.system.common.dto;
 
+import com.pnu.system.common.constant.UserType;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class UserDto {
+public class UserDto extends BaseDto {
 
-    private String id;
     private String firstName;
     private String lastName;
     private String email;
+    private UserType type;
 
 }

@@ -1,9 +1,9 @@
 package com.pnu.system.common.service;
 
 import com.pnu.system.common.domain.BaseEntityProvider;
-import com.pnu.system.common.exception.EntityNotFoundException;
 import com.pnu.system.common.exception.InvalidParameterException;
 import com.pnu.system.common.utils.BeanUtils;
+import com.pnu.system.common.utils.JpaUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,11 +17,7 @@ import java.util.List;
 public abstract class AbstractPersistenceService<T extends BaseEntityProvider> {
 
     public T getOne(String id) {
-        if (id == null) {
-            throw new EntityNotFoundException(null, getEntityType().getSimpleName());
-        }
-        return getRepository().findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(id, getEntityType().getSimpleName()));
+        return JpaUtils.nullSafeRetrieve(id, getRepository()::findById, getEntityType());
     }
 
     public List<T> getAll(Collection<String> ids) {

@@ -1,0 +1,9 @@
+server:
+  port: 7005
+spring:
+  profiles:
+    active: ${TIMETABLE_ACTIVE_PROFILE:local}
+  application:
+    name: timetable-laboratory-control-ms
+  config:
+    import: configserver:${configUrl:http://localhost:7777}

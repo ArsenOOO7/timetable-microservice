@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.pnu.system</groupId>
-        <artifactId>spring-parent-pom</artifactId>
+        <artifactId>parent-jpa-lib-pom</artifactId>
         <version>0.1</version>
-        <relativePath>../spring-parent</relativePath>
+        <relativePath>../parent-jpa-lib</relativePath>
     </parent>
 
     <artifactId>timetable-file-storage-lib</artifactId>
@@ -35,5 +35,4 @@
             <artifactId>timetable-common-lib</artifactId>
         </dependency>
     </dependencies>
-
 </project>

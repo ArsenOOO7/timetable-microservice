@@ -32,6 +32,7 @@ public class TimetableSubjectSnapshotService implements MessagingSnapshotService
     @Value("${baseUrl.academic_catalog}/subject/internal/snapshot/modifiedAfter")
     private String subjectsModifiedAfterUrl;
 
+    @Override
     @Scheduled(initialDelay = 1000 * 30, fixedDelay = Long.MAX_VALUE)
     public void synchronize() {
         //TODO 2/1/25: Need to implement Lock here

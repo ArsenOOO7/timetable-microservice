@@ -4,11 +4,13 @@ import com.pnu.system.common.search.constant.ConditionOperation;
 import com.pnu.system.common.search.constant.DataType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
 public class SearchCondition {
 
     @NotBlank

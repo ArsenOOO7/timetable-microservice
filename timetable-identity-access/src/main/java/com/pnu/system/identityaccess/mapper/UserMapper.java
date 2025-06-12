@@ -1,7 +1,7 @@
 package com.pnu.system.identityaccess.mapper;
 
+import com.pnu.system.common.dto.UserDto;
 import com.pnu.system.identityaccess.api.dto.UserCreateRequest;
-import com.pnu.system.identityaccess.api.dto.UserDto;
 import com.pnu.system.identityaccess.api.dto.UserResponseDto;
 import com.pnu.system.identityaccess.api.dto.UserUpdateRequest;
 import com.pnu.system.identityaccess.domain.User;

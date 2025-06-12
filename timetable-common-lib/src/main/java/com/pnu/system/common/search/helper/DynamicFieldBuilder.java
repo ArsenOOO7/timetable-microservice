@@ -7,6 +7,7 @@ import com.pnu.system.common.domain.QVersionEntity;
 import com.querydsl.core.types.CollectionExpression;
 import com.querydsl.core.types.EntityPath;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.BooleanPath;
 import com.querydsl.core.types.dsl.CollectionPathBase;
 import com.querydsl.core.types.dsl.DateTimePath;
 import com.querydsl.core.types.dsl.EntityPathBase;
@@ -35,7 +36,7 @@ public class DynamicFieldBuilder<T extends BaseEntity> {
     private static final String COLLECTION_QUERY_TYPE_NAME = "queryType";
     private static final Set<String> IGNORE_FIELDS = Set.of("_super");
 
-    private static final Set<Class<?>> PRIMITIVE_TYPES = SetUtils.hashSet(StringPath.class, DateTimePath.class, EnumPath.class, NumberPath.class);
+    private static final Set<Class<?>> PRIMITIVE_TYPES = SetUtils.hashSet(StringPath.class, DateTimePath.class, EnumPath.class, NumberPath.class, BooleanPath.class);
     private static final Set<Class<?>> INHERITANCE_TYPES = SetUtils.hashSet(QAuditableEntity.class, QVersionEntity.class, QBaseEntity.class);
     private static final Set<Class<?>> COLLECTION_TYPES = SetUtils.hashSet(ListPath.class, SetPath.class);
 

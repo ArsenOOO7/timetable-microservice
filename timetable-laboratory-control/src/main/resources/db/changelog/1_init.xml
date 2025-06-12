@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="create-schema" author="Arsen" context="local" dbms="postgresql">
+        <sqlFile path="db/init.sql" dbms="postgresql"/>
+    </changeSet>
+
+    <changeSet id="1" author="Arsen">
+        <createTable tableName="course">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="course_pk"/>
+            </column>
+            <column name="title" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="text"/>
+            <column name="status" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subject_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="nvarchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp(3) with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="nvarchar(255)"/>
+            <column name="last_modified_at" type="timestamp(3) with time zone"/>
+        </createTable>
+
+        <createTable tableName="course_authors">
+            <column name="course_id" type="varchar(40)">
+                <constraints nullable="false" foreignKeyName="course_authors_fk1"
+                             referencedTableName="course" referencedColumnNames="id"/>
+            </column>
+            <column name="author_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="course_groups">
+            <column name="course_id" type="varchar(40)">
+                <constraints nullable="false" foreignKeyName="course_groups_fk1"
+                             referencedTableName="course" referencedColumnNames="id"/>
+            </column>
+            <column name="group_id" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="course_primary_link">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="course_primary_link_pk"/>
+            </column>
+            <column name="course_id" type="varchar(40)">
+                <constraints nullable="false" foreignKeyName="course_primary_link_fk1"
+                             referencedTableName="course" referencedColumnNames="id"/>
+            </column>
+            <column name="link" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="label" type="text">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="group_snapshot">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKeyName="group_snapshot_pk" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_at" type="timestamp(3) with time zone">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="user_snapshot">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKeyName="user_snapshot_pk" primaryKey="true"/>
+            </column>
+            <column name="first_name" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="personal_link" type="varchar(255)"/>
+            <column name="type" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_at" type="timestamp(3) with time zone">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="subject_snapshot">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKeyName="subject_snapshot_pk" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_at" type="timestamp(3) with time zone">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="course_authors"
+                                 baseColumnNames="author_id"
+                                 constraintName="course_authors_fk2"
+                                 referencedTableName="user_snapshot"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="course_groups"
+                                 baseColumnNames="group_id"
+                                 constraintName="course_groups_fk2"
+                                 referencedTableName="group_snapshot"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="course"
+                                 baseColumnNames="subject_id"
+                                 constraintName="course_fk1"
+                                 referencedTableName="subject_snapshot"
+                                 referencedColumnNames="id"/>
+
+        <createIndex tableName="course" indexName="course_idx1">
+            <column name="subject_id"/>
+        </createIndex>
+        <createIndex tableName="course_authors" indexName="course_authors_idx1">
+            <column name="author_id"/>
+        </createIndex>
+        <createIndex tableName="course_groups" indexName="course_groups_idx1">
+            <column name="group_id"/>
+        </createIndex>
+        <createIndex tableName="course_primary_link" indexName="course_primary_link_idx1">
+            <column name="course_id"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

@@ -32,6 +32,7 @@ public class TimetableGroupSnapshotService implements MessagingSnapshotService<G
     @Value("${baseUrl.group}/group/internal/snapshot/modifiedAfter")
     private String groupsModifiedAfterUrl;
 
+    @Override
     @Scheduled(initialDelay = 1000 * 30, fixedDelay = Long.MAX_VALUE)
     public void synchronize() {
         //TODO 2/1/25: Need to implement Lock here
@@ -55,7 +56,7 @@ public class TimetableGroupSnapshotService implements MessagingSnapshotService<G
     public void receiveSnapshot(GroupSnapshotDto snapshot) {
         TimetableGroupSnapshot user = mapper.asTimetableGroupSnapshot(snapshot);
         repository.save(user);
-        log.trace("User snapshot received {}.", user.getId());
+        log.trace("Group snapshot received {}.", user.getId());
     }
 
     @Override

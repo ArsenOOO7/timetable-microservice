@@ -35,6 +35,7 @@ public class TimetableUserSnapshotService implements MessagingSnapshotService<Us
     @Value("${baseUrl.identity_access}/user/internal/snapshot/modifiedAfter")
     private String usersModifiedAfterUrl;
 
+    @Override
     @Scheduled(initialDelay = 1000 * 30, fixedDelay = Long.MAX_VALUE)
     public void synchronize() {
         //TODO 2/1/25: Need to implement Lock here
@@ -55,7 +56,7 @@ public class TimetableUserSnapshotService implements MessagingSnapshotService<Us
                 .orElseThrow(() -> new EntityNotFoundException(id, "User"));
     }
 
-    //TODO 11/4/24: Refactor...
+    //TODO 11/4/24: Move to REDIS
     public List<String> getGroupIdListByUserId(String userId) {
         return restClient.getList(new UriTemplate(userGroupIdsUrl).expand(userId).toString(), String[].class);
     }
