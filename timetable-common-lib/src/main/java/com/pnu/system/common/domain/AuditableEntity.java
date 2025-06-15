@@ -17,7 +17,8 @@ import java.time.ZonedDateTime;
 @Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class AuditableEntity extends VersionEntity {
+public class
+AuditableEntity extends VersionEntity {
 
     @CreatedBy
     @Column(name = "created_by", updatable = false)

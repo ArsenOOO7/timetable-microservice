@@ -7,7 +7,7 @@ import com.pnu.system.laboratorycontrol.api.dto.CourseCreateRequest;
 import com.pnu.system.laboratorycontrol.api.dto.CourseDto;
 import com.pnu.system.laboratorycontrol.api.dto.CourseGroupDto;
 import com.pnu.system.laboratorycontrol.api.dto.CourseUpdateRequest;
-import com.pnu.system.laboratorycontrol.api.validation.CourseValidation;
+import com.pnu.system.laboratorycontrol.api.validation.CourseValidator;
 import com.pnu.system.laboratorycontrol.constant.CourseStatus;
 import com.pnu.system.laboratorycontrol.domain.Course;
 import com.pnu.system.laboratorycontrol.domain.LaboratoryControlSubjectSnapshot;
@@ -27,7 +27,7 @@ import java.util.List;
 public class CourseService extends AbstractPersistenceService<Course> {
 
     private final CourseMapper mapper;
-    private final CourseValidation validation;
+    private final CourseValidator validator;
     private final CourseRepository repository;
     private final LaboratoryControlUserSnapshotMapper userMapper;
     private final LaboratoryControlGroupSnapshotMapper groupMapper;
@@ -45,7 +45,7 @@ public class CourseService extends AbstractPersistenceService<Course> {
     }
 
     public CourseDto getOneById(String id) {
-        return populateSubject(getOne(id));
+        return mapper.asCourseDto(repository.getOneById(id));
     }
 
     public void addAuthor(String id, String userId) {
@@ -56,21 +56,21 @@ public class CourseService extends AbstractPersistenceService<Course> {
 
     public void removeAuthor(String id, String userId) {
         Course course = getOne(id);
-        validation.validateBeforeAuthorRemoval(course);
+        validator.validateBeforeAuthorRemoval(course);
         course.getAuthorIds().remove(userId);
         super.update(course);
     }
 
     public void archive(String id) {
         Course course = getOne(id);
-        validation.validateBeforeArchive(course);
+        validator.validateBeforeArchive(course);
         course.setStatus(CourseStatus.ARCHIVED);
         super.update(course);
     }
 
     public void makeActive(String id) {
         Course course = getOne(id);
-        validation.validateBeforeMakingActive(course);
+        validator.validateBeforeMakingActive(course);
         course.setStatus(CourseStatus.ACTIVE);
         super.update(course);
     }

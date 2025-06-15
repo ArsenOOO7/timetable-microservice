@@ -3,7 +3,7 @@ package com.pnu.system.elasticsearch.service;
 
 import com.pnu.system.common.exception.EntityNotFoundException;
 import com.pnu.system.common.exception.InvalidParameterException;
-import com.pnu.system.common.utils.BeanUtils;
+import com.pnu.system.common.utils.TimetableCollectionUtils;
 import com.pnu.system.elasticsearch.domain.BaseDocument;
 import com.pnu.system.elasticsearch.repository.ExtendedElasticsearchRepository;
 import org.apache.commons.collections4.CollectionUtils;
@@ -31,7 +31,7 @@ public abstract class AbstractElasticsearchService<T extends BaseDocument> {
 
     @Deprecated
     public List<T> getAllByStringIds(Collection<String> ids) {
-        return getAll(BeanUtils.stringIdsToUuids(ids));
+        return getAll(TimetableCollectionUtils.stringIdsToUuids(ids));
     }
 
     public List<T> getAll(Collection<UUID> ids) {

@@ -9,7 +9,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @UtilityClass
-public class BeanUtils {
+public class TimetableCollectionUtils {
 
     public static List<String> getIds(Collection<? extends BaseEntityProvider> entities) {
         return entities.stream().map(BaseEntityProvider::getId).collect(Collectors.toList());
