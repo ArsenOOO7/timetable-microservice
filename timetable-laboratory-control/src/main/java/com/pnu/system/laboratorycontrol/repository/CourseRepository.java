@@ -2,6 +2,7 @@ package com.pnu.system.laboratorycontrol.repository;
 
 import com.pnu.system.common.utils.QueryDslFactory;
 import com.pnu.system.laboratorycontrol.domain.Course;
+import com.pnu.system.laboratorycontrol.domain.CourseSearch;
 import com.pnu.system.laboratorycontrol.domain.LaboratoryControlGroupSnapshot;
 import com.pnu.system.laboratorycontrol.domain.LaboratoryControlUserSnapshot;
 import com.pnu.system.laboratorycontrol.domain.QCourseSearch;
@@ -35,5 +36,13 @@ public interface CourseRepository extends JpaRepository<Course, String> {
                 .innerJoin(qCourseSearch.groups, qGroup)
                 .where(qCourseSearch.id.eq(id))
                 .fetch();
+    }
+
+    default CourseSearch getOneById(String id) {
+        return QueryDslFactory.getQueryFactory()
+                .selectFrom(qCourseSearch)
+                .join(qCourseSearch.subject).fetchJoin()
+                .where(qCourseSearch.id.eq(id))
+                .fetchFirst();
     }
 }

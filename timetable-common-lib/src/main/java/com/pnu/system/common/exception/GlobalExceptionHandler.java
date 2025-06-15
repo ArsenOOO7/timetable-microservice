@@ -5,6 +5,7 @@ import com.pnu.system.common.exception.dto.ErrorResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.List;
-import java.util.Locale;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -24,10 +24,14 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse validationException(ValidationException e) {
-        String message = messageSource.getMessage(e.getMessageCode(), e.getMessageArgs(), e.getDefaultMessage(), Locale.getDefault());
+        String message = messageSource.getMessage(e.getMessageCode(), e.getMessageArgs(), e.getDefaultMessage(), LocaleContextHolder.getLocale());
+        List<String> errors = e.getErrors().stream()
+                .map(error -> messageSource.getMessage(error, LocaleContextHolder.getLocale()))
+                .toList();
         log.error(message);
         return ErrorResponse.builder()
                 .message(message)
+                .errors(errors)
                 .build();
     }
 
@@ -36,10 +40,10 @@ public class GlobalExceptionHandler {
     public ErrorResponse validationException(BindException e) {
         log.error(e.getMessage());
         List<String> errors = e.getGlobalErrors().stream()
-                .map(error -> messageSource.getMessage(error, Locale.getDefault()))
+                .map(error -> messageSource.getMessage(error, LocaleContextHolder.getLocale()))
                 .toList();
         List<ErrorField> errorFields = e.getFieldErrors().stream()
-                .map(error -> new ErrorField(error.getField(), messageSource.getMessage(error, Locale.getDefault())))
+                .map(error -> new ErrorField(error.getField(), messageSource.getMessage(error, LocaleContextHolder.getLocale())))
                 .toList();
         return ErrorResponse.builder()
                 .message("Validation Error")

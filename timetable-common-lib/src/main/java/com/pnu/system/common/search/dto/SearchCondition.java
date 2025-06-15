@@ -13,6 +13,8 @@ import lombok.Setter;
 @Builder
 public class SearchCondition {
 
+    //TODO 6/15/25: Implement nested conditions
+
     @NotBlank
     private String fieldName;
     @NotNull

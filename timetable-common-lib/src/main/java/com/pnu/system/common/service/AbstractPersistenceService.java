@@ -2,8 +2,8 @@ package com.pnu.system.common.service;
 
 import com.pnu.system.common.domain.BaseEntityProvider;
 import com.pnu.system.common.exception.InvalidParameterException;
-import com.pnu.system.common.utils.BeanUtils;
 import com.pnu.system.common.utils.JpaUtils;
+import com.pnu.system.common.utils.TimetableCollectionUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,7 +25,7 @@ public abstract class AbstractPersistenceService<T extends BaseEntityProvider> {
             return Collections.emptyList();
         }
         List<T> entities = getRepository().findAllById(ids);
-        List<String> actualIds = BeanUtils.getIds(entities);
+        List<String> actualIds = TimetableCollectionUtils.getIds(entities);
         Collection<String> notFoundIds = CollectionUtils.removeAll(ids, actualIds);
         if (CollectionUtils.isNotEmpty(notFoundIds)) {
             throw new InvalidParameterException("Not found by ids: %s".formatted(String.join(",", notFoundIds)));
@@ -85,6 +85,11 @@ public abstract class AbstractPersistenceService<T extends BaseEntityProvider> {
     @Transactional
     public void delete(T entity) {
         getRepository().delete(entity);
+    }
+
+    @Transactional
+    public void delete(Collection<T> entities) {
+        entities.forEach(this::delete);
     }
 
     protected void initEntity(T entity) {

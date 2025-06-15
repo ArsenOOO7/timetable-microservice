@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class CourseValidation {
+public class CourseValidator {
 
     public void validateBeforeAuthorRemoval(Course course) {
         if (course.getAuthorIds().size() == 1) {
