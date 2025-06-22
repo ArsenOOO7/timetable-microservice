@@ -17,6 +17,7 @@ public class UserSnapshotDto {
     private String id;
     private String firstName;
     private String lastName;
+    private String fullName;
     private String personalLink;
     private UserType type;
     private ZonedDateTime lastModifiedAt;

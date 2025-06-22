@@ -1,7 +1,7 @@
 package com.pnu.system.lessonlocation.api;
 
 import com.pnu.system.common.snapshot.dto.LessonLocationSnapshotDto;
-import com.pnu.system.common.utils.DateUtils;
+import com.pnu.system.common.utils.TimetableDateUtils;
 import com.pnu.system.lessonlocation.service.LessonLocationSnapshotService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +23,7 @@ public class LessonLocationSnapshotController {
 
     @GetMapping("/modifiedAfter")
     public List<LessonLocationSnapshotDto> getModifiedAfter(@RequestParam String lastModifiedAt) {
-        return service.getModifiedAfterDate(DateUtils.asZonedDateTime(lastModifiedAt));
+        return service.getModifiedAfterDate(TimetableDateUtils.asZonedDateTime(lastModifiedAt));
     }
 
     @GetMapping("/{id}")

@@ -1,6 +1,6 @@
 package com.pnu.system.laboratorycontrol.mapper;
 
-import com.pnu.system.common.utils.UserUtils;
+import com.pnu.system.common.utils.TimetableUserUtils;
 import com.pnu.system.laboratorycontrol.api.dto.CourseCreateRequest;
 import com.pnu.system.laboratorycontrol.api.dto.CourseDto;
 import com.pnu.system.laboratorycontrol.api.dto.CourseUpdateRequest;
@@ -13,11 +13,11 @@ import org.mapstruct.MappingTarget;
 
 import java.util.Set;
 
-@Mapper(componentModel = "spring", imports = {UserUtils.class, Set.class})
+@Mapper(componentModel = "spring", imports = {TimetableUserUtils.class, Set.class})
 public interface CourseMapper {
 
     @Mapping(target = "status", constant = "ACTIVE")
-    @Mapping(target = "authorIds", expression = "java(Set.of(UserUtils.getId()))")
+    @Mapping(target = "authorIds", expression = "java(Set.of(TimetableUserUtils.getId()))")
     Course asCourse(CourseCreateRequest request);
 
     void applyCourseUpdateRequest(@MappingTarget Course course, CourseUpdateRequest request);

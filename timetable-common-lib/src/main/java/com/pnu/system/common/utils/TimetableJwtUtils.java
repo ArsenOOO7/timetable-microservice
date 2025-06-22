@@ -17,7 +17,7 @@ import static com.pnu.system.common.security.constant.TokenClaims.CLAIM_KEY_EMAI
 import static com.pnu.system.common.security.constant.TokenClaims.CLAIM_KEY_PERMISSIONS;
 
 @Component
-public class JwtUtils {
+public class TimetableJwtUtils {
 
     @Value("${timetable.security.secret:TimetableTopApplication}")
     private String jwtSecret;

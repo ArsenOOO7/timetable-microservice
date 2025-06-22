@@ -3,7 +3,7 @@ package com.pnu.system.common.security.provider;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.pnu.system.common.security.model.InternalCredentialRequest;
 import com.pnu.system.common.security.model.InternalCredentialResponse;
-import com.pnu.system.common.utils.JwtUtils;
+import com.pnu.system.common.utils.TimetableJwtUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -12,7 +12,7 @@ import java.time.Instant;
 public class RestInternalUserProvider implements InternalUserProvider {
 
     private final WebClient webClient;
-    private final JwtUtils jwtUtils;
+    private final TimetableJwtUtils jwtUtils;
 
     @Value("${baseUrl.identity_access}/auth/login")
     private String authUrl;
@@ -26,7 +26,7 @@ public class RestInternalUserProvider implements InternalUserProvider {
 
     private DecodedJWT internalToken;
 
-    public RestInternalUserProvider(JwtUtils jwtUtils) {
+    public RestInternalUserProvider(TimetableJwtUtils jwtUtils) {
         this.jwtUtils = jwtUtils;
         webClient = WebClient.create();
     }

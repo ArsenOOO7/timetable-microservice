@@ -2,7 +2,7 @@ package com.pnu.system.timetable.service;
 
 import com.pnu.system.common.exception.InvalidParameterException;
 import com.pnu.system.common.service.AbstractPersistenceService;
-import com.pnu.system.common.utils.UserUtils;
+import com.pnu.system.common.utils.TimetableUserUtils;
 import com.pnu.system.timetable.api.dto.LessonCreateRequest;
 import com.pnu.system.timetable.api.dto.LessonResponseDto;
 import com.pnu.system.timetable.api.dto.LessonUpdateRequest;
@@ -48,10 +48,10 @@ public class LessonService extends AbstractPersistenceService<Lesson> {
     }
 
     public List<LessonBoardResponseDto> getList(BaseLessonSearchRequest request) {
-        TimetableUserSnapshot user = userSnapshotService.getById(UserUtils.getId());
+        TimetableUserSnapshot user = userSnapshotService.getById(TimetableUserUtils.getId());
         return switch (user.getType()) {
             case USER ->
-                    mapper.asLessonBoard(repository.getByGroups(request, userSnapshotService.getGroupIdListByUserId(UserUtils.getId())));
+                    mapper.asLessonBoard(repository.getByGroups(request, userSnapshotService.getGroupIdListByUserId(TimetableUserUtils.getId())));
             case TEACHER -> mapper.asLessonBoard(repository.getByTeacher(request, user.getId()));
             default -> throw new InvalidParameterException("Invalid user type: " + user.getType());
         };

@@ -1,4 +1,4 @@
-package com.pnu.system.common.rest;
+package com.pnu.system.common.utils;
 
 import org.springframework.web.util.UriBuilder;
 

@@ -5,7 +5,7 @@ import com.pnu.system.common.security.audit.ZonedDateTimeAuditProvider;
 import com.pnu.system.common.security.filter.TimetableSecurityFilter;
 import com.pnu.system.common.security.provider.InternalUserProvider;
 import com.pnu.system.common.security.provider.RestInternalUserProvider;
-import com.pnu.system.common.utils.JwtUtils;
+import com.pnu.system.common.utils.TimetableJwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -41,7 +41,7 @@ public abstract class TimetableCommonWebSecurityConfig {
 
     @Bean
     @ConditionalOnMissingBean(InternalUserProvider.class)
-    public InternalUserProvider restInternalUserProvider(JwtUtils jwtUtils) {
+    public InternalUserProvider restInternalUserProvider(TimetableJwtUtils jwtUtils) {
         return new RestInternalUserProvider(jwtUtils);
     }
 

@@ -1,6 +1,7 @@
 package com.pnu.system.identityaccess.domain;
 
 import com.pnu.system.common.constant.UserType;
+import com.pnu.system.common.dto.UsernameProvider;
 import com.pnu.system.elasticsearch.constant.ElasticsearchIndex;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -23,7 +24,7 @@ import java.util.List;
 @Entity
 @Table(name = "app_user")
 @Indexed(index = ElasticsearchIndex.USER_INDEX)
-public class User extends AbstractUser {
+public class User extends AbstractUser implements UsernameProvider {
 
     @Column(name = "password")
     private String password;

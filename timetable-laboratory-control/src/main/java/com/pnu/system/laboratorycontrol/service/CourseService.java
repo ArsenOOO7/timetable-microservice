@@ -2,7 +2,7 @@ package com.pnu.system.laboratorycontrol.service;
 
 import com.pnu.system.common.dto.UserDto;
 import com.pnu.system.common.service.AbstractPersistenceService;
-import com.pnu.system.common.utils.JpaUtils;
+import com.pnu.system.common.utils.TimetableJpaUtils;
 import com.pnu.system.laboratorycontrol.api.dto.CourseCreateRequest;
 import com.pnu.system.laboratorycontrol.api.dto.CourseDto;
 import com.pnu.system.laboratorycontrol.api.dto.CourseGroupDto;
@@ -97,7 +97,7 @@ public class CourseService extends AbstractPersistenceService<Course> {
 
     //TODO 6/11/25: Refactor this sh*t when have time
     private CourseDto populateSubject(Course course) {
-        LaboratoryControlSubjectSnapshot subject = JpaUtils.nullSafeRetrieve(course.getSubjectId(), subjectRepository::findById, "Subject");
+        LaboratoryControlSubjectSnapshot subject = TimetableJpaUtils.nullSafeRetrieve(course.getSubjectId(), subjectRepository::findById, "Subject");
         return mapper.asCourseDto(course, subject);
     }
 
