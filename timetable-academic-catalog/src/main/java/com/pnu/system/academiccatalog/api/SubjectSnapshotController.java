@@ -2,7 +2,7 @@ package com.pnu.system.academiccatalog.api;
 
 import com.pnu.system.academiccatalog.service.SubjectSnapshotService;
 import com.pnu.system.common.snapshot.dto.SubjectSnapshotDto;
-import com.pnu.system.common.utils.DateUtils;
+import com.pnu.system.common.utils.TimetableDateUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +23,7 @@ public class SubjectSnapshotController {
 
     @GetMapping("/modifiedAfter")
     public List<SubjectSnapshotDto> getModifiedAfterDate(@RequestParam String lastModifiedAt) {
-        return service.getModifiedAfterDate(DateUtils.asZonedDateTime(lastModifiedAt));
+        return service.getModifiedAfterDate(TimetableDateUtils.asZonedDateTime(lastModifiedAt));
     }
 
     @GetMapping("/{id}")

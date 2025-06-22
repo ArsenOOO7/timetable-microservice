@@ -2,6 +2,7 @@ package com.pnu.system.identityaccess.service;
 
 import com.pnu.system.common.constant.UserType;
 import com.pnu.system.common.service.AbstractPersistenceService;
+import com.pnu.system.common.utils.TimetableStringUtils;
 import com.pnu.system.file.storage.constant.Folders;
 import com.pnu.system.file.storage.service.FileStorageService;
 import com.pnu.system.file.storage.utils.StorageResourcePathUtil;
@@ -50,13 +51,11 @@ public class UserService extends AbstractPersistenceService<User> {
     public UserResponseDto update(UserUpdateRequest request) {
         User existent = getOne(request.getId());
         mapper.applyUserUpdateRequest(existent, request);
-
         assignRoles2User(existent, request.getRoleIds());
         User updated = super.update(existent);
-
         createTeacherProfile(updated);
 
-        eventPublisher.publishEvent(new UserUpdateEvent(existent));
+        eventPublisher.publishEvent(new UserUpdateEvent(updated));
         return mapper.asUserResponseDto(updated);
     }
 
@@ -124,6 +123,12 @@ public class UserService extends AbstractPersistenceService<User> {
         }
         eventPublisher.publishEvent(new UserDeleteEvent(entity.getId()));
         super.delete(entity);
+    }
+
+    @Override
+    protected void beforeSave(User entity) {
+        super.beforeSave(entity);
+        entity.setFullName(TimetableStringUtils.buildFullName(entity));
     }
 
     @Override

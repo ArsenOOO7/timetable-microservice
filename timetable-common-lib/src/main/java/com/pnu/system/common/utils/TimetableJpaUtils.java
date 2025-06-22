@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 @UtilityClass
-public class JpaUtils {
+public class TimetableJpaUtils {
 
     public static <T> T nullSafeRetrieve(String id, Function<String, Optional<T>> methodGet, Class<T> entityType) {
         return nullSafeRetrieve(id, methodGet, entityType.getSimpleName());

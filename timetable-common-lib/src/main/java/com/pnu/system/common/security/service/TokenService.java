@@ -1,7 +1,7 @@
 package com.pnu.system.common.security.service;
 
 import com.pnu.system.common.security.model.UserDetails;
-import com.pnu.system.common.utils.JwtUtils;
+import com.pnu.system.common.utils.TimetableJwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,7 +19,7 @@ import static com.pnu.system.common.security.constant.TokenClaims.CLAIM_KEY_PERM
 @RequiredArgsConstructor
 public class TokenService {
 
-    private final JwtUtils jwtUtils;
+    private final TimetableJwtUtils jwtUtils;
 
     public void authenticate(String header) {
         Optional.ofNullable(header)

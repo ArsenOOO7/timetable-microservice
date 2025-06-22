@@ -6,7 +6,7 @@ import com.pnu.system.common.search.constant.ConditionOperation;
 import com.pnu.system.common.search.constant.DataType;
 import com.pnu.system.common.search.dto.ReportSearchRequest;
 import com.pnu.system.common.search.dto.SearchCondition;
-import com.pnu.system.common.utils.UserUtils;
+import com.pnu.system.common.utils.TimetableUserUtils;
 import com.pnu.system.laboratorycontrol.domain.CourseSearch;
 import com.pnu.system.laboratorycontrol.domain.LaboratoryControlUserSnapshot;
 import com.pnu.system.laboratorycontrol.repository.CourseSearchRepository;
@@ -28,7 +28,7 @@ public class CourseSearchService extends AbstractSearchService<CourseSearch> {
 
     @Override
     public List<Map<String, Object>> search(ReportSearchRequest request) {
-        String userId = UserUtils.getId();
+        String userId = TimetableUserUtils.getId();
 
         //TODO ARSEN 5/17/25: Temporary, refactor
         LaboratoryControlUserSnapshot user = userSnapshotService.getById(userId);

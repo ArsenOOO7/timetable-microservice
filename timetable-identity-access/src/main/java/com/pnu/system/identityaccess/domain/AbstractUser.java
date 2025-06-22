@@ -26,6 +26,8 @@ public class AbstractUser extends AuditableEntity {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
+    @Column(name = "full_name")
+    private String fullName;
     @Column(name = "email")
     private String email;
     @Enumerated(EnumType.STRING)

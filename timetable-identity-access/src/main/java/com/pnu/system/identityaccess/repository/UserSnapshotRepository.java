@@ -44,6 +44,6 @@ public interface UserSnapshotRepository extends JpaRepository<UserWithTeacherPro
 
     default ConstructorExpression<UserSnapshotDto> getUserSnapshotProjection() {
         return Projections.constructor(UserSnapshotDto.class, qUserWithTeacherProfile.id, qUserWithTeacherProfile.firstName, qUserWithTeacherProfile.lastName,
-                qUserWithTeacherProfile.personalLink, qUserWithTeacherProfile.type, qUserWithTeacherProfile.lastModifiedAt);
+                qUserWithTeacherProfile.fullName, qUserWithTeacherProfile.personalLink, qUserWithTeacherProfile.type, qUserWithTeacherProfile.lastModifiedAt);
     }
 }

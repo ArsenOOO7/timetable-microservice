@@ -3,7 +3,7 @@ package com.pnu.system.laboratorycontrol.service;
 import com.pnu.system.common.messaging.service.MessagingSnapshotService;
 import com.pnu.system.common.rest.TimetableRestClient;
 import com.pnu.system.common.snapshot.dto.UserSnapshotDto;
-import com.pnu.system.common.utils.JpaUtils;
+import com.pnu.system.common.utils.TimetableJpaUtils;
 import com.pnu.system.laboratorycontrol.domain.LaboratoryControlUserSnapshot;
 import com.pnu.system.laboratorycontrol.mapper.LaboratoryControlUserSnapshotMapper;
 import com.pnu.system.laboratorycontrol.repository.LaboratoryControlUserSnapshotRepository;
@@ -57,7 +57,7 @@ public class LaboratoryControlUserSnapshotService implements MessagingSnapshotSe
     }
 
     public LaboratoryControlUserSnapshot getById(String id) {
-        return JpaUtils.nullSafeRetrieve(id, repository::findById, "User");
+        return TimetableJpaUtils.nullSafeRetrieve(id, repository::findById, "User");
     }
 
     @Override

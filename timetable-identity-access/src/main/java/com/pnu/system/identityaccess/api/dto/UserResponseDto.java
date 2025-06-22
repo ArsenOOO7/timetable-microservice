@@ -13,6 +13,7 @@ public class UserResponseDto {
     private String id;
     private String firstName;
     private String lastName;
+    private String fullName;
     private String email;
     private UserType type;
     private List<String> groupIds;

@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserDto extends BaseDto {
+public class UserDto extends BaseDto implements UsernameProvider {
 
     private String firstName;
     private String lastName;

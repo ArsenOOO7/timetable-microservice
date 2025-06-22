@@ -3,8 +3,8 @@ package com.pnu.system.identityaccess.service;
 import com.pnu.system.common.constant.PermissionName;
 import com.pnu.system.common.exception.EntityNotFoundException;
 import com.pnu.system.common.security.model.UserDetails;
-import com.pnu.system.common.utils.JwtUtils;
-import com.pnu.system.common.utils.UserUtils;
+import com.pnu.system.common.utils.TimetableJwtUtils;
+import com.pnu.system.common.utils.TimetableUserUtils;
 import com.pnu.system.identityaccess.api.dto.UserCredentialDto;
 import com.pnu.system.identityaccess.api.dto.UserTokenResponse;
 import com.pnu.system.identityaccess.api.dto.UserWhoamiResponseDto;
@@ -20,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AuthService {
 
-    private final JwtUtils jwtUtils;
+    private final TimetableJwtUtils jwtUtils;
     private final UserService userService;
     private final AuthMapper authMapper;
 
@@ -37,7 +37,7 @@ public class AuthService {
     }
 
     public UserWhoamiResponseDto whoami() {
-        User user = userService.getOne(UserUtils.getId());
+        User user = userService.getOne(TimetableUserUtils.getId());
         return authMapper.asUserWhoamiResponse(user, getUserPermissions(user));
     }
 

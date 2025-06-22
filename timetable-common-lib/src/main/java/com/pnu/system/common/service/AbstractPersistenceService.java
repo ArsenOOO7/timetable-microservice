@@ -2,8 +2,8 @@ package com.pnu.system.common.service;
 
 import com.pnu.system.common.domain.BaseEntityProvider;
 import com.pnu.system.common.exception.InvalidParameterException;
-import com.pnu.system.common.utils.JpaUtils;
 import com.pnu.system.common.utils.TimetableCollectionUtils;
+import com.pnu.system.common.utils.TimetableJpaUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,7 +17,7 @@ import java.util.List;
 public abstract class AbstractPersistenceService<T extends BaseEntityProvider> {
 
     public T getOne(String id) {
-        return JpaUtils.nullSafeRetrieve(id, getRepository()::findById, getEntityType());
+        return TimetableJpaUtils.nullSafeRetrieve(id, getRepository()::findById, getEntityType());
     }
 
     public List<T> getAll(Collection<String> ids) {
@@ -69,11 +69,13 @@ public abstract class AbstractPersistenceService<T extends BaseEntityProvider> {
 
     private List<T> internalCreate(Collection<T> entities) {
         //TODO: the purpose is to do some logic here before saving
+        entities.forEach(this::beforeSave);
         return getRepository().saveAll(entities);
     }
 
     private List<T> internalUpdate(Collection<T> entities) {
         //TODO: the purpose is to do some logic here before updating
+        entities.forEach(this::beforeSave);
         return getRepository().saveAll(entities);
     }
 
@@ -93,6 +95,10 @@ public abstract class AbstractPersistenceService<T extends BaseEntityProvider> {
     }
 
     protected void initEntity(T entity) {
+
+    }
+
+    protected void beforeSave(T entity) {
 
     }
 

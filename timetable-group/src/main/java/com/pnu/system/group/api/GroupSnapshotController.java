@@ -1,7 +1,7 @@
 package com.pnu.system.group.api;
 
 import com.pnu.system.common.snapshot.dto.GroupSnapshotDto;
-import com.pnu.system.common.utils.DateUtils;
+import com.pnu.system.common.utils.TimetableDateUtils;
 import com.pnu.system.group.service.GroupSnapshotService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +23,7 @@ public class GroupSnapshotController {
 
     @GetMapping("/modifiedAfter")
     public List<GroupSnapshotDto> getModifiedAfterDate(@RequestParam String lastModifiedAt) {
-        return service.getModifiedAfterDate(DateUtils.asZonedDateTime(lastModifiedAt));
+        return service.getModifiedAfterDate(TimetableDateUtils.asZonedDateTime(lastModifiedAt));
     }
 
     @GetMapping("/{id}")

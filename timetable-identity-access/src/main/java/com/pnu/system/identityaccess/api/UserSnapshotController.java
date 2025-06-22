@@ -1,7 +1,7 @@
 package com.pnu.system.identityaccess.api;
 
 import com.pnu.system.common.snapshot.dto.UserSnapshotDto;
-import com.pnu.system.common.utils.DateUtils;
+import com.pnu.system.common.utils.TimetableDateUtils;
 import com.pnu.system.identityaccess.service.UserSnapshotService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +23,7 @@ public class UserSnapshotController {
 
     @GetMapping("/modifiedAfter")
     public List<UserSnapshotDto> getModifiedAfter(@RequestParam String lastModifiedAt) {
-        return service.getModifiedAfter(DateUtils.asZonedDateTime(lastModifiedAt));
+        return service.getModifiedAfter(TimetableDateUtils.asZonedDateTime(lastModifiedAt));
     }
 
     @GetMapping("/{id}")

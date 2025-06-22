@@ -5,7 +5,7 @@ import com.pnu.system.common.constant.PermissionName;
 import com.pnu.system.common.security.constant.SecurityConstants;
 import com.pnu.system.common.security.model.UserDetails;
 import com.pnu.system.common.security.provider.InternalUserProvider;
-import com.pnu.system.common.utils.JwtUtils;
+import com.pnu.system.common.utils.TimetableJwtUtils;
 import com.pnu.system.identityaccess.domain.User;
 import com.pnu.system.identityaccess.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import java.util.List;
 @Component
 public class IdentityInternalUserProvider implements InternalUserProvider {
 
-    private final JwtUtils jwtUtils;
+    private final TimetableJwtUtils jwtUtils;
     private final UserService userService;
 
     @Value("${timetable.security.starts:Bearer}")
