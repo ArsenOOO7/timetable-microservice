@@ -46,7 +46,8 @@ public class LocalStorageService implements FileStorageService {
     @Override
     public StorageResourceWrapper download(String uri) {
         Path path = getFilepath(uri);
-        try (InputStream fileContent = Files.newInputStream(path)) {
+        try {
+            InputStream fileContent = Files.newInputStream(path);
             return StorageResourceWrapper.builder()
                     .content(fileContent)
                     .filename(path.getFileName().toString())

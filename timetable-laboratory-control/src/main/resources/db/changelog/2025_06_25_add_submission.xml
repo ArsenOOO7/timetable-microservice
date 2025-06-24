@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="add_submission" author="Arsen">
+        <createTable tableName="submission">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="submission_pk"/>
+            </column>
+            <column name="sub_assignment_id" type="varchar(40)">
+                <constraints nullable="false" foreignKeyName="submission_fk1"
+                             referencedTableName="sub_assignment"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="author_id" type="varchar(40)">
+                <constraints nullable="false" foreignKeyName="submission_fk2"
+                             referencedTableName="user_snapshot"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="grade" type="integer"/>
+            <column name="status" type="varchar(40)"/>
+            <column name="submit_date" type="timestamp(3) with time zone"/>
+            <column name="version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="nvarchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp(3) with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="nvarchar(255)"/>
+            <column name="last_modified_at" type="timestamp(3) with time zone"/>
+        </createTable>
+
+        <createIndex tableName="submission" indexName="submission_idx1">
+            <column name="sub_assignment_id"/>
+        </createIndex>
+        <createIndex tableName="submission" indexName="submission_idx2">
+            <column name="author_id"/>
+        </createIndex>
+
+        <createTable tableName="submission_attachment">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="submission_attachment_pk"/>
+            </column>
+            <column name="primary_object_guid" type="varchar(40)">
+                <constraints nullable="false" foreignKeyName="submission_attachment_fk1"
+                             referencedTableName="submission"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="original_filename" type="varchar(100)"/>
+            <column name="file_uri" type="varchar(100)"/>
+            <column name="link" type="varchar(100)"/>
+            <column name="version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="nvarchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp(3) with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="nvarchar(255)"/>
+            <column name="last_modified_at" type="timestamp(3) with time zone"/>
+        </createTable>
+
+        <createIndex tableName="submission_attachment" indexName="submission_attachment_idx1">
+            <column name="primary_object_guid"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
