@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="add_sub_assignment" author="Arsen">
+        <createTable tableName="sub_assignment">
+            <column name="id" type="varchar(40)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="sub_assignment_pk"/>
+            </column>
+            <column name="assignment_id" type="varchar(40)">
+                <constraints nullable="false" foreignKeyName="sub_assignment_fk1"
+                             referencedTableName="assignment"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="title" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="text"/>
+            <column name="max_grade" type="integer"/>
+            <column name="weight" type="integer"/>
+            <column name="deadline" type="timestamp(3) with time zone"/>
+            <column name="version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="nvarchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp(3) with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="nvarchar(255)"/>
+            <column name="last_modified_at" type="timestamp(3) with time zone"/>
+        </createTable>
+
+        <createIndex tableName="sub_assignment" indexName="sub_assignment_idx1">
+            <column name="assignment_id"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
